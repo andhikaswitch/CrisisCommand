@@ -38,14 +38,14 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 
 ## Day 3 — Globe Foundation
 
-- [ ] React app + full-viewport `react-globe.gl` scene: dark earth, cyan atmosphere, starfield, auto-rotate
-- [ ] Prototype both globe looks (texture vs hex-polygons) — pick one before noon, commit
-- [ ] Event markers from `/api/events`: severity-colored pulsing rings, tension diamonds
-- [ ] Click → camera flight → selection state
-- [ ] `<HoloPanel>` component built to UI_DESIGN.md §3 spec exactly (cut corners, brackets, mount animation)
-- [ ] Top bar + left event feed rail
+- [x] React app (Vite) + full-viewport `react-globe.gl` scene: dark earth, cyan atmosphere, CSS starfield, auto-rotate 0.3°/s w/ drag-pause (2026-07-07)
+- [x] Globe look decided: HEX POLYGONS (bundled Natural Earth GeoJSON — offline-safe, more holographic; texture variant rejected: needs runtime download) (2026-07-07)
+- [x] Event markers from `/api/events`: severity-colored pulsing rings + center dots, violet tension diamonds (no alarm pulse) (2026-07-07)
+- [x] Click → 1.2s camera flight → selection state; rails slide out during flight and return (2026-07-07)
+- [x] `<HoloPanel>` component per UI_DESIGN.md §3 spec (cut corners, brackets, scanline, top sweep, glitch mount) (2026-07-07)
+- [x] Top bar (UTC clock, SEED/LIVE badge) + left event feed rail + right context panel w/ radar-sweep empty state (2026-07-07)
 
-**Exit:** globe with live seed markers, click-to-fly working, one holo panel rendering.
+**Exit:** globe with live seed markers, click-to-fly working, one holo panel rendering. ✅ verified via headless-browser screenshots (Mode A + Mode B), zero console errors.
 
 ## Day 4 — The Full Flow (Modes A→B→C)
 

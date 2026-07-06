@@ -2,9 +2,20 @@
   "name": "crisiscommand-frontend",
   "private": true,
   "version": "0.1.0",
-  "description": "Holographic 3D globe interface (built Days 3-4 per UI_DESIGN.md)",
+  "description": "Holographic 3D globe interface (UI_DESIGN.md is the closed spec)",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-globe.gl": "^2.27.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
   }
 }
