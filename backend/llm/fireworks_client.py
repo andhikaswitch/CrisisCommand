@@ -1,5 +1,11 @@
-"""Fireworks AI API client (also AMD-powered infra) — lands Day 2.
+"""Fireworks AI backend accessor (also AMD-powered infra).
 
-Handles quality-critical briefing calls (P1) and serves as the fallback
-scenario backend when the vLLM droplet is unreachable.
+Per CLAUDE.md the LLM layer is ONE OpenAI-compatible wrapper with two
+configs; the wrapper lives in `backend.llm.client`. This module is the named
+entry point for the Fireworks config used by P1 briefings and as the scenario
+fallback backend.
 """
+
+from backend.llm.client import get_briefing_client as get_fireworks_client
+
+__all__ = ["get_fireworks_client"]

@@ -25,16 +25,16 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 
 ## Day 2 — LLM Layer + First AMD Checkpoint
 
-- [ ] `fireworks_client.py` + `vllm_client.py` (one OpenAI-compatible wrapper, two configs)
-- [ ] P1 briefing on 3 seed events — outputs validated
-- [ ] P2 three-branch option generation grounded in Monte Carlo output; P-R repair path; template-option fallback
-- [ ] Caching layer for P1/P2
-- [ ] **MI300X checkpoint (droplet on → work → droplet OFF):**
+- [x] `fireworks_client.py` + `vllm_client.py` (one OpenAI-compatible wrapper in `llm/client.py`, two configs, auto-fallback) (2026-07-07)
+- [x] P1 briefing — validated, P-R repair retry, raw-data fallback, cached per revision (2026-07-07)
+- [x] P2 three-branch option generation grounded in Monte Carlo output; P-R repair path; template-option fallback; numbers recomputed server-side (no invented numbers) (2026-07-07)
+- [x] Caching layer for P1/P2 (in-process + disk) (2026-07-07)
+- [ ] **MI300X checkpoint (droplet on → work → droplet OFF):** — BLOCKED on droplet access; code is ready (`SIM_BACKEND=vllm`), run when the droplet is up
   - `vllm serve` an open instruct model; P2 batch of 3 branches through it
   - `monte_carlo.py` on ROCm: record runs/sec vs CPU number (pitch evidence)
   - remaining hazard kernels (cyclone, wildfire) if time allows
 
-**Exit:** full simulate endpoint (`POST /simulate`) returns a complete `SimulationResult` from seed data, on both backends.
+**Exit:** full simulate endpoint (`POST /simulate`) returns a complete `SimulationResult` from seed data. ✅ verified offline (template path); live vLLM/Fireworks path uses the same wrapper and runs when a key/droplet is present.
 
 ## Day 3 — Globe Foundation
 

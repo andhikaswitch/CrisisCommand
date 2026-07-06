@@ -1,8 +1,8 @@
-"""CrisisCommand FastAPI backend (Day 1 skeleton).
+"""CrisisCommand FastAPI backend.
 
-Serves seed events (SEED_MODE=true is the dev default per ARCHITECTURE.md §3)
-and the GPU health readout. Briefing/simulate endpoints and the WebSocket
-land on Days 2 and 4.
+Serves seed events (SEED_MODE=true is the dev default per ARCHITECTURE.md §3),
+the GPU health readout, AI situation briefings (P1), and the full simulate
+endpoint (Monte Carlo + grounded policy options). The WebSocket lands Day 4.
 
 Run:  uvicorn backend.main:app --reload --port 8000
 """
@@ -16,14 +16,26 @@ if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
 import torch  # noqa: E402
-from fastapi import FastAPI, HTTPException  # noqa: E402
+from fastapi import FastAPI, HTTPException, Query  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
-from backend.models import CrisisEvent  # noqa: E402
+from backend.briefing.writer import write_briefing  # noqa: E402
+from backend.models import (  # noqa: E402
+    HORIZON_HOURS,
+    Briefing,
+    CrisisEvent,
+    Horizon,
+    SimulationResult,
+)
+from backend.simulation.monte_carlo import (  # noqa: E402
+    DEFAULT_N_RUNS,
+    UnsupportedHazardError,
+)
+from backend.simulation.orchestrator import run_full_simulation  # noqa: E402
 
 SEED_MODE = os.getenv("SEED_MODE", "true").lower() in ("1", "true", "yes")
 
-app = FastAPI(title="CrisisCommand", version="0.1.0")
+app = FastAPI(title="CrisisCommand", version="0.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -42,6 +54,13 @@ def _load_events() -> list[CrisisEvent]:
     return []
 
 
+def _require_event(event_id: str) -> CrisisEvent:
+    for e in _load_events():
+        if e.id == event_id:
+            return e
+    raise HTTPException(status_code=404, detail=f"unknown event {event_id!r}")
+
+
 @app.get("/api/events", response_model=list[CrisisEvent])
 def list_events() -> list[CrisisEvent]:
     return _load_events()
@@ -49,10 +68,30 @@ def list_events() -> list[CrisisEvent]:
 
 @app.get("/api/events/{event_id}", response_model=CrisisEvent)
 def get_event(event_id: str) -> CrisisEvent:
-    for e in _load_events():
-        if e.id == event_id:
-            return e
-    raise HTTPException(status_code=404, detail=f"unknown event {event_id!r}")
+    return _require_event(event_id)
+
+
+@app.post("/api/events/{event_id}/brief", response_model=Briefing)
+async def brief_event(event_id: str) -> Briefing:
+    """P1 situation briefing (Fireworks; raw-data fallback offline)."""
+    event = _require_event(event_id)
+    return await write_briefing(event)
+
+
+@app.post("/api/events/{event_id}/simulate", response_model=SimulationResult)
+async def simulate_event(
+    event_id: str,
+    horizon: Horizon = Query("24h"),
+    runs: int = Query(DEFAULT_N_RUNS, ge=100, le=200_000),
+) -> SimulationResult:
+    """Full simulation: Monte Carlo (6h/24h/72h) + three grounded options."""
+    event = _require_event(event_id)
+    if horizon not in HORIZON_HOURS:
+        raise HTTPException(status_code=422, detail=f"bad horizon {horizon!r}")
+    try:
+        return await run_full_simulation(event, horizon=horizon, n_runs=runs)
+    except UnsupportedHazardError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @app.get("/api/health/gpu")
