@@ -15,8 +15,13 @@ _ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
-import torch  # noqa: E402
-from fastapi import FastAPI, HTTPException, Query  # noqa: E402
+from fastapi import (  # noqa: E402
+    FastAPI,
+    HTTPException,
+    Query,
+    WebSocket,
+    WebSocketDisconnect,
+)
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
 from backend.briefing.writer import write_briefing  # noqa: E402
@@ -32,6 +37,7 @@ from backend.simulation.monte_carlo import (  # noqa: E402
     UnsupportedHazardError,
 )
 from backend.simulation.orchestrator import run_full_simulation  # noqa: E402
+from backend.ws import gpu_snapshot, manager  # noqa: E402
 
 SEED_MODE = os.getenv("SEED_MODE", "true").lower() in ("1", "true", "yes")
 
@@ -84,31 +90,49 @@ async def simulate_event(
     horizon: Horizon = Query("24h"),
     runs: int = Query(DEFAULT_N_RUNS, ge=100, le=200_000),
 ) -> SimulationResult:
-    """Full simulation: Monte Carlo (6h/24h/72h) + three grounded options."""
+    """Full simulation: Monte Carlo (6h/24h/72h) + three grounded options.
+
+    Progress streams to all WS clients as `sim_progress` messages while
+    this request runs (the HUD's MI300X moment).
+    """
     event = _require_event(event_id)
     if horizon not in HORIZON_HOURS:
         raise HTTPException(status_code=422, detail=f"bad horizon {horizon!r}")
+
+    def _progress(stage: str, done: int, total: int) -> None:
+        snap = gpu_snapshot()
+        manager.broadcast_threadsafe({
+            "type": "sim_progress",
+            "event_id": event.id,
+            "horizon": horizon,
+            "stage": stage,
+            "runs_done": done,
+            "runs_total": total,
+            "vram_gb": snap["vram_used_gb"],
+        })
+
     try:
-        return await run_full_simulation(event, horizon=horizon, n_runs=runs)
+        return await run_full_simulation(
+            event, horizon=horizon, n_runs=runs, progress_cb=_progress
+        )
     except UnsupportedHazardError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
+@app.websocket("/ws")
+async def websocket_endpoint(ws: WebSocket) -> None:
+    """Streams event_new / sim_progress / gpu_stats to the HUD."""
+    await manager.connect(ws)
+    try:
+        while True:
+            await ws.receive_text()  # keepalive pings; content ignored
+    except WebSocketDisconnect:
+        manager.disconnect(ws)
+
+
 @app.get("/api/health/gpu")
 def gpu_health() -> dict:
-    # ROCM: ROCm presents as cuda; on the MI300X droplet this reports the
-    # Instinct device name and real VRAM numbers for the HUD readout.
-    if torch.cuda.is_available():
-        idx = torch.cuda.current_device()
-        props = torch.cuda.get_device_properties(idx)
-        return {
-            "device": torch.cuda.get_device_name(idx),
-            "backend": "gpu",
-            "vram_total_gb": round(props.total_memory / 2**30, 1),
-            "vram_used_gb": round(torch.cuda.memory_allocated(idx) / 2**30, 2),
-        }
-    return {"device": "cpu", "backend": "cpu", "vram_total_gb": None,
-            "vram_used_gb": None}
+    return gpu_snapshot()
 
 
 @app.get("/api/health")

@@ -81,7 +81,10 @@ class GpuMetrics(BaseModel):
 
 class HorizonForecast(BaseModel):
     exposed_population: tuple[int, int]  # (p10, p90) — never a point estimate
-    severity_curve: list[float]  # 0-1 values for the escalation chart
+    severity_curve: list[float]  # mean 0-1 values for the escalation chart
+    # Per-timestep p10/p90 envelope so the chart shades visible uncertainty.
+    severity_band_low: list[float] | None = None
+    severity_band_high: list[float] | None = None
     confidence: Confidence
     drivers: list[str]  # human-readable factors
 
@@ -90,8 +93,11 @@ class HorizonForecast(BaseModel):
         p10, p90 = self.exposed_population
         if p10 < 0 or p90 < p10:
             raise ValueError("exposed_population must satisfy 0 <= p10 <= p90")
-        if any(not (0.0 <= s <= 1.0) for s in self.severity_curve):
-            raise ValueError("severity_curve values must be within [0, 1]")
+        for curve in (self.severity_curve, self.severity_band_low, self.severity_band_high):
+            if curve and any(not (0.0 <= s <= 1.0) for s in curve):
+                raise ValueError("severity curves must be within [0, 1]")
+        if (self.severity_band_low is None) != (self.severity_band_high is None):
+            raise ValueError("severity band must have both low and high or neither")
         return self
 
 

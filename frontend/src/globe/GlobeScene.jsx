@@ -6,17 +6,67 @@
 // Wi-Fi cannot strip the globe (offline rule). Texture variant rejected.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
-import { MeshPhongMaterial } from 'three';
+import {
+  CircleGeometry,
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  MeshPhongMaterial,
+  RingGeometry,
+} from 'three';
 import { severityHex } from '../lib/api.js';
 
 // dark navy ocean sphere (§3 palette)
 const OCEAN_MATERIAL = new MeshPhongMaterial({ color: '#0a1628' });
 
+const GLOBE_RADIUS_KM = 6371;
+const ZONE_FADE_MS = 300;
+
 const IDLE_RESUME_MS = 8000;
 // OrbitControls autoRotateSpeed 2.0 ~= 12 deg/s; spec wants 0.3 deg/s.
 const AUTO_ROTATE_SPEED = 2.0 * (0.3 / 12);
 
-export default function GlobeScene({ events, selected, onSelect }) {
+// Zone colors by role (§5): cyan evacuation, red hazard, amber staging.
+// [color, fillOpacity, outlineOpacity]
+const ZONE_STYLE = {
+  evacuation: ['#22d3ee', 0.16, 0.75],
+  hazard: ['#f43f5e', 0.14, 0.6],
+  staging: ['#fbbf24', 0.13, 0.6],
+};
+
+// Zones as tangent-plane circle meshes (globe.gl's polygon triangulation
+// mangles polygons this small, so we draw exact THREE circles instead).
+// A 300ms opacity tween on mount gives the §6 cross-fade between options.
+function buildZoneObject(zone) {
+  const [color, fillOp, edgeOp] = ZONE_STYLE[zone.role] ?? ZONE_STYLE.hazard;
+  // globe.gl sphere radius is 100 scene units
+  const r = Math.max(0.4, (zone.radius_km / GLOBE_RADIUS_KM) * 100);
+  const group = new Group();
+  const fill = new Mesh(
+    new CircleGeometry(r, 48),
+    new MeshBasicMaterial({
+      color, transparent: true, opacity: 0, depthWrite: false, side: 2,
+    })
+  );
+  const edge = new Mesh(
+    new RingGeometry(r * 0.965, r, 48),
+    new MeshBasicMaterial({
+      color, transparent: true, opacity: 0, depthWrite: false, side: 2,
+    })
+  );
+  group.add(fill, edge);
+  const start = performance.now();
+  const tick = () => {
+    const k = Math.min(1, (performance.now() - start) / ZONE_FADE_MS);
+    fill.material.opacity = fillOp * k;
+    edge.material.opacity = edgeOp * k;
+    if (k < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  return group;
+}
+
+export default function GlobeScene({ events, selected, onSelect, activeOption }) {
   const globeRef = useRef(null);
   const idleTimer = useRef(null);
   const [countries, setCountries] = useState([]);
@@ -72,6 +122,27 @@ export default function GlobeScene({ events, selected, onSelect }) {
   );
 
   const dimmed = (e) => selected && selected.id !== e.id;
+
+  // Option zones; supply arc from the staging zone (or a nearby offset
+  // point standing in for the logistics hub) to the event.
+  const zoneData = useMemo(() => {
+    if (!activeOption) return [];
+    return activeOption.affected_zones.map((z, i) => ({
+      ...z, id: `${activeOption.id}-${i}`,
+    }));
+  }, [activeOption]);
+
+  const supplyArcs = useMemo(() => {
+    if (!activeOption || !selected) return [];
+    const staging = activeOption.affected_zones.find((z) => z.role === 'staging');
+    const from = staging
+      ? { lat: staging.lat + 2.4, lon: staging.lon + 2.4 }
+      : { lat: selected.lat + 3.2, lon: selected.lon + 3.2 };
+    return [{
+      startLat: from.lat, startLng: from.lon,
+      endLat: selected.lat, endLng: selected.lon,
+    }];
+  }, [activeOption, selected]);
 
   return (
     <div className="globe-layer">
@@ -133,6 +204,23 @@ export default function GlobeScene({ events, selected, onSelect }) {
           el.onclick = (ev) => { ev.stopPropagation(); onSelect(e); };
           return el;
         }}
+        // --- policy option zones (Mode C): translucent circles, 300ms fade ---
+        customLayerData={zoneData}
+        customThreeObject={(z) => buildZoneObject(z)}
+        customThreeObjectUpdate={(obj, z) => {
+          const globe = globeRef.current;
+          if (!globe) return;
+          Object.assign(obj.position, globe.getCoords(z.lat, z.lon, 0.015));
+          obj.lookAt(0, 0, 0); // tangent to the sphere surface
+        }}
+        // --- animated dashed supply arc from logistics staging to event ---
+        arcsData={supplyArcs}
+        arcColor={() => ['rgba(34,211,238,0.9)', 'rgba(34,211,238,0.25)']}
+        arcAltitude={0.06}
+        arcStroke={0.5}
+        arcDashLength={0.35}
+        arcDashGap={0.25}
+        arcDashAnimateTime={1400}
         rendererConfig={{ antialias: true, alpha: true }}
       />
     </div>

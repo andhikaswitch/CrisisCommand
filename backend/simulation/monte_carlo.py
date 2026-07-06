@@ -197,8 +197,16 @@ def run_simulation(
     n_runs: int = DEFAULT_N_RUNS,
     force_cpu: bool = False,
     seed: int | None = None,
+    n_chunks: int = 1,
+    progress_cb=None,
 ) -> SimulationOutput:
-    """Run the batched Monte Carlo for one event/horizon pair."""
+    """Run the batched Monte Carlo for one event/horizon pair.
+
+    `n_chunks` > 1 splits the batch into sequential sub-batches purely so
+    real progress (runs completed so far) can stream to the UI via
+    `progress_cb(runs_done, runs_total)` — each chunk is still one batched
+    tensor op, never a per-run Python loop.
+    """
     if event.kind not in _KERNELS:
         raise UnsupportedHazardError(
             f"no kernel for kind={event.kind!r}; supported: {SUPPORTED_KINDS}"
@@ -225,14 +233,30 @@ def run_simulation(
             torch.cuda.memory_allocated(device) / 2**30,
         )
 
+    n_chunks = max(1, min(n_chunks, n_runs))
+    chunk_sizes = [n_runs // n_chunks] * n_chunks
+    chunk_sizes[-1] += n_runs - sum(chunk_sizes)
+
     start = time.perf_counter()
-    hazard = _KERNELS[event.kind](event.severity, hours, n_runs, gen, device)  # [N,T]
+    kernel = _KERNELS[event.kind]
+    hazard_chunks: list[torch.Tensor] = []
+    done = 0
+    for size in chunk_sizes:
+        hazard_chunks.append(kernel(event.severity, hours, size, gen, device))
+        done += size
+        if progress_cb is not None:
+            progress_cb(done, n_runs)
+    hazard = torch.cat(hazard_chunks, dim=0)  # [N,T]
     peak_frac = hazard.max(dim=1).values * density_mult  # [N]
     peak_frac = peak_frac.clamp(min=0.0, max=MAX_EXPOSURE_FRAC)
     exposed = torch.round(peak_frac * float(pop.exposed_estimate))  # [N]
 
     q = torch.quantile(exposed, torch.tensor([0.10, 0.90], device=device))
     severity_curve = hazard.mean(dim=0).clamp(0.0, 1.0)
+    # Per-timestep p10/p90 envelope — the chart's honest uncertainty band.
+    band = torch.quantile(
+        hazard, torch.tensor([0.10, 0.90], device=device), dim=0
+    ).clamp(0.0, 1.0)
     if device.type == "cuda":
         torch.cuda.synchronize(device)
     wall_ms = (time.perf_counter() - start) * 1000.0
@@ -245,6 +269,8 @@ def run_simulation(
     forecast = HorizonForecast(
         exposed_population=(int(q[0].item()), int(q[1].item())),
         severity_curve=[round(float(s), 4) for s in severity_curve.tolist()],
+        severity_band_low=[round(float(s), 4) for s in band[0].tolist()],
+        severity_band_high=[round(float(s), 4) for s in band[1].tolist()],
         confidence=_confidence_for(horizon),
         drivers=_DRIVERS[event.kind],
     )

@@ -49,14 +49,14 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 
 ## Day 4 — The Full Flow (Modes A→B→C)
 
-- [ ] Right rail: briefing panel with typewriter stream
-- [ ] RUN SIMULATION → WS `sim_progress` wiring → progress panel with live run counts
-- [ ] Bottom GPU readout bar consuming `/api/health/gpu` + WS `gpu_stats`
-- [ ] Results: escalation chart (p10–p90 band, horizon tabs) + three `PolicyOptionCard`s
-- [ ] Option hover/select → zones + supply arcs on globe, cross-fade between options
-- [ ] "SIMULATION — DECISION SUPPORT ONLY" labeling throughout
+- [x] Right rail: briefing panel with typewriter stream (40ms/word) + confirmed/unknowns lists (2026-07-07)
+- [x] RUN SIMULATION → WS `sim_progress` wiring (real chunked Monte Carlo progress, 10 sub-batches) → progress panel with live run counts (2026-07-07)
+- [x] Bottom GPU readout bar consuming `/api/health/gpu` + WS `gpu_stats` (2s ticker); runs/sec + wall-time from last sim (2026-07-07)
+- [x] Results: escalation chart (recharts, per-timestep p10–p90 band from new tensor quantiles, 6h/24h/72h tabs) + three `PolicyOptionCard`s (before→after, cost, response, tradeoffs) (2026-07-07)
+- [x] Option hover/select → zones + supply arcs on globe, 300ms cross-fade (zones as exact THREE circle meshes — globe.gl polygon triangulation mangles ~77km circles) (2026-07-07)
+- [x] "SIMULATION — DECISION SUPPORT ONLY" labeling throughout (2026-07-07)
 
-**Exit:** the complete demo flow works end-to-end in seed mode on a laptop.
+**Exit:** the complete demo flow works end-to-end in seed mode on a laptop. ✅ verified headless: select → briefing → simulate → chart+options → zones on globe, zero console errors; 92 backend tests pass.
 
 ## Day 5 — Live Ingestion + Hardening
 

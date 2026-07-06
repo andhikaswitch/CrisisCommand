@@ -8,8 +8,26 @@ async function get(path) {
   return res.json();
 }
 
+async function post(path) {
+  const res = await fetch(`${BASE}${path}`, { method: 'POST' });
+  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+  return res.json();
+}
+
 export const fetchEvents = () => get('/api/events');
 export const fetchHealth = () => get('/api/health');
+export const fetchGpu = () => get('/api/health/gpu');
+export const fetchBriefing = (id) => post(`/api/events/${id}/brief`);
+export const runSimulation = (id, horizon = '24h') =>
+  post(`/api/events/${id}/simulate?horizon=${horizon}`);
+
+export function fmtRange([lo, hi], unit = '') {
+  const f = (n) =>
+    n >= 1e6 ? `${(n / 1e6).toFixed(1)}M`
+    : n >= 1e3 ? `${Math.round(n / 1e3)}K`
+    : `${n}`;
+  return `${unit}${f(lo)}–${unit}${f(hi)}`;
+}
 
 // Severity palette thresholds per UI_DESIGN.md §3.
 export function severityColor(event) {
