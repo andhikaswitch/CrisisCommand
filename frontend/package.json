@@ -1,0 +1,10 @@
+{
+  "name": "crisiscommand-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Holographic 3D globe interface (built Days 3-4 per UI_DESIGN.md)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  }
+}
