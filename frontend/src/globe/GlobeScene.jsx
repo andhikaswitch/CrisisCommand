@@ -66,7 +66,7 @@ function buildZoneObject(zone) {
   return group;
 }
 
-export default function GlobeScene({ events, selected, onSelect, activeOption }) {
+export default function GlobeScene({ events, selected, onSelect, activeOption, qualityTier = 0 }) {
   const globeRef = useRef(null);
   const idleTimer = useRef(null);
   const [countries, setCountries] = useState([]);
@@ -121,6 +121,15 @@ export default function GlobeScene({ events, selected, onSelect, activeOption })
     [events]
   );
 
+  // Quality ladder (§7): tier 2 drops rings for low-severity events (dots
+  // remain), tier 3 kills the atmosphere, tier 4 flattens to a plain sphere.
+  const ringEvents = useMemo(
+    () => (qualityTier >= 2 ? disasters.filter((e) => e.severity >= 0.4) : disasters),
+    [disasters, qualityTier]
+  );
+  const showAtmosphere = qualityTier < 3;
+  const hexData = qualityTier < 4 ? countries : [];
+
   const dimmed = (e) => selected && selected.id !== e.id;
 
   // Option zones; supply arc from the staging zone (or a nearby offset
@@ -154,17 +163,17 @@ export default function GlobeScene({ events, selected, onSelect, activeOption })
         showGlobe
         globeMaterial={OCEAN_MATERIAL}
         // ocean sphere + hex-polygon landmass (vector holographic look)
-        hexPolygonsData={countries}
+        hexPolygonsData={hexData}
         hexPolygonResolution={3}
         hexPolygonMargin={0.68}
         hexPolygonAltitude={0.006}
         hexPolygonColor={() => '#1b2f4a'}
-        showAtmosphere
+        showAtmosphere={showAtmosphere}
         atmosphereColor="#22d3ee"
         atmosphereAltitude={0.18}
         showGraticules
         // --- event markers: pulsing severity rings (disasters) ---
-        ringsData={disasters}
+        ringsData={ringEvents}
         ringLat={(e) => e.lat}
         ringLng={(e) => e.lon}
         ringMaxRadius={(e) => 1.5 + e.severity * 6}

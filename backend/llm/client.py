@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from dataclasses import dataclass
 
 import httpx
@@ -168,6 +169,31 @@ def _vllm_config() -> LLMConfig:
         model=os.getenv("VLLM_MODEL", DEFAULT_VLLM_MODEL),
         api_key=os.getenv("VLLM_API_KEY"),  # vLLM usually needs none
     )
+
+
+# Cached vLLM reachability probe — drives the honest fallback banner (§8).
+_vllm_probe: dict = {"ts": 0.0, "ok": False}
+
+
+async def vllm_reachable(ttl: float = 30.0) -> bool:
+    """Whether the vLLM endpoint answers, cached for `ttl` seconds.
+
+    Used by /api/status so the UI can show the FIREWORKS (FALLBACK) banner
+    truthfully when the MI300X droplet isn't serving.
+    """
+    now = time.time()
+    if now - _vllm_probe["ts"] < ttl:
+        return _vllm_probe["ok"]
+    cfg = _vllm_config()
+    ok = False
+    try:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(1.5, connect=1.0)) as http:
+            resp = await http.get(cfg.base_url.rstrip("/") + "/models")
+            ok = resp.status_code < 500
+    except httpx.HTTPError:
+        ok = False
+    _vllm_probe.update(ts=now, ok=ok)
+    return ok
 
 
 def get_briefing_client() -> LLMClient:

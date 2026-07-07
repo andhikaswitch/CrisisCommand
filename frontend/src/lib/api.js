@@ -16,6 +16,7 @@ async function post(path) {
 
 export const fetchEvents = () => get('/api/events');
 export const fetchHealth = () => get('/api/health');
+export const fetchStatus = () => get('/api/status');
 export const fetchGpu = () => get('/api/health/gpu');
 export const fetchBriefing = (id) => post(`/api/events/${id}/brief`);
 export const runSimulation = (id, horizon = '24h') =>

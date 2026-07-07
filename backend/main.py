@@ -7,13 +7,17 @@ endpoint (Monte Carlo + grounded policy options). The WebSocket lands Day 4.
 Run:  uvicorn backend.main:app --reload --port 8000
 """
 
+import asyncio
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
+
+from contextlib import asynccontextmanager  # noqa: E402
 
 from fastapi import (  # noqa: E402
     FastAPI,
@@ -25,6 +29,12 @@ from fastapi import (  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
 from backend.briefing.writer import write_briefing  # noqa: E402
+from backend.ingest.store import EventStore  # noqa: E402
+from backend.llm.client import (  # noqa: E402
+    get_briefing_client,
+    get_scenario_client,
+    vllm_reachable,
+)
 from backend.models import (  # noqa: E402
     HORIZON_HOURS,
     Briefing,
@@ -41,7 +51,26 @@ from backend.ws import gpu_snapshot, manager  # noqa: E402
 
 SEED_MODE = os.getenv("SEED_MODE", "true").lower() in ("1", "true", "yes")
 
-app = FastAPI(title="CrisisCommand", version="0.2.0")
+# The active-event store: seeded in both modes (seed events are the safety
+# net). In LIVE mode the scheduler adds real GDACS/USGS events on top.
+store = EventStore(seed=True)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = None
+    if not SEED_MODE:
+        from backend.ingest.scheduler import scheduler_loop
+
+        task = asyncio.create_task(scheduler_loop(store, broadcast=manager.broadcast))
+    try:
+        yield
+    finally:
+        if task is not None:
+            task.cancel()
+
+
+app = FastAPI(title="CrisisCommand", version="0.3.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -51,25 +80,16 @@ app.add_middleware(
 )
 
 
-def _load_events() -> list[CrisisEvent]:
-    if SEED_MODE:
-        from scripts.seed_events import load_seed_events
-
-        return load_seed_events()
-    # Live ingestion lands Day 5; until then non-seed mode serves nothing.
-    return []
-
-
 def _require_event(event_id: str) -> CrisisEvent:
-    for e in _load_events():
-        if e.id == event_id:
-            return e
-    raise HTTPException(status_code=404, detail=f"unknown event {event_id!r}")
+    event = store.get(event_id)
+    if event is None:
+        raise HTTPException(status_code=404, detail=f"unknown event {event_id!r}")
+    return event
 
 
 @app.get("/api/events", response_model=list[CrisisEvent])
 def list_events() -> list[CrisisEvent]:
-    return _load_events()
+    return store.snapshot()
 
 
 @app.get("/api/events/{event_id}", response_model=CrisisEvent)
@@ -117,6 +137,10 @@ async def simulate_event(
         )
     except UnsupportedHazardError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except ValueError as exc:
+        # e.g. a live event with no curated population_context — we refuse to
+        # invent an exposure base (honesty rule), so it is not simulable.
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
 @app.websocket("/ws")
@@ -138,3 +162,40 @@ def gpu_health() -> dict:
 @app.get("/api/health")
 def health() -> dict:
     return {"status": "ok", "seed_mode": SEED_MODE}
+
+
+@app.get("/api/status")
+async def status() -> dict:
+    """Mode, per-source freshness, and LLM backend state for the HUD.
+
+    `sim_backend_degraded` is true when vLLM was requested but is not
+    reachable, so the frontend can show the honest fallback banner (§8).
+    """
+    now = datetime.now(timezone.utc)
+    requested = os.getenv("SIM_BACKEND", "fireworks").lower()
+    if requested == "vllm":
+        reachable = await vllm_reachable()
+        degraded = not reachable
+        active = "vllm" if reachable else (
+            "fireworks" if get_briefing_client().config.configured else "template"
+        )
+    else:
+        degraded = False
+        active = "fireworks" if get_briefing_client().config.configured else "template"
+    return {
+        "mode": "SEED" if SEED_MODE else "LIVE",
+        "sim_backend_requested": requested,
+        "sim_backend_active": active,
+        "sim_backend_degraded": degraded,
+        "briefing_backend_configured": get_briefing_client().config.configured,
+        "sources": [
+            {
+                "source": h.source,
+                "status": h.status(now),
+                "event_count": h.event_count,
+                "last_success": h.last_success.isoformat() if h.last_success else None,
+                "last_error": h.last_error,
+            }
+            for h in store.source_health()
+        ],
+    }

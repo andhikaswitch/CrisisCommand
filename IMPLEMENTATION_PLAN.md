@@ -60,13 +60,13 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 
 ## Day 5 — Live Ingestion + Hardening
 
-- [ ] GDACS + USGS ingestors (the two easiest, most reliable feeds) → normalizer → dedup via GPU/CPU embeddings
-- [ ] ReliefWeb + news/tension ingestors if the first two land by lunch; otherwise cut — seed tension events suffice
-- [ ] Freshness dots, LIVE/SEED indicator, vLLM-fallback banner
-- [ ] Deliberate failure drills: kill feeds, kill vLLM, invalid LLM JSON, mid-sim disconnect/reconnect
-- [ ] Performance pass on globe (200-marker synthetic load, quality-ladder wiring)
+- [x] GDACS + USGS ingestors → normalizer → GPU embedding dedup (>0.92 cosine within 200km merges); verified against REAL live feeds (13 USGS, 39 GDACS) (2026-07-07)
+- [~] ReliefWeb + news/tension ingestors — CUT per plan; seed tension events suffice (the two solid feeds landed) (2026-07-07)
+- [x] Freshness dots (per-source, staleness>30min→amber), LIVE/SEED indicator, honest vLLM-fallback banner (cached reachability probe) (2026-07-07)
+- [x] Deliberate failure drills (`scripts/failure_drills.py`): feed down, vLLM/LLM down, invalid LLM JSON, mid-sim WS client drop, live-event-without-exposure → all handled (2026-07-07)
+- [x] Globe performance pass: quality ladder (§7, 4 tiers, auto frame-time monitor + `?quality=N` override) + 200-marker synthetic load (`?load=200`) (2026-07-07)
 
-**Exit:** app runs in LIVE mode with real GDACS/USGS events appearing; survives every induced failure; still demos perfectly in SEED mode.
+**Exit:** app runs in LIVE mode with real GDACS/USGS events appearing; survives every induced failure; still demos perfectly in SEED mode. ✅ verified: 49 live events (15 seed + 11 USGS + 23 GDACS post-dedup), fallback banner truthful, 249-marker load renders clean, all drills pass, 111 tests green.
 
 ## Day 6 — MI300X Full Deployment + Evidence Capture
 

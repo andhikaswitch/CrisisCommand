@@ -8,6 +8,8 @@ import EventFeed from './panels/EventFeed.jsx';
 import ContextPanel from './panels/ContextPanel.jsx';
 import GpuBar from './panels/GpuBar.jsx';
 import { fetchEvents, fetchHealth } from './lib/api.js';
+import { subscribe } from './lib/ws.js';
+import { syntheticLoad, useQualityLadder } from './lib/quality.js';
 
 const FLIGHT_MS = 1200;
 
@@ -20,14 +22,27 @@ export default function App() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [hoverOption, setHoverOption] = useState(null);
   const flightTimer = useRef(null);
+  const qualityTier = useQualityLadder();
 
   useEffect(() => {
-    fetchEvents().then(setEvents).catch((err) => {
-      console.error('event fetch failed — is the backend up?', err);
-    });
+    const synthetic = syntheticLoad();
+    fetchEvents()
+      .then((live) => setEvents(synthetic.length ? [...synthetic, ...live] : live))
+      .catch((err) => {
+        console.error('event fetch failed — is the backend up?', err);
+        if (synthetic.length) setEvents(synthetic);
+      });
     fetchHealth().then((h) => setSeedMode(h.seed_mode)).catch(() => {});
     return () => clearTimeout(flightTimer.current);
   }, []);
+
+  // Live ingestion: new markers drop in without a refetch (Mode A, §6).
+  useEffect(() => subscribe((msg) => {
+    if (msg.type !== 'event_new' || !msg.event) return;
+    setEvents((prev) =>
+      prev.some((e) => e.id === msg.event.id) ? prev : [msg.event, ...prev]
+    );
+  }), []);
 
   // Selection: rails slide out during the camera flight, return after (§4).
   const handleSelect = useCallback((event) => {
@@ -51,6 +66,7 @@ export default function App() {
         selected={selected}
         onSelect={handleSelect}
         activeOption={activeOption}
+        qualityTier={qualityTier}
       />
       <TopBar seedMode={seedMode} />
       <aside className={`rail rail-left ${flying ? 'hidden-left' : ''}`}>
