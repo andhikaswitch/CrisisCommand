@@ -57,8 +57,9 @@ class TestSimulateEndpoint:
         assert "24h" in result.horizons
 
     def test_unsupported_kind_returns_422(self):
-        # cyclone has no Monte Carlo kernel yet (Day 2 ships flood + quake).
-        r = client.post("/api/events/seed-CY-005/simulate")
+        # volcano has no Monte Carlo kernel (the ensemble ships flood,
+        # quake, cyclone, wildfire).
+        r = client.post("/api/events/seed-VO-012/simulate")
         assert r.status_code == 422
 
     def test_unknown_event_404(self):

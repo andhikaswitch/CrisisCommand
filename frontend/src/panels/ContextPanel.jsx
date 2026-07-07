@@ -65,7 +65,7 @@ export default function ContextPanel({
   // Simulable = supported hazard kernel AND vetted population context.
   // Live-feed events carry no exposure base (we never invent one — honesty
   // rule), so they get an explanation instead of a button that would 422.
-  const kindSupported = ['flood', 'earthquake'].includes(event.kind);
+  const kindSupported = ['flood', 'earthquake', 'cyclone', 'wildfire'].includes(event.kind);
   const hasExposure = event.population_context != null;
 
   return (

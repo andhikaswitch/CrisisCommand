@@ -32,7 +32,7 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 - [ ] **MI300X checkpoint (droplet on → work → droplet OFF):** — BLOCKED on droplet access; code is ready (`SIM_BACKEND=vllm`), run when the droplet is up
   - `vllm serve` an open instruct model; P2 batch of 3 branches through it
   - `monte_carlo.py` on ROCm: record runs/sec vs CPU number (pitch evidence)
-  - remaining hazard kernels (cyclone, wildfire) if time allows
+  - remaining hazard kernels (cyclone, wildfire) if time allows — ✅ landed 2026-07-07 (full ensemble: flood, quake, cyclone track-cone, wildfire spread×wind)
 
 **Exit:** full simulate endpoint (`POST /simulate`) returns a complete `SimulationResult` from seed data. ✅ verified offline (template path); live vLLM/Fireworks path uses the same wrapper and runs when a key/droplet is present.
 
@@ -61,7 +61,7 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 ## Day 5 — Live Ingestion + Hardening
 
 - [x] GDACS + USGS ingestors → normalizer → GPU embedding dedup (>0.92 cosine within 200km merges); verified against REAL live feeds (13 USGS, 39 GDACS) (2026-07-07)
-- [~] ReliefWeb + news/tension ingestors — CUT per plan; seed tension events suffice (the two solid feeds landed) (2026-07-07)
+- [x] ReliefWeb + news/tension ingestors — GDELT headline-density tension signals live (6-flashpoint watchlist, conf. low, sev ≤0.65); ReliefWeb fully implemented + tested, opt-in via `RELIEFWEB_APPNAME` (their API now requires a pre-approved appname) (2026-07-07)
 - [x] Freshness dots (per-source, staleness>30min→amber), LIVE/SEED indicator, honest vLLM-fallback banner (cached reachability probe) (2026-07-07)
 - [x] Deliberate failure drills (`scripts/failure_drills.py`): feed down, vLLM/LLM down, invalid LLM JSON, mid-sim WS client drop, live-event-without-exposure → all handled (2026-07-07)
 - [x] Globe performance pass: quality ladder (§7, 4 tiers, auto frame-time monitor + `?quality=N` override) + 200-marker synthetic load (`?load=200`) (2026-07-07)

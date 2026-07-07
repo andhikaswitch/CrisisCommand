@@ -3,7 +3,15 @@
 import torch
 from fastapi.testclient import TestClient
 
-from backend.ingest import bmkg, embeddings, gdacs, normalizer, usgs
+from backend.ingest import (
+    bmkg,
+    embeddings,
+    gdacs,
+    news,
+    normalizer,
+    reliefweb,
+    usgs,
+)
 from backend.ingest.store import EventStore
 from backend.main import app
 
@@ -152,6 +160,88 @@ class TestBmkgParse:
 
     def test_empty_payload(self):
         assert bmkg.parse_feed({}) == []
+
+
+class TestNewsTension:
+    PAYLOAD = {"articles": [
+        {"title": f"Conflict headline number {i}", "seendate": "20260707T100000Z"}
+        for i in range(40)
+    ]}
+
+    def test_article_stats(self):
+        count, samples = news.article_stats(self.PAYLOAD)
+        assert count == 40
+        assert len(samples) == 3
+
+    def test_severity_capped_below_red(self):
+        assert news.severity_from_count(75) <= news.SEVERITY_CAP
+        assert news.severity_from_count(200) <= news.SEVERITY_CAP
+        assert news.severity_from_count(15) < news.severity_from_count(75)
+
+    def test_build_event_is_low_confidence_tension(self):
+        fp = news.WATCHLIST[0]
+        count, samples = news.article_stats(self.PAYLOAD)
+        e = news.build_event(fp, count, samples)
+        assert e.kind == "tension"
+        assert e.source == "GDELT"
+        assert e.severity <= news.SEVERITY_CAP
+        assert e.raw["signal"] == "news-cluster"
+        assert len(e.raw["sample_headlines"]) == 3
+        assert e.population_context is None  # never simulable
+
+    def test_quiet_region_below_threshold(self):
+        assert 5 < news.EMIT_THRESHOLD  # 5 articles must NOT emit
+        # fetch() gates on EMIT_THRESHOLD; severity fn itself stays defined
+
+
+class TestReliefWeb:
+    PAYLOAD = {"data": [
+        {
+            "id": 52001,
+            "fields": {
+                "name": "Mozambique: Tropical Cyclone Alpha - Jan 2026",
+                "status": "ongoing",
+                "url": "https://reliefweb.int/taxonomy/term/52001",
+                "date": {"created": "2026-01-10T00:00:00+00:00"},
+                "type": [{"name": "Tropical Cyclone"}],
+                "primary_country": {
+                    "name": "Mozambique",
+                    "location": {"lat": -18.66, "lon": 35.53},
+                },
+            },
+        },
+        {  # unmapped type — dropped
+            "id": 52002,
+            "fields": {
+                "name": "X: Epidemic", "status": "ongoing",
+                "date": {"created": "2026-01-10T00:00:00+00:00"},
+                "type": [{"name": "Epidemic"}],
+                "primary_country": {"name": "X", "location": {"lat": 0, "lon": 0}},
+            },
+        },
+        {  # past status — dropped
+            "id": 52003,
+            "fields": {
+                "name": "Y: Flood", "status": "past",
+                "date": {"created": "2026-01-10T00:00:00+00:00"},
+                "type": [{"name": "Flood"}],
+                "primary_country": {"name": "Y", "location": {"lat": 1, "lon": 1}},
+            },
+        },
+    ]}
+
+    def test_maps_and_filters(self):
+        events = reliefweb.parse_feed(self.PAYLOAD)
+        assert len(events) == 1
+        e = events[0]
+        assert e.kind == "cyclone"
+        assert e.id == "reliefweb-52001"
+        assert e.country == "Mozambique"
+        assert e.severity == 0.55  # ongoing
+
+    def test_disabled_without_appname(self, monkeypatch):
+        monkeypatch.delenv("RELIEFWEB_APPNAME", raising=False)
+        assert not reliefweb.enabled()
 
 
 class TestFloodRisk:

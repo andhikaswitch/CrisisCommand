@@ -50,7 +50,7 @@ DENSITY_MULTIPLIER = {"low": 0.6, "medium": 0.8, "high": 1.0}
 # population in-model; keeps tails physical.
 MAX_EXPOSURE_FRAC = 0.95
 
-SUPPORTED_KINDS = ("flood", "earthquake")
+SUPPORTED_KINDS = ("flood", "earthquake", "cyclone", "wildfire")
 
 
 class UnsupportedHazardError(ValueError):
@@ -169,7 +169,80 @@ def _earthquake_kernel(
     return torch.clamp(shock * relief + aftershock, min=0.0, max=0.999)
 
 
-_KERNELS = {"flood": _flood_kernel, "earthquake": _earthquake_kernel}
+def _cyclone_kernel(
+    severity: float,
+    hours: int,
+    n_runs: int,
+    gen: torch.Generator,
+    device: torch.device,
+) -> torch.Tensor:
+    """Cyclone hazard curve, shape [n_runs, N_STEPS], values in [0, 1).
+
+    Model: a wind-field peak sweeps past (track-cone uncertainty decides how
+    directly it hits), followed by a slower rain/surge flood tail.
+    Assumptions:
+      - storm intensity ~ severity x lognormal(sigma=0.25), capped
+      - closest approach time ~ U(0.15, 0.6) of the horizon; wind envelope
+        is gaussian around it with width ~ U(0.08, 0.2) of the horizon
+      - track offset ~ N(0, 0.75): the cone — many runs are near-misses,
+        exp(-offset^2) discounts them (this drives the p10/p90 spread;
+        day-ahead track errors are routinely ~100km+, so the cone is wide)
+      - post-landfall flood tail: 35% of intensity, decaying over ~24h
+    """
+    dt = hours / N_STEPS
+    t = torch.arange(N_STEPS, device=device, dtype=torch.float32) * dt  # [T]
+
+    intensity = _lognormal(severity, 0.25, n_runs, gen, device).clamp(max=1.2)
+    peak_t = (_uniform(0.15, 0.6, n_runs, gen, device) * hours).unsqueeze(1)
+    width = (_uniform(0.08, 0.2, n_runs, gen, device) * hours).unsqueeze(1)
+    offset = torch.randn(n_runs, generator=gen, device=device) * 0.75
+    hit = torch.exp(-offset**2).unsqueeze(1)  # [N,1] track-cone discount
+    amp = (intensity.unsqueeze(1) * hit)  # [N,1]
+
+    wind = amp * torch.exp(-(((t.unsqueeze(0) - peak_t) / width) ** 2))
+    # rain/surge tail after closest approach, slower decay
+    after = torch.clamp(t.unsqueeze(0) - peak_t, min=0.0)
+    tail = 0.35 * amp * (1.0 - torch.exp(-after / 6.0)) * torch.exp(-after / 24.0)
+    return torch.clamp(wind + tail, min=0.0, max=0.999)
+
+
+def _wildfire_kernel(
+    severity: float,
+    hours: int,
+    n_runs: int,
+    gen: torch.Generator,
+    device: torch.device,
+) -> torch.Tensor:
+    """Wildfire hazard curve, shape [n_runs, N_STEPS], values in [0, 1).
+
+    Model: fire-front growth ~ spread rate x wind, saturating logistically
+    as containment takes hold. Assumptions:
+      - wind factor ~ lognormal(sigma=0.3) around 1 — the dominant unknown
+        (downslope wind events are the catastrophic tail)
+      - growth midpoint ~ U(0.25, 0.65) of horizon; steepness scales with
+        wind x severity
+      - containment ceiling ~ U(0.45, 1.0): how much of the exposure base
+        the burn can plausibly reach before lines hold
+    """
+    dt = hours / N_STEPS
+    t = torch.arange(N_STEPS, device=device, dtype=torch.float32) * dt  # [T]
+
+    wind = _lognormal(1.0, 0.3, n_runs, gen, device).clamp(max=2.5)
+    ceiling = (_uniform(0.45, 1.0, n_runs, gen, device) * severity).unsqueeze(1)
+    mid = (_uniform(0.25, 0.65, n_runs, gen, device) * hours).unsqueeze(1)
+    # steeper growth when windier; normalized to the horizon scale
+    steep = (hours / 10.0) / wind.unsqueeze(1)
+
+    growth = torch.sigmoid((t.unsqueeze(0) - mid) / steep)  # [N,T]
+    return torch.clamp(ceiling * growth, min=0.0, max=0.999)
+
+
+_KERNELS = {
+    "flood": _flood_kernel,
+    "earthquake": _earthquake_kernel,
+    "cyclone": _cyclone_kernel,
+    "wildfire": _wildfire_kernel,
+}
 
 
 def _confidence_for(horizon: str) -> Confidence:
@@ -187,6 +260,16 @@ _DRIVERS = {
         "building stock vulnerability",
         "aftershock sequence (Omori decay)",
         "population density band",
+    ],
+    "cyclone": [
+        "track-cone uncertainty (hit vs near-miss)",
+        "wind envelope timing and width",
+        "rain/surge flood tail after landfall",
+    ],
+    "wildfire": [
+        "wind factor (downslope events are the tail)",
+        "containment ceiling",
+        "fire-front growth timing",
     ],
 }
 

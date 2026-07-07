@@ -11,8 +11,10 @@ from backend.simulation.monte_carlo import (
     N_STEPS,
     SUPPORTED_KINDS,
     UnsupportedHazardError,
+    _cyclone_kernel,
     _earthquake_kernel,
     _flood_kernel,
+    _wildfire_kernel,
     get_device,
     run_simulation,
 )
@@ -29,19 +31,22 @@ def _gen(seed: int = 7) -> torch.Generator:
     return g
 
 
+ALL_KERNELS = [_flood_kernel, _earthquake_kernel, _cyclone_kernel, _wildfire_kernel]
+
+
 class TestKernelShapesAndBounds:
-    @pytest.mark.parametrize("kernel", [_flood_kernel, _earthquake_kernel])
+    @pytest.mark.parametrize("kernel", ALL_KERNELS)
     @pytest.mark.parametrize("hours", [6, 24, 72])
     def test_shape_is_runs_by_steps(self, kernel, hours):
         h = kernel(0.7, hours, 500, _gen(), torch.device("cpu"))
         assert h.shape == (500, N_STEPS)
 
-    @pytest.mark.parametrize("kernel", [_flood_kernel, _earthquake_kernel])
+    @pytest.mark.parametrize("kernel", ALL_KERNELS)
     def test_hazard_within_unit_interval(self, kernel):
         h = kernel(0.9, 24, 1000, _gen(), torch.device("cpu"))
         assert torch.all(h >= 0.0) and torch.all(h < 1.0)
 
-    @pytest.mark.parametrize("kernel", [_flood_kernel, _earthquake_kernel])
+    @pytest.mark.parametrize("kernel", ALL_KERNELS)
     def test_higher_severity_means_more_hazard(self, kernel):
         low = kernel(0.2, 24, 2000, _gen(1), torch.device("cpu")).mean()
         high = kernel(0.9, 24, 2000, _gen(1), torch.device("cpu")).mean()
@@ -53,6 +58,25 @@ class TestKernelShapesAndBounds:
         flood = _flood_kernel(0.8, 24, 2000, _gen(), torch.device("cpu")).mean(0)
         assert quake[0] > flood[0]
         assert flood.argmax() > 0
+
+    def test_cyclone_peak_passes_through(self):
+        """Wind peak sweeps by: mean hazard rises then falls within horizon."""
+        cyc = _cyclone_kernel(0.9, 72, 3000, _gen(), torch.device("cpu")).mean(0)
+        peak_idx = int(cyc.argmax())
+        assert 0 < peak_idx < N_STEPS - 1
+        assert cyc[peak_idx] > cyc[0] and cyc[peak_idx] > cyc[-1]
+
+    def test_wildfire_growth_is_monotonic(self):
+        """Mean fire hazard never shrinks (burned stays burned within horizon)."""
+        fire = _wildfire_kernel(0.8, 24, 3000, _gen(), torch.device("cpu")).mean(0)
+        diffs = fire[1:] - fire[:-1]
+        assert torch.all(diffs >= -1e-4)
+
+    def test_cyclone_track_cone_spreads_outcomes(self):
+        """Near-misses vs direct hits: peak exposure varies widely across runs."""
+        h = _cyclone_kernel(0.9, 24, 3000, _gen(), torch.device("cpu"))
+        peaks = h.max(dim=1).values
+        assert peaks.std() / peaks.mean() > 0.3  # wide relative spread
 
 
 class TestRunSimulation:
@@ -99,10 +123,20 @@ class TestRunSimulation:
         assert m.wall_ms > 0 and m.runs_per_sec > 0
 
     def test_unsupported_kind_raises(self):
-        cyclone = EVENTS["seed-CY-005"]
-        assert cyclone.kind not in SUPPORTED_KINDS
+        volcano = EVENTS["seed-VO-012"]
+        assert volcano.kind not in SUPPORTED_KINDS
         with pytest.raises(UnsupportedHazardError):
-            run_simulation(cyclone, "24h", n_runs=100, force_cpu=True)
+            run_simulation(volcano, "24h", n_runs=100, force_cpu=True)
+
+    @pytest.mark.parametrize("event_id", ["seed-CY-006", "seed-WF-008"])
+    def test_new_kinds_simulate_end_to_end(self, event_id):
+        """Haiyan (cyclone) and Maui (wildfire) drills produce sane forecasts."""
+        event = EVENTS[event_id]
+        out = run_simulation(event, "24h", n_runs=2000, force_cpu=True, seed=7)
+        p10, p90 = out.forecast.exposed_population
+        pop = event.population_context.exposed_estimate
+        assert 0 <= p10 <= p90 <= pop
+        assert p90 > 0
 
     def test_bad_horizon_raises(self):
         with pytest.raises(ValueError):

@@ -14,7 +14,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from backend.ingest import bmkg, flood_risk, gdacs, usgs
+from backend.ingest import bmkg, flood_risk, gdacs, news, reliefweb, usgs
 from backend.ingest.store import EventStore
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,12 @@ INGESTORS = [
     # Open-Meteo for the global flood-prone watchlist
     ("BMKG-RAIN", flood_risk.fetch_indonesia),
     ("OPEN-METEO", flood_risk.fetch_global),
+    # news-headline tension signals (clustered coverage density, conf. low)
+    ("GDELT", news.fetch),
 ]
+# ReliefWeb needs a pre-approved appname — register only when configured.
+if reliefweb.enabled():
+    INGESTORS.append(("ReliefWeb", reliefweb.fetch))
 
 
 async def run_cycle(store: EventStore, broadcast=None) -> list:
