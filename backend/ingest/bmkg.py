@@ -26,7 +26,13 @@ from backend.models import CrisisEvent
 logger = logging.getLogger(__name__)
 
 SOURCE = "BMKG"
+# Two open-data feeds, merged: M5+ recent quakes and "felt" quakes (includes
+# M3-4 that people reported feeling). Overlapping entries share the same
+# timestamp-derived id and collapse naturally. BMKG's Twitter firehose also
+# posts micro-quakes (M<3) that never reach these JSON feeds — those are
+# below crisis-tool relevance anyway.
 DEFAULT_FEED = "https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json"
+FELT_FEED = "https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json"
 _TIMEOUT = httpx.Timeout(15.0, connect=8.0)
 
 
@@ -69,18 +75,24 @@ def parse_feed(payload: dict) -> list[CrisisEvent]:
 
 
 async def fetch(client: httpx.AsyncClient | None = None) -> list[CrisisEvent]:
-    url = os.getenv("BMKG_FEED_URL", DEFAULT_FEED)
+    urls = [
+        os.getenv("BMKG_FEED_URL", DEFAULT_FEED),
+        os.getenv("BMKG_FELT_FEED_URL", FELT_FEED),
+    ]
     own = client is None
     client = client or httpx.AsyncClient(timeout=_TIMEOUT)
+    events: dict[str, CrisisEvent] = {}
     try:
-        resp = await client.get(url)
-        resp.raise_for_status()
-        events = parse_feed(resp.json())
+        for url in urls:
+            try:
+                resp = await client.get(url)
+                resp.raise_for_status()
+                for e in parse_feed(resp.json()):
+                    events[e.id] = e  # same quake in both feeds -> one entry
+            except (httpx.HTTPError, ValueError) as exc:
+                logger.warning("BMKG feed %s unavailable, skipping: %s", url, exc)
         logger.info("BMKG: ingested %d earthquake events", len(events))
-        return events
-    except (httpx.HTTPError, ValueError) as exc:
-        logger.warning("BMKG feed unavailable, skipping cycle: %s", exc)
-        return []
+        return list(events.values())
     finally:
         if own:
             await client.aclose()
