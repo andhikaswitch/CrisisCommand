@@ -4,17 +4,21 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     ports:
-      - "8000:8000"
+      # host port overridable when 8000 is taken: BACKEND_PORT=8055 docker compose up
+      - "${BACKEND_PORT:-8000}:8000"
     env_file: .env
     # ROCM: on the MI300X droplet, expose the GPU to the container:
     #   devices: [/dev/kfd, /dev/dri]  + group_add: [video]
+    # and use a ROCm torch base image (see DEPLOY.md). This default compose
+    # runs the CPU/seed demo path, which works on any machine.
     command: uvicorn backend.main:app --host 0.0.0.0 --port 8000
 
   frontend:
     build: ./frontend
+    # nginx serves the built SPA and reverse-proxies /api and /ws to backend,
+    # so the browser uses one origin (no build-time API URL needed).
     ports:
-      - "3000:3000"
-    environment:
-      - VITE_API_BASE=http://localhost:8000
+      # host port overridable when 3000 is taken: FRONTEND_PORT=3200 docker compose up
+      - "${FRONTEND_PORT:-3000}:80"
     depends_on:
       - backend

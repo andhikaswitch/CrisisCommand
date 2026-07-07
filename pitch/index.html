@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrisisCommand — Pitch</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}</style>
+</head>
+<body>
+<style>
+  :root {
+    --bg: #04070d;
+    --bg-2: #070c16;
+    --panel: rgba(10, 22, 40, 0.55);
+    --cyan: #22d3ee;
+    --cyan-dim: rgba(34, 211, 238, 0.12);
+    --line: rgba(34, 211, 238, 0.28);
+    --text: #e2f3ff;
+    --dim: #7d99b5;
+    --red: #f43f5e;
+    --amber: #fbbf24;
+    --teal: #2dd4bf;
+    --violet: #a78bfa;
+    --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --slide-pad: clamp(24px, 5vw, 96px);
+  }
+
+  /* Deliberate single-theme: this is the product's holographic war-room
+     identity — a committed visual world, not an omission. */
+
+  html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* persistent atmosphere: grid + stars + vignette, behind everything */
+  .bg-fx {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(1px 1px at 12% 22%, rgba(226,243,255,0.55) 50%, transparent 51%),
+      radial-gradient(1px 1px at 47% 12%, rgba(226,243,255,0.45) 50%, transparent 51%),
+      radial-gradient(1px 1px at 71% 37%, rgba(226,243,255,0.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 84% 74%, rgba(226,243,255,0.4) 50%, transparent 51%),
+      radial-gradient(1px 1px at 23% 85%, rgba(34,211,238,0.35) 50%, transparent 51%),
+      radial-gradient(1px 1px at 92% 18%, rgba(226,243,255,0.4) 50%, transparent 51%),
+      linear-gradient(var(--bg), var(--bg-2));
+  }
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
+    background-image:
+      linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 40%, transparent 100%);
+  }
+
+  /* fixed HUD chrome */
+  .hud {
+    position: fixed; z-index: 20; left: 0; right: 0; top: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px var(--slide-pad);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--dim);
+    pointer-events: none;
+  }
+  .hud .brand { color: var(--cyan); font-weight: 600; }
+  .hud .mark { margin-right: 8px; }
+  .hud-bottom { top: auto; bottom: 0; }
+  .prog { display: flex; gap: 6px; align-items: center; }
+  .prog b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+  /* slides */
+  main { position: relative; z-index: 1; }
+  .slide {
+    min-height: 100vh; scroll-snap-align: start;
+    display: grid; align-content: center;
+    padding: clamp(72px, 12vh, 140px) var(--slide-pad);
+    gap: 28px;
+    border-bottom: 1px solid rgba(34,211,238,0.08);
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--cyan);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  h1 {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(38px, 7vw, 92px); line-height: 0.98;
+    letter-spacing: -0.01em; text-transform: uppercase; text-wrap: balance;
+    margin: 0;
+  }
+  h2 {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 52px); line-height: 1.02;
+    letter-spacing: -0.005em; text-wrap: balance; margin: 0;
+  }
+  .lede { font-size: clamp(17px, 2vw, 22px); color: var(--text); max-width: 60ch; text-wrap: pretty; }
+  .sub { color: var(--dim); max-width: 66ch; font-size: clamp(15px, 1.5vw, 17px); }
+  .accent { color: var(--cyan); }
+  strong { color: var(--text); font-weight: 600; }
+
+  /* holographic panel — echoes the real HoloPanel component */
+  .panel {
+    position: relative; background: var(--panel);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    box-shadow: 0 0 28px rgba(34,211,238,0.08);
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+    padding: clamp(20px, 2.4vw, 32px);
+    overflow: hidden;
+  }
+  .panel::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(34,211,238,0.025) 3px 4px);
+  }
+  .brk { position: absolute; width: 12px; height: 12px; border: 0 solid var(--cyan); opacity: 0.85; }
+  .brk.tl { top: 5px; left: 5px; border-top-width: 1px; border-left-width: 1px; }
+  .brk.br { bottom: 5px; right: 5px; border-bottom-width: 1px; border-right-width: 1px; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 860px) {
+    .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+    .hero-globe { display: none; }
+  }
+
+  .label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 8px;
+  }
+  .panel h3 { font-family: var(--mono); font-size: 17px; letter-spacing: 0.02em; margin: 0 0 8px; text-transform: uppercase; }
+  .panel p { color: var(--dim); font-size: 14.5px; margin: 0; }
+
+  .stat { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .stat .big { font-size: clamp(30px, 4vw, 46px); font-weight: 700; color: var(--cyan); line-height: 1; }
+  .stat .unit { color: var(--dim); font-size: 13px; letter-spacing: 0.08em; }
+
+  ul.clean { list-style: none; display: grid; gap: 12px; padding: 0; margin: 0; }
+  ul.clean li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--text); }
+  ul.clean li::before {
+    content: "▸"; color: var(--cyan); font-size: 13px; line-height: 1.6;
+  }
+  ul.clean li span { color: var(--dim); }
+
+  /* stepped flow (a real sequence — numbering earns its place here) */
+  .flow { display: grid; gap: 12px; }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: baseline; }
+  .step .n {
+    font-family: var(--mono); font-size: 13px; color: var(--cyan);
+    letter-spacing: 0.1em; border: 1px solid var(--line); padding: 3px 9px;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  }
+  .step .t { font-size: 16px; }
+  .step .t b { color: var(--text); }
+  .step .t span { color: var(--dim); }
+
+  .two-col { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  .hero-globe { position: relative; aspect-ratio: 1; width: 100%; max-width: 460px; justify-self: center; }
+  .hero-globe canvas { width: 100%; height: 100%; display: block; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--cyan);
+    border: 1px solid var(--line); padding: 5px 11px; background: var(--cyan-dim);
+  }
+  .sim-tag {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    color: var(--amber); border: 1px solid rgba(251,191,36,0.4);
+    background: rgba(251,191,36,0.07); padding: 4px 10px; display: inline-block;
+    text-transform: uppercase;
+  }
+  .sev-row { display: flex; gap: 6px; align-items: center; margin-top: 14px; }
+  .sev { height: 6px; border-radius: 1px; }
+
+  .foot-note { font-family: var(--mono); font-size: 12px; color: var(--dim); letter-spacing: 0.06em; }
+  .kicker { font-family: var(--mono); font-size: clamp(20px,2.4vw,26px); color: var(--text); letter-spacing: 0.02em; }
+
+  a.cta {
+    font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: 13px; color: var(--cyan); text-decoration: none;
+    border: 1px solid var(--cyan); padding: 12px 20px; display: inline-flex; gap: 10px;
+    clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+    transition: background 0.15s, box-shadow 0.15s; width: fit-content;
+  }
+  a.cta:hover { background: var(--cyan-dim); box-shadow: 0 0 18px rgba(34,211,238,0.3); }
+  a.cta:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
+
+<header class="hud">
+  <div><span class="mark">◈</span><span class="brand">CrisisCommand</span></div>
+  <div>AI Situation Room</div>
+</header>
+<footer class="hud hud-bottom">
+  <div>Team Imitasi</div>
+  <div class="prog">AMD Developer Hackathon · Unicorn Track</div>
+</footer>
+
+<main>
+  <!-- 1 — HERO / THESIS -->
+  <section class="slide" style="align-content:center">
+    <div class="two-col">
+      <div style="display:grid; gap:24px">
+        <div class="eyebrow">Decision simulation for crisis leaders</div>
+        <h1>Dashboards show<br>the crisis.<br><span class="accent">We simulate<br>your decision.</span></h1>
+        <p class="lede">A holographic AI war room that ingests live disaster data, forecasts escalation on the GPU, and lays three grounded response options on a 3D Earth — with honest ranges, not false precision.</p>
+        <div class="chips">
+          <span class="chip">AMD Instinct MI300X</span>
+          <span class="chip">vLLM · ROCm</span>
+          <span class="chip">PyTorch Monte Carlo</span>
+        </div>
+      </div>
+      <div class="hero-globe"><canvas id="globe" width="920" height="920" aria-label="Rotating wireframe globe with crisis markers"></canvas></div>
+    </div>
+  </section>
+
+  <!-- 2 — THE GAP -->
+  <section class="slide">
+    <div class="eyebrow">The gap</div>
+    <h2>Everyone shows the crisis.<br>Nobody simulates the response.</h2>
+    <div class="grid2" style="margin-top:8px">
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">Today — situational awareness</div>
+        <h3 style="color:var(--dim)">What is happening</h3>
+        <p>Crisis24 and Dataminr, public dashboards like GDACS and ReliefWeb — they detect and display events in real time. The feed tells you a flood is rising.</p>
+      </div>
+      <div class="panel" style="border-color:var(--cyan)"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label" style="color:var(--cyan)">The missing layer</div>
+        <h3 class="accent">What happens next — under each choice</h3>
+        <p style="color:var(--text)">What is exposed in 6 / 24 / 72 hours if nothing is done? Evacuate now, pre-position, or monitor — at what cost, averting whom? <strong>No open-source tool answers this.</strong></p>
+      </div>
+    </div>
+    <p class="sub">The decision layer is the hard part — the part that needs simulation, grounding, and a GPU. That is exactly what CrisisCommand builds.</p>
+  </section>
+
+  <!-- 3 — HOW IT WORKS -->
+  <section class="slide">
+    <div class="eyebrow">The demo — 60 seconds</div>
+    <h2>One globe. Three modes. A decision.</h2>
+    <div class="two-col" style="margin-top:8px">
+      <div class="flow">
+        <div class="step"><span class="n">01</span><div class="t"><b>Live Earth.</b> <span>GDACS + USGS events pulse on a holographic globe, severity-colored, ingested minutes ago.</span></div></div>
+        <div class="step"><span class="n">02</span><div class="t"><b>Click a crisis.</b> <span>The camera flies in; an AI situation brief streams in word by word.</span></div></div>
+        <div class="step"><span class="n">03</span><div class="t"><b>Run simulation.</b> <span>10,000 Monte Carlo runs on the MI300X; the GPU readout spikes; the escalation curve draws itself.</span></div></div>
+        <div class="step"><span class="n">04</span><div class="t"><b>Three options.</b> <span>Evacuate / pre-position / monitor — each with exposed-population range, cost, response time, honest trade-offs.</span></div></div>
+        <div class="step"><span class="n">05</span><div class="t"><b>Choose.</b> <span>Selecting an option renders its evacuation zones and supply arcs on the Earth in 3D.</span></div></div>
+      </div>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">Escalation forecast · Jakarta flood · 24h</div>
+        <div class="stat" style="display:flex; align-items:baseline; gap:10px">
+          <span class="big">52K–335K</span><span class="unit">exposed · p10–p90</span>
+        </div>
+        <div class="sev-row">
+          <span class="sev" style="flex:2; background:var(--teal)"></span>
+          <span class="sev" style="flex:4; background:var(--amber)"></span>
+          <span class="sev" style="flex:3; background:var(--red)"></span>
+        </div>
+        <p style="margin-top:14px">Every figure is a band. The tensor engine quantifies; the model never emits a single hard number.</p>
+        <div style="margin-top:16px"><span class="sim-tag">Simulation — decision support only</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — THE AMD STORY -->
+  <section class="slide">
+    <div class="eyebrow">Why it needs the GPU — engineered in, not bolted on</div>
+    <h2>Three compute paths on one MI300X.</h2>
+    <div class="grid3" style="margin-top:8px">
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">01 · Self-hosted LLM</div>
+        <h3>vLLM scenario agent</h3>
+        <p>The three policy branches are one batched request to an open model served on the GPU. 192 GB HBM3 holds a large model at long context — cost-free after the droplet.</p>
+      </div>
+      <div class="panel" style="border-color:var(--cyan)"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label" style="color:var(--cyan)">02 · Monte Carlo engine</div>
+        <h3 class="accent">PyTorch / ROCm</h3>
+        <p>10,000 stochastic hazard-exposure runs as <strong>one tensor batch</strong>, no Python loops. Device-agnostic — the same code runs on the MI300X and on a laptop.</p>
+      </div>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">03 · Embedding dedup</div>
+        <h3>On-GPU clustering</h3>
+        <p>Incoming reports are embedded and cosine-matched on the GPU to merge duplicate events across feeds before they hit the globe.</p>
+      </div>
+    </div>
+    <div class="grid4" style="margin-top:4px">
+      <div class="panel" style="padding:18px"><div class="label">Monte Carlo · CPU baseline</div><div class="stat"><span class="big">519</span> <span class="unit">ms · 100k runs</span></div></div>
+      <div class="panel" style="padding:18px"><div class="label">MI300X speedup</div><div class="stat"><span class="big">measured</span><div class="unit">captured live in demo</div></div></div>
+      <div class="panel" style="padding:18px"><div class="label">HBM3, all resident</div><div class="stat"><span class="big">192</span> <span class="unit">GB</span></div></div>
+      <div class="panel" style="padding:18px"><div class="label">GPU readout</div><div class="stat"><span class="big">live</span><div class="unit">visible during sim</div></div></div>
+    </div>
+    <p class="foot-note">Visible AMD usage is judged AMD usage — the utilization bar sits in the interface and spikes on every run. The speedup is measured on the droplet, never estimated.</p>
+  </section>
+
+  <!-- 5 — HONEST BY DESIGN -->
+  <section class="slide">
+    <div class="eyebrow">The ethical core — this is a decision-support tool</div>
+    <h2>Honest by design.<br>Fake precision is disqualifying.</h2>
+    <div class="grid2" style="margin-top:8px">
+      <ul class="clean">
+        <li><b>Every figure is a range.</b>&nbsp;<span>p10–p90 bands, never a point estimate that pretends to certainty.</span></li>
+        <li><b>The LLM never invents numbers.</b>&nbsp;<span>The tensor engine quantifies; the model only narrates and applies vetted mitigation factors to the ranges it is handed.</span></li>
+        <li><b>Everything is labeled.</b>&nbsp;<span>All simulated data carries “SIMULATION — DECISION SUPPORT ONLY.”</span></li>
+        <li><b>A human decides.</b>&nbsp;<span>Options with explicit trade-offs — never “the AI decided.” Scope is disaster response, never offensive action.</span></li>
+      </ul>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">Resilience — rehearsed, not theoretical</div>
+        <ul class="clean" style="gap:10px; font-size:14px">
+          <li>Dead conference Wi-Fi&nbsp;<span>→ full offline demo on curated historical events</span></li>
+          <li>vLLM droplet down&nbsp;<span>→ auto-fallback, honest banner in the HUD</span></li>
+          <li>Invalid model output&nbsp;<span>→ repair retry, then grounded template option</span></li>
+          <li>Feed rate-limited&nbsp;<span>→ per-source freshness dot, other feeds unaffected</span></li>
+        </ul>
+        <p style="margin-top:14px; font-size:13px">Five induced-failure drills pass in CI.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — MARKET -->
+  <section class="slide">
+    <div class="eyebrow">Who pays for the decision layer</div>
+    <h2>The buyers already own the dashboards.</h2>
+    <div class="grid4" style="margin-top:8px">
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>Governments</h3><p>National disaster agencies and emergency managers pre-positioning against a forecast, not a headline.</p></div>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>NGOs</h3><p>Humanitarian logistics teams choosing where to stage supplies under uncertainty.</p></div>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>Insurers</h3><p>Cat-risk desks pricing exposure and modeling loss under intervention scenarios.</p></div>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>Logistics</h3><p>Supply chains re-routing around unfolding hazards with quantified lead time.</p></div>
+    </div>
+    <p class="sub">Situational-awareness spend is established and growing. CrisisCommand sells the layer above it — the simulation that turns awareness into a defensible decision.</p>
+  </section>
+
+  <!-- 7 — ROADMAP / STATUS -->
+  <section class="slide">
+    <div class="eyebrow">Build status</div>
+    <h2>Shipped, end to end.</h2>
+    <div class="two-col" style="margin-top:8px; align-items:start">
+      <ul class="clean">
+        <li><b>Monte Carlo engine</b>&nbsp;<span>flood + earthquake kernels, batched tensors, p10–p90</span></li>
+        <li><b>Grounded LLM layer</b>&nbsp;<span>3-option generation, briefings, template fallback</span></li>
+        <li><b>Holographic globe UI</b>&nbsp;<span>Modes A→B→C, escalation chart, zones on Earth</span></li>
+        <li><b>Live ingestion</b>&nbsp;<span>real GDACS/USGS, on-GPU dedup, freshness</span></li>
+        <li><b>Hardening</b>&nbsp;<span>quality ladder, 5 failure drills, honest fallbacks</span></li>
+      </ul>
+      <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
+        <div class="label">Next</div>
+        <ul class="clean" style="gap:10px">
+          <li><b>MI300X deployment</b>&nbsp;<span>vLLM serving + evidence capture (runbook ready)</span></li>
+          <li><b>Full hazard ensemble</b>&nbsp;<span>cyclone + wildfire kernels, dynamic weighting</span></li>
+          <li><b>ReliefWeb + tension feeds</b>&nbsp;<span>richer signal beyond the two solid sources</span></li>
+        </ul>
+        <p style="margin-top:16px; font-size:13px">111 backend tests · smoke test · failure drills — all green.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 — CLOSE -->
+  <section class="slide" style="align-content:center; text-align:left">
+    <div class="eyebrow">Team Imitasi</div>
+    <h1>Commercial tools<br>show you the crisis.<br><span class="accent">This simulates<br>your decision.</span></h1>
+    <p class="kicker">CrisisCommand — an AI war room, powered by AMD Instinct MI300X.</p>
+    <div class="chips" style="margin-top:8px">
+      <span class="chip">MI300X</span><span class="chip">ROCm</span><span class="chip">vLLM</span>
+      <span class="chip">Fireworks AI</span><span class="chip">PyTorch</span><span class="chip">FastAPI</span>
+      <span class="chip">React · Three.js</span>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Hero wireframe globe — ties the deck to the product's centerpiece.
+  (function () {
+    const c = document.getElementById('globe');
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const W = c.width, H = c.height, R = W * 0.38, cx = W / 2, cy = H / 2;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // crisis markers at fixed lat/lon (deg)
+    const markers = [
+      [-6.2, 106.8, '#f43f5e'], [37.2, 37.0, '#fbbf24'], [28.2, 84.7, '#f43f5e'],
+      [-19.8, 34.8, '#fbbf24'], [11.2, 125.0, '#f43f5e'], [-35.7, 150.2, '#2dd4bf'],
+      [50.4, 30.5, '#a78bfa'],
+    ];
+    const rad = (d) => d * Math.PI / 180;
+    function project(lat, lon, rot) {
+      const la = rad(lat), lo = rad(lon) + rot;
+      const x = Math.cos(la) * Math.sin(lo);
+      const y = Math.sin(la);
+      const z = Math.cos(la) * Math.cos(lo);
+      return { x: cx + x * R, y: cy - y * R, z };
+    }
+    function frame(t) {
+      const rot = reduce ? 0.6 : t * 0.00016;
+      ctx.clearRect(0, 0, W, H);
+      // outer glow rim
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(34,211,238,0.5)'; ctx.lineWidth = 2; ctx.stroke();
+      const grad = ctx.createRadialGradient(cx, cy, R * 0.6, cx, cy, R * 1.15);
+      grad.addColorStop(0, 'rgba(34,211,238,0)'); grad.addColorStop(1, 'rgba(34,211,238,0.12)');
+      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx, cy, R * 1.15, 0, Math.PI * 2); ctx.fill();
+      // latitude lines
+      ctx.lineWidth = 1;
+      for (let lat = -60; lat <= 60; lat += 30) {
+        ctx.beginPath();
+        for (let lon = -180; lon <= 180; lon += 6) {
+          const p = project(lat, lon, rot);
+          const a = p.z > 0 ? 0.32 : 0.08;
+          ctx.strokeStyle = 'rgba(34,211,238,' + a + ')';
+          if (lon === -180) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+      }
+      // longitude lines
+      for (let lon = -180; lon < 180; lon += 30) {
+        ctx.beginPath();
+        for (let lat = -90; lat <= 90; lat += 6) {
+          const p = project(lat, lon, rot);
+          if (lat === -90) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+        }
+        ctx.strokeStyle = 'rgba(34,211,238,0.14)'; ctx.stroke();
+      }
+      // markers (front hemisphere only), with pulse
+      const pulse = reduce ? 0.6 : (Math.sin(t * 0.004) + 1) / 2;
+      for (const [la, lo, col] of markers) {
+        const p = project(la, lo, rot);
+        if (p.z <= 0) continue;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 4 + p.z * 2, 0, Math.PI * 2);
+        ctx.fillStyle = col; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, (7 + pulse * 12) * p.z, 0, Math.PI * 2);
+        ctx.strokeStyle = col + '88'; ctx.lineWidth = 1.2; ctx.stroke();
+      }
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    if (reduce) frame(0); else requestAnimationFrame(frame);
+  })();
+
+  // HUD slide counter
+  (function () {
+    const prog = document.querySelector('.prog');
+    const slides = [...document.querySelectorAll('.slide')];
+    const total = String(slides.length).padStart(2, '0');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const i = String(slides.indexOf(e.target) + 1).padStart(2, '0');
+          prog.innerHTML = '<b>' + i + '</b> / ' + total + ' &nbsp;·&nbsp; AMD Developer Hackathon';
+        }
+      });
+    }, { threshold: 0.5 });
+    slides.forEach((s) => io.observe(s));
+  })();
+</script>
+
+</body>
+</html>

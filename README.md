@@ -35,16 +35,44 @@ One persistent 3D Earth in dark space — cyan atmosphere, pulsing severity ring
 | [UI_DESIGN.md](UI_DESIGN.md) | Complete holographic globe interface spec (closed spec) | Any frontend work |
 | [PROMPTS.md](PROMPTS.md) | All LLM prompts + grounding rules | Touching LLM behavior |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Day 0–7 schedule, risks, labor split | Daily planning |
+| [DEPLOY.md](DEPLOY.md) | MI300X droplet runbook + evidence capture | Deploying / capturing pitch metrics |
 
-## Quick Start (once built)
+## Quick Start
+
+### Docker (one command, works offline)
 
 ```bash
-cp .env.example .env               # FIREWORKS_API_KEY, SIM_BACKEND, SEED_MODE
-docker compose up --build          # backend :8000, frontend :3000
-# SEED_MODE=true → full offline demo with curated real historical events
-# On the MI300X droplet: vllm serve <model> --port 8001 first
-python scripts/smoke_test.py
+cp .env.example .env               # SEED_MODE=true by default — no keys needed
+docker compose up --build          # frontend → http://localhost:3000
 ```
+
+The full demo runs offline against 15 curated historical events. nginx proxies
+`/api` and `/ws` to the backend, so the browser uses a single origin.
+
+### Local dev (no Docker)
+
+```bash
+python -m venv .venv && .venv/bin/pip install torch fastapi "uvicorn[standard]" pydantic httpx pytest
+.venv/bin/uvicorn backend.main:app --port 8000            # backend
+cd frontend && npm install && npm run dev                 # frontend → :3000
+```
+
+Ports 8000/3000 taken? Override: `uvicorn … --port 8055` and
+`PORT=5173 BACKEND_URL=http://localhost:8055 npm run dev`.
+
+### Verify
+
+```bash
+python -m pytest                   # 111 tests
+python scripts/smoke_test.py       # end-to-end: seed → Monte Carlo → 3 options
+python scripts/failure_drills.py   # 5 induced-failure drills
+```
+
+### MI300X droplet + live mode
+
+Real GDACS/USGS ingestion and self-hosted vLLM: see **[DEPLOY.md](DEPLOY.md)**.
+Short version — `SEED_MODE=false` for live feeds, `SIM_BACKEND=vllm` with
+`vllm serve <model> --port 8001` for the on-GPU scenario agent.
 
 ## Demo Flow (60 seconds of judge attention)
 
@@ -53,6 +81,24 @@ python scripts/smoke_test.py
 3. RUN SIMULATION → MI300X readout spikes, 10,000 Monte Carlo runs, escalation curve draws
 4. Three response options appear with population-exposure ranges before → after
 5. Select one → evacuation zones and supply arcs render on the Earth in 3D
+
+## Pitch
+
+Self-contained 8-slide deck: open [pitch/index.html](pitch/index.html) in any
+browser (offline, no build). The gap → live demo → the AMD story → honest-by-design
+→ market → roadmap.
+
+## Build Status
+
+| Layer | State |
+|---|---|
+| Schemas, seed dataset, Monte Carlo engine (flood + quake kernels) | ✅ |
+| LLM layer: grounded 3-option generation, briefings, template fallback | ✅ |
+| Holographic globe UI: Modes A→B→C, escalation chart, option zones | ✅ |
+| WebSocket sim progress + live MI300X GPU readout | ✅ |
+| Live GDACS/USGS ingestion + on-GPU embedding dedup + freshness | ✅ |
+| Hardening: quality ladder, 5 failure drills, honest fallback banner | ✅ |
+| MI300X droplet deploy + evidence capture | ▶ [DEPLOY.md](DEPLOY.md) |
 
 ## Team
 

@@ -1,7 +1,6 @@
-# Backend runtime. torch is installed separately:
-#   local dev (CPU/NVIDIA):  pip install torch
-#   MI300X droplet:          ROCm build ships with the vLLM Quick Start image
-torch>=2.9
+# Backend runtime. torch is installed separately (it is large and platform-
+# specific): the Docker image installs the CPU wheel; the MI300X droplet uses
+# the ROCm build from the vLLM Quick Start image. Local dev: pip install torch
 fastapi>=0.115
 uvicorn[standard]>=0.30
 pydantic>=2.7

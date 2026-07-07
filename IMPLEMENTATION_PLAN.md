@@ -70,21 +70,23 @@ Identical checklist to SETUP.md: Fireworks account + $6 starter, hackathon $50 c
 
 ## Day 6 — MI300X Full Deployment + Evidence Capture
 
-- [ ] Droplet up: vLLM serving + backend + frontend via docker compose per ARCHITECTURE.md §7
-- [ ] Full demo flow ×3 consecutive runs on the droplet without intervention
-- [ ] Capture pitch evidence: Monte Carlo GPU-vs-CPU numbers, vLLM tokens/sec on batched branches, peak VRAM with everything resident, screen recordings of the GPU readout spiking
-- [ ] Record the backup demo video (non-negotiable)
-- [ ] **Droplet OFF at end of day**
+**BLOCKED on physical droplet access — all tooling prepared and turnkey (2026-07-07).**
+
+- [~] Droplet up: vLLM serving + backend + frontend — runbook ready in [DEPLOY.md](DEPLOY.md); docker compose verified from clean build locally (backend + nginx frontend both run)
+- [ ] Full demo flow ×3 consecutive runs on the droplet without intervention *(needs droplet)*
+- [~] Capture pitch evidence: `scripts/benchmark.py` writes the Monte Carlo GPU-vs-CPU table (CPU baseline captured: 100k runs / 519ms); vLLM tokens/sec + peak VRAM steps documented in DEPLOY.md §3 *(GPU numbers need droplet)*
+- [ ] Record the backup demo video (non-negotiable) *(needs droplet)*
+- [ ] **Droplet OFF at end of day** *(needs droplet)*
 - [ ] No new features today
 
-**Exit:** three clean runs recorded; metrics table filled; backup video exists.
+**Exit:** three clean runs recorded; metrics table filled; backup video exists. *(Gated on droplet; everything runnable-without-hardware is done.)*
 
 ## Day 7 — Pitch + Submission
 
-- [ ] Deck (≤8 slides): the gap (dashboards show, nobody simulates) → live demo → the AMD story (vLLM + Monte Carlo numbers, 192GB all-resident) → ethics slide (ranges, human-in-the-loop, no invented numbers) → market (governments, NGOs, insurers, logistics) → roadmap
-- [ ] README any judge can follow; docker compose verified from clean clone
-- [ ] Dry-run the live demo twice; seed mode as stage default, live mode as flourish if Wi-Fi cooperates
-- [ ] Submit early
+- [x] Deck (8 slides): gap → demo → AMD story (3 compute paths, 192GB) → ethics → market → roadmap — self-contained holographic HTML artifact (2026-07-07)
+- [x] README any judge can follow; docker compose **verified from clean build** (CPU-torch image, nginx same-origin proxy, headless end-to-end pass) (2026-07-07)
+- [ ] Dry-run the live demo twice; seed mode as stage default, live mode as flourish if Wi-Fi cooperates *(rehearsal — for the team)*
+- [ ] Submit early *(final human step)*
 
 ---
 
