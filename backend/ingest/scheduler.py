@@ -14,7 +14,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from backend.ingest import bmkg, gdacs, usgs
+from backend.ingest import bmkg, flood_risk, gdacs, usgs
 from backend.ingest.store import EventStore
 
 logger = logging.getLogger(__name__)
@@ -29,6 +29,8 @@ INGESTORS = [
     ("USGS", usgs.fetch),
     ("GDACS", gdacs.fetch),
     ("BMKG", bmkg.fetch),
+    # rain-forecast × flood-history signals (official BMKG weather API)
+    ("BMKG-RAIN", flood_risk.fetch),
 ]
 
 

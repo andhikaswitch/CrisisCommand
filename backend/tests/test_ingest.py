@@ -154,6 +154,60 @@ class TestBmkgParse:
         assert bmkg.parse_feed({}) == []
 
 
+class TestFloodRisk:
+    def _payload(self, tps, start_hours=1):
+        """Forecast payload with 3h-spaced entries carrying the given tp values."""
+        from datetime import datetime, timedelta, timezone
+
+        now = datetime.now(timezone.utc)
+        entries = [
+            {
+                "datetime": (now + timedelta(hours=start_hours + 3 * i))
+                .strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "tp": tp,
+            }
+            for i, tp in enumerate(tps)
+        ]
+        return {"data": [{"cuaca": [entries]}]}
+
+    def test_heavy_rain_over_prone_region_emits_signal(self):
+        from backend.ingest import flood_risk
+
+        payload = self._payload([25, 30, 28, 20])  # 103mm in 24h
+        total, peak = flood_risk.rain_totals(payload)
+        assert total > 100 and peak == 30
+        region = flood_risk.FLOOD_PRONE_REGIONS[0]  # Bogor, propensity 0.85
+        risk = flood_risk.risk_score(total, peak, region.propensity)
+        assert risk >= flood_risk.RISK_THRESHOLD
+        e = flood_risk.build_event(region, total, peak, risk)
+        assert e.kind == "flood"
+        assert e.source == "BMKG-RAIN"
+        assert "forecast" in e.title.lower()
+        assert e.severity <= flood_risk.SEVERITY_CAP  # signal, never red event
+        assert e.raw["signal"] == "forecast"
+
+    def test_dry_forecast_emits_nothing(self):
+        from backend.ingest import flood_risk
+
+        total, peak = flood_risk.rain_totals(self._payload([0, 0, 1, 0]))
+        risk = flood_risk.risk_score(total, peak, 0.9)
+        assert risk < flood_risk.RISK_THRESHOLD
+
+    def test_rain_outside_24h_window_ignored(self):
+        from backend.ingest import flood_risk
+
+        payload = self._payload([50, 50], start_hours=30)  # beyond horizon
+        total, peak = flood_risk.rain_totals(payload)
+        assert total == 0 and peak == 0
+
+    def test_risk_scales_with_propensity(self):
+        from backend.ingest import flood_risk
+
+        low = flood_risk.risk_score(60, 20, 0.3)
+        high = flood_risk.risk_score(60, 20, 0.9)
+        assert high > low
+
+
 class TestEmbeddings:
     def test_hash_deterministic(self):
         assert embeddings.hash_trigram("abc") == embeddings.hash_trigram("abc")
