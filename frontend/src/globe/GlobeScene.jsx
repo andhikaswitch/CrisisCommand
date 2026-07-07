@@ -91,10 +91,17 @@ export default function GlobeScene({ events, selected, onSelect, activeOption, q
   }, []);
 
   useEffect(() => {
-    fetch('/data/countries-110m.geojson')
+    // 1:50M dataset: small islands (Guam, Marianas, Maldives...) actually
+    // exist, so ocean events near them stop looking like open water.
+    fetch('/data/countries-50m.geojson')
       .then((r) => r.json())
       .then((geo) => setCountries(geo.features))
-      .catch(() => setCountries([])); // globe still renders as dark sphere
+      .catch(() =>
+        fetch('/data/countries-110m.geojson') // coarse fallback
+          .then((r) => r.json())
+          .then((geo) => setCountries(geo.features))
+          .catch(() => setCountries([]))
+      );
   }, []);
 
   useEffect(() => {
@@ -181,13 +188,14 @@ export default function GlobeScene({ events, selected, onSelect, activeOption, q
         showGlobe
         globeMaterial={OCEAN_MATERIAL}
         // ocean sphere + hex-polygon landmass (vector holographic look).
-        // Light translucent blue so continents read clearly against the
-        // dark ocean (user request — brighter than the original spec value).
+        // Bright light-blue continents on dark ocean (wireframe-hologram
+        // reference look); res 4 keeps archipelagos and small islands
+        // legible, dropping to res 3 under the quality ladder.
         hexPolygonsData={hexData}
-        hexPolygonResolution={3}
-        hexPolygonMargin={0.62}
+        hexPolygonResolution={qualityTier >= 2 ? 3 : 4}
+        hexPolygonMargin={0.55}
         hexPolygonAltitude={0.006}
-        hexPolygonColor={() => 'rgba(125, 211, 252, 0.55)'}
+        hexPolygonColor={() => 'rgba(160, 210, 255, 0.85)'}
         onHexPolygonHover={(poly) =>
           setHoverCountry(poly?.properties?.NAME ?? null)}
         showAtmosphere={showAtmosphere}
