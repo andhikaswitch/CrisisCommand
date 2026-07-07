@@ -29,8 +29,10 @@ INGESTORS = [
     ("USGS", usgs.fetch),
     ("GDACS", gdacs.fetch),
     ("BMKG", bmkg.fetch),
-    # rain-forecast × flood-history signals (official BMKG weather API)
-    ("BMKG-RAIN", flood_risk.fetch),
+    # rain-forecast × flood-history signals: national feed for Indonesia,
+    # Open-Meteo for the global flood-prone watchlist
+    ("BMKG-RAIN", flood_risk.fetch_indonesia),
+    ("OPEN-METEO", flood_risk.fetch_global),
 ]
 
 

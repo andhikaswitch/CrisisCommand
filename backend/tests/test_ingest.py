@@ -207,6 +207,30 @@ class TestFloodRisk:
         high = flood_risk.risk_score(60, 20, 0.9)
         assert high > low
 
+    def test_openmeteo_parsing_and_global_event(self):
+        from datetime import datetime, timedelta, timezone
+
+        from backend.ingest import flood_risk
+
+        now = datetime.now(timezone.utc)
+        times = [(now + timedelta(hours=h)).strftime("%Y-%m-%dT%H:%M")
+                 for h in range(30)]
+        precip = [8.0] * 12 + [0.0] * 18  # 96mm in the first 12h
+        result = {"hourly": {"time": times, "precipitation": precip}}
+        total, peak = flood_risk.rain_totals_openmeteo(result)
+        # first hourly entry may fall a few seconds before "now" (strftime
+        # drops seconds) and be excluded — 11 or 12 of the 8mm hours count
+        assert 85 <= total <= 100
+        assert peak == 24.0  # 3h rolling burst
+        dhaka = flood_risk.GLOBAL_FLOOD_PRONE[0]
+        risk = flood_risk.risk_score(total, peak, dhaka.propensity)
+        assert risk >= flood_risk.RISK_THRESHOLD
+        e = flood_risk.build_event(dhaka, total, peak, risk,
+                                   source=flood_risk.SOURCE_GLOBAL,
+                                   source_url="https://open-meteo.com/")
+        assert e.source == "OPEN-METEO"
+        assert e.country == "Bangladesh"
+
 
 class TestEmbeddings:
     def test_hash_deterministic(self):
