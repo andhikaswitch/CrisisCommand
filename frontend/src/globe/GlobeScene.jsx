@@ -71,6 +71,24 @@ export default function GlobeScene({ events, selected, onSelect, activeOption, q
   const idleTimer = useRef(null);
   const [countries, setCountries] = useState([]);
   const [size, setSize] = useState({ w: window.innerWidth, h: window.innerHeight });
+  // Country under the cursor + cursor position (own tooltip — the globe.gl
+  // built-in label tooltip proved unreliable).
+  const [hoverCountry, setHoverCountry] = useState(null);
+  const cursor = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const track = (ev) => {
+      cursor.current = { x: ev.clientX, y: ev.clientY };
+      // keep the tooltip glued to the cursor without re-rendering React
+      const el = document.getElementById('country-tip');
+      if (el) {
+        el.style.left = `${ev.clientX + 14}px`;
+        el.style.top = `${ev.clientY + 12}px`;
+      }
+    };
+    window.addEventListener('mousemove', track);
+    return () => window.removeEventListener('mousemove', track);
+  }, []);
 
   useEffect(() => {
     fetch('/data/countries-110m.geojson')
@@ -162,12 +180,16 @@ export default function GlobeScene({ events, selected, onSelect, activeOption, q
         backgroundColor="rgba(0,0,0,0)"
         showGlobe
         globeMaterial={OCEAN_MATERIAL}
-        // ocean sphere + hex-polygon landmass (vector holographic look)
+        // ocean sphere + hex-polygon landmass (vector holographic look).
+        // Light translucent blue so continents read clearly against the
+        // dark ocean (user request — brighter than the original spec value).
         hexPolygonsData={hexData}
         hexPolygonResolution={3}
-        hexPolygonMargin={0.68}
+        hexPolygonMargin={0.62}
         hexPolygonAltitude={0.006}
-        hexPolygonColor={() => '#1b2f4a'}
+        hexPolygonColor={() => 'rgba(125, 211, 252, 0.55)'}
+        onHexPolygonHover={(poly) =>
+          setHoverCountry(poly?.properties?.NAME ?? null)}
         showAtmosphere={showAtmosphere}
         atmosphereColor="#22d3ee"
         atmosphereAltitude={0.18}
@@ -232,6 +254,21 @@ export default function GlobeScene({ events, selected, onSelect, activeOption, q
         arcDashAnimateTime={1400}
         rendererConfig={{ antialias: true, alpha: true }}
       />
+      {hoverCountry && (
+        <div
+          id="country-tip"
+          className="country-label"
+          style={{
+            position: 'fixed',
+            left: cursor.current.x + 14,
+            top: cursor.current.y + 12,
+            zIndex: 30,
+            pointerEvents: 'none',
+          }}
+        >
+          {hoverCountry}
+        </div>
+      )}
     </div>
   );
 }
