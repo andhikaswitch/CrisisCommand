@@ -22,8 +22,15 @@ function EmptyState() {
 function SituationSummary({ event }) {
   const sev = severityColor(event);
   const pop = event.population_context;
+  const isSeed = event.source === 'SEED';
   return (
     <HoloPanel title="Situation" icon="◈" key={event.id}>
+      {isSeed && (
+        <div className="hist-banner">
+          ◆ HISTORICAL DRILL — documented {new Date(event.started_at).getUTCFullYear()} event,
+          used for simulation rehearsal
+        </div>
+      )}
       <div className="feed-kind" style={{ '--sev-color': sev, marginBottom: 4 }}>
         {event.kind === 'tension' ? '◇ tension signal' : event.kind}
         {' · sev '}

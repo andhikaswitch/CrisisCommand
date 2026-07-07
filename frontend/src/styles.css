@@ -200,6 +200,52 @@ html, body, #root {
 /* quality ladder tier 1: drop scanline overlays (§7) */
 body.q-no-scanline .holo-panel::after { display: none; }
 
+/* feed filters + historical badges (live vs curated drill distinction) */
+.feed-filters { display: flex; gap: 5px; margin-bottom: 8px; }
+.feed-filter {
+  background: none;
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  color: var(--text-dim);
+  font-family: var(--font-hud);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  padding: 2px 9px;
+  cursor: pointer;
+}
+.feed-filter.active {
+  color: var(--holo-cyan);
+  border-color: var(--holo-cyan);
+  background: rgba(34, 211, 238, 0.1);
+}
+.hist-badge {
+  margin-left: 6px;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  border: 1px solid rgba(125, 153, 181, 0.4);
+  padding: 1px 5px;
+  vertical-align: 1px;
+}
+.hist-banner {
+  font-family: var(--font-hud);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid rgba(125, 153, 181, 0.35);
+  background: rgba(125, 153, 181, 0.08);
+  padding: 5px 8px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.feed-empty {
+  font-family: var(--font-hud);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 24px 0;
+}
+
 /* globe.gl cursor tooltip (country name on hover) */
 .scene-tooltip { pointer-events: none; }
 .country-label {
