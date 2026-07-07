@@ -3,7 +3,7 @@
 import torch
 from fastapi.testclient import TestClient
 
-from backend.ingest import embeddings, gdacs, normalizer, usgs
+from backend.ingest import bmkg, embeddings, gdacs, normalizer, usgs
 from backend.ingest.store import EventStore
 from backend.main import app
 
@@ -108,6 +108,50 @@ class TestGdacsParse:
              "geometry": {}},
         ]}
         assert gdacs.parse_feed(payload) == []
+
+
+BMKG_PAYLOAD = {
+    "Infogempa": {
+        "gempa": [
+            {
+                "DateTime": "2026-07-07T07:16:27+00:00",
+                "Coordinates": "3.14,127.44",
+                "Magnitude": "5.6",
+                "Kedalaman": "10 km",
+                "Wilayah": "101 km BaratLaut PULAUDOI-MALUT",
+                "Potensi": "Tidak berpotensi tsunami",
+            },
+            {  # tsunami-potential quake gets a severity floor
+                "DateTime": "2026-07-06T08:41:35+00:00",
+                "Coordinates": "-9.5,119.0",
+                "Magnitude": "7.1",
+                "Wilayah": "SUMBA",
+                "Potensi": "Berpotensi tsunami",
+            },
+            {"Coordinates": "broken", "Magnitude": "x"},  # malformed — skipped
+        ]
+    }
+}
+
+
+class TestBmkgParse:
+    def test_maps_and_skips_malformed(self):
+        events = bmkg.parse_feed(BMKG_PAYLOAD)
+        assert len(events) == 2
+        e = events[0]
+        assert e.kind == "earthquake"
+        assert e.source == "BMKG"
+        assert e.country == "Indonesia"
+        assert (e.lat, e.lon) == (3.14, 127.44)
+        assert e.started_at.utcoffset().total_seconds() == 0
+        assert e.population_context is None
+
+    def test_tsunami_potential_floors_severity(self):
+        events = bmkg.parse_feed(BMKG_PAYLOAD)
+        assert events[1].severity >= 0.75
+
+    def test_empty_payload(self):
+        assert bmkg.parse_feed({}) == []
 
 
 class TestEmbeddings:

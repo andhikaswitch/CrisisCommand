@@ -14,7 +14,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from backend.ingest import gdacs, usgs
+from backend.ingest import bmkg, gdacs, usgs
 from backend.ingest.store import EventStore
 
 logger = logging.getLogger(__name__)
@@ -22,10 +22,13 @@ logger = logging.getLogger(__name__)
 POLL_SECONDS = 300  # 5 min (ARCHITECTURE.md §3)
 
 # (source label, async fetch fn). ReliefWeb/news are Day-5 stretch — cut by
-# default; seed tension events already cover the tension class.
+# default; seed tension events already cover the tension class. BMKG gives
+# official realtime coverage for Indonesia (and exercises cross-feed dedup
+# against USGS for the same quakes).
 INGESTORS = [
     ("USGS", usgs.fetch),
     ("GDACS", gdacs.fetch),
+    ("BMKG", bmkg.fetch),
 ]
 
 
