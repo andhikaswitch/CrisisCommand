@@ -62,13 +62,17 @@ export default function ContextPanel({
 }) {
   if (!event) return <EmptyState />;
 
-  const simulable = ['flood', 'earthquake'].includes(event.kind);
+  // Simulable = supported hazard kernel AND vetted population context.
+  // Live-feed events carry no exposure base (we never invent one — honesty
+  // rule), so they get an explanation instead of a button that would 422.
+  const kindSupported = ['flood', 'earthquake'].includes(event.kind);
+  const hasExposure = event.population_context != null;
 
   return (
     <div className="context-stack">
       <SituationSummary event={event} />
       <BriefingPanel event={event} />
-      {simulable ? (
+      {kindSupported && hasExposure ? (
         <SimulationPanel
           event={event}
           result={simResult}
@@ -79,7 +83,10 @@ export default function ContextPanel({
         />
       ) : (
         <div className="sim-note" style={{ marginTop: 4 }}>
-          Simulation kernels for this hazard class arrive with the full ensemble
+          {!kindSupported
+            ? 'Simulation kernels for this hazard class arrive with the full ensemble'
+            : 'Live event — no vetted population data yet, so no simulation. ' +
+              'Impact simulation runs on curated drill events (feed filter: DRILLS).'}
         </div>
       )}
     </div>

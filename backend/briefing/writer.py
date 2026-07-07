@@ -51,7 +51,8 @@ def _fallback_brief(event: CrisisEvent) -> Briefing:
         headline=f"{event.kind.title()} reported in {event.country}",
         summary=(
             f"A {event.kind} event ({event.title}) is reported {where}, "
-            f"beginning {event.started_at.isoformat()}. Normalized severity is "
+            f"beginning {event.started_at.strftime('%d %b %Y %H:%M UTC')}. "
+            f"Normalized severity is "
             f"{event.severity:.2f} on a 0-1 scale from source {event.source}. "
             f"Population context: {exposed}. This is an automated fallback brief "
             "generated from feed data only because the briefing model was "
