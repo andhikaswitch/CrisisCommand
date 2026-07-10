@@ -69,16 +69,92 @@ Ports 8000/3000 taken? Override: `uvicorn … --port 8055` and
 ### Verify
 
 ```bash
-python -m pytest                   # 111 tests
+python -m pytest                   # 153 tests
 python scripts/smoke_test.py       # end-to-end: seed → Monte Carlo → 3 options
 python scripts/failure_drills.py   # 5 induced-failure drills
 ```
 
-### AMD GPU (droplet or ROCm notebook) + live mode
+### AMD ROCm notebook — the GPU demo, end to end
 
-Real GDACS/USGS ingestion and self-hosted vLLM: see **[DEPLOY.md](DEPLOY.md)**.
-Short version — `SEED_MODE=false` for live feeds, `SIM_BACKEND=vllm` with
-`vllm serve <model> --port 8001` for the on-GPU scenario agent.
+Tested on the AMD Radeon developer notebook portal
+(`radeon-global.anruicloud.com`, ROCm 7.2 + vLLM + PyTorch 2.9 image). Request a
+notebook, open a **Terminal**, then run the four blocks below. Each one fixes a
+real trap that will otherwise cost you an hour.
+
+**1. Trust the AMD TLS proxy.** The environment MITMs GitHub/Docker/HuggingFace
+with a self-signed cert (`AMD_ONECLICK_OPENCODE_TLS_PROXY`), so `git clone`
+fails with `server certificate verification failed` and even `certifi` is
+rejected. Import the proxy's certificate:
+
+```bash
+openssl s_client -connect github.com:443 -servername github.com -showcerts </dev/null 2>/dev/null \
+  | openssl x509 -outform PEM > /usr/local/share/ca-certificates/amd-proxy.crt
+update-ca-certificates
+git ls-remote https://github.com/andhikaswitch/CrisisCommand.git >/dev/null && echo "CA OK"
+```
+
+> Because the proxy can read this traffic, **never `git push` from the notebook** —
+> that would send your GitHub token through it. Copy `evidence/benchmark.json`
+> out and commit it from your own machine.
+
+**2. Use the preinstalled ROCm PyTorch.** It lives in `/opt/venv`, *not* in the
+system Python, so `import torch` fails until you activate it:
+
+```bash
+git clone https://github.com/andhikaswitch/CrisisCommand.git
+cd CrisisCommand
+source /opt/venv/bin/activate
+python -c "import torch; print(torch.version.hip, torch.cuda.is_available())"   # 7.2.x True
+```
+
+> **Never run `pip install torch` here.** PyPI would replace the ROCm build with
+> the CUDA wheel, and the app would silently fall back to CPU with no error.
+> `requirements.txt` deliberately excludes torch for this reason.
+
+**3. Configure and launch.** One command does deps → tests → benchmark → serve →
+public URL:
+
+```bash
+cat > .env <<'EOF'
+FIREWORKS_API_KEY=fw_your_key_here
+FIREWORKS_MODEL=accounts/fireworks/models/gpt-oss-120b
+SIM_BACKEND=fireworks
+SEED_MODE=false
+EOF
+
+bash scripts/notebook_bootstrap.sh --tunnel
+```
+
+It prints a `https://<random>.trycloudflare.com` URL. Open it from your laptop —
+the notebook only ever runs the server; the 3D globe renders in your browser,
+and the backend serves the UI, REST and WebSocket from one origin (no CORS, one
+tunnel). Leave that terminal running; `cloudflared` holds the tunnel open.
+
+**4. Read the footer.** It must name the card. On our allocation ROCm reported an
+*empty* device name (gfx1100 / libdrm), so `backend/device.py` falls back to the
+architecture and shows `AMD GPU (gfx1100) · 48 GB`. We never hardcode a GPU
+model — see [CLAUDE.md](CLAUDE.md).
+
+**Measured there** (`evidence/benchmark.json`, 48 GB gfx1100, ROCm 7.2):
+
+| Monte Carlo runs | CPU | AMD GPU | Speedup |
+|---|---|---|---|
+| 10,000 | 15.5 ms | 1.3 ms | 11.9× |
+| 50,000 | 73.3 ms | 1.9 ms | 39.5× |
+| 100,000 | 201.1 ms | 3.3 ms | **61.2×** (30.4M runs/sec) |
+
+The speedup *widening* with batch size is the point: it shows the kernel is
+genuinely one batched tensor op, not a disguised Python loop.
+
+**Stop the notebook when done** — the tunnel is unauthenticated and GPU time is
+capped. Full runbook, including the vLLM path and the three deployment
+topologies: **[DEPLOY.md](DEPLOY.md)**.
+
+### Other AMD GPU hosts + live mode
+
+`SEED_MODE=false` for live feeds; `SIM_BACKEND=vllm` with
+`vllm serve <model> --port 8001` for the on-GPU scenario agent. If vLLM is
+unreachable the app degrades to Fireworks and says so in the UI.
 
 ## Demo Flow (60 seconds of judge attention)
 
