@@ -61,7 +61,16 @@ if [ "$TUNNEL" -eq 1 ] && [ ! -x ./cloudflared ]; then
   chmod +x cloudflared
 fi
 
-echo "==> serving on :$PORT  (SEED_MODE=${SEED_MODE:-false})"
+# Warn loudly before serving: a missing .env silently yields SEED mode + template
+# briefings, which looks like a broken demo rather than a missing config file.
+if [ ! -f .env ]; then
+  echo "!!  no .env found -> SEED mode, template briefings (no live feeds, no AI)"
+  echo "    create one with FIREWORKS_API_KEY and SEED_MODE=false, then rerun."
+elif ! grep -q '^FIREWORKS_API_KEY=fw' .env 2>/dev/null; then
+  echo "!!  .env has no FIREWORKS_API_KEY -> briefings will use the raw-data template"
+fi
+# main.py defaults SEED_MODE to "true" when unset — do not imply otherwise here.
+echo "==> serving on :$PORT  (SEED_MODE=${SEED_MODE:-<unset -> true>})"
 uvicorn backend.main:app --host 0.0.0.0 --port "$PORT" &
 UVICORN_PID=$!
 trap 'kill $UVICORN_PID 2>/dev/null || true' EXIT
