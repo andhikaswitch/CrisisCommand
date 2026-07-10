@@ -1,22 +1,108 @@
-# DEPLOY.md — CrisisCommand on the AMD MI300X Droplet
+# DEPLOY.md — CrisisCommand on AMD GPUs
 
-Turnkey runbook for Day 6 (MI300X full deployment + evidence capture). Two
-tiers: the **default seed demo** runs anywhere with Docker; the **MI300X GPU
-path** adds the real vLLM + ROCm compute that is the AMD story.
+Turnkey runbook for full deployment + evidence capture. Three tiers: the
+**default seed demo** runs anywhere with Docker; the **Fireworks step** turns
+on real AI briefings in five minutes; the **AMD GPU path** adds the ROCm
+compute and vLLM serving that is the AMD story.
 
-Cost discipline (same as every AMD droplet): **stop the droplet when idle**,
-cache aggressively, the 30-day credit clock is real. Nothing below leaves a
-GPU running longer than the capture needs.
+No GPU model is assumed anywhere — MI300X, MI250, MI210 all work, and every
+readout names the card the code actually ran on (`torch.cuda.get_device_name`).
+
+Cost discipline: **stop the droplet / notebook when idle**, cache
+aggressively, the credit clock is real. Nothing below leaves a GPU running
+longer than the capture needs.
 
 ---
 
 ## 0. Prerequisites
 
-- AMD Developer Cloud MI300X droplet from the **vLLM Quick Start image**
-  (vLLM + ROCm PyTorch preinstalled — exactly what we need).
-- Repo cloned on the droplet; Docker + Docker Compose available.
-- Optional: `FIREWORKS_API_KEY` for the P1 briefings (falls back to a
-  raw-data brief without it — the demo still runs).
+- An AMD GPU environment — either the AMD Developer Cloud **GPU droplet**
+  (vLLM Quick Start image) or the **ROCm Jupyter notebook** (ROCm + vLLM +
+  PyTorch preinstalled). Both satisfy the Unicorn Track.
+- Repo cloned there; Docker + Docker Compose available (droplet only).
+- `FIREWORKS_API_KEY` for the P1 briefings — without it the app silently
+  falls back to a raw-data template brief that literally says so in the UI.
+
+---
+
+## 0.5 Fireworks key (5 minutes, no GPU needed — do this first)
+
+The single highest-value step: without it, every briefing in the demo reads
+*"automated fallback brief … the briefing model was unavailable"*.
+
+```bash
+cp .env.example .env                       # if you haven't already
+# edit .env:  FIREWORKS_API_KEY=fw_...     (from fireworks.ai → API Keys)
+
+python scripts/check_fireworks.py          # lists models your account can serve
+python scripts/check_fireworks.py --test   # live call: PASS means briefings are real
+```
+
+**Never guess a model ID** — Fireworks retires serverless models, so the
+`FIREWORKS_MODEL` shipped in `.env.example` may already be gone. `check_fireworks.py`
+asks the account and flags a mismatch. Copy an ID it prints into `.env`:
+
+```bash
+FIREWORKS_MODEL=accounts/fireworks/models/<id-from-the-list>
+```
+
+Choosing: briefings (P1) and policy options (P2) are low-volume and
+quality-critical, and must emit strict JSON that survives schema validation.
+Pick a large general instruct model over a code- or vision-specialised one.
+Cost is negligible at demo volume (a few hundred tokens per briefing), so
+optimise for instruction-following, not price. Restart the backend after
+editing `.env`, then confirm the fallback text is gone:
+
+```bash
+curl -s localhost:8000/api/status | grep briefing   # "fireworks", not "template"
+```
+
+---
+
+## 0.6 ROCm Jupyter notebook path (no droplet required)
+
+The notebook gives you a GPU shell — everything below runs in notebook cells
+(`!` prefix) or a terminal tab. Budget your session: the GPU time cap is real,
+and step 2 alone produces the pitch's headline number.
+
+```python
+# cell 1 — get the code and confirm which card you were allocated
+!git clone <your-repo-url> crisiscommand && cd crisiscommand
+!python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
+```
+
+That printed name is what the UI and the pitch will say. Do not override it.
+
+```python
+# cell 2 — deps. torch/vllm are PREINSTALLED: never pip install torch here,
+# it would drag in the CUDA build and break ROCm.
+!pip install fastapi "uvicorn[standard]" pydantic httpx pytest
+!python -m pytest -q                         # 140 tests, GPU ones now un-skip
+```
+
+```python
+# cell 3 — THE EVIDENCE. Writes evidence/benchmark.json (CPU vs GPU, measured).
+# This artifact outlives the session: capture it even if you do nothing else.
+!python scripts/benchmark.py --runs 10000 50000 100000
+```
+
+```python
+# cell 4 (optional, the deepest AMD story) — serve the scenario model on-GPU
+!nohup vllm serve <open-instruct-model> --port 8001 --max-model-len 8192 &
+# then run the backend against it:
+!SIM_BACKEND=vllm VLLM_ENDPOINT=http://localhost:8001/v1 \
+    uvicorn backend.main:app --host 0.0.0.0 --port 8000
+```
+
+`SIM_BACKEND=vllm` degrades honestly: if vLLM is not reachable the app routes
+scenario calls to Fireworks and the UI shows a `FIREWORKS (FALLBACK)` banner
+rather than pretending. Verify the GPU is really being used:
+
+```bash
+curl -s localhost:8000/api/health/gpu   # device = the card, not "cpu"
+```
+
+---
 
 ---
 
