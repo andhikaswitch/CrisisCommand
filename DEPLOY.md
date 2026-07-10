@@ -104,6 +104,61 @@ curl -s localhost:8000/api/health/gpu   # device = the card, not "cpu"
 
 ---
 
+## 0.7 Which "localhost"? — networking in a remote notebook
+
+The single confusing part of a cloud notebook: **`localhost` means the notebook
+machine, not your laptop.** Two very different needs follow.
+
+**Fireworks needs nothing.** It is an *outbound* HTTPS call authenticated by the
+key. Anywhere with internet — laptop, droplet, notebook — works identically.
+There is no port to open and no tunnel to build. Put `FIREWORKS_API_KEY` in a
+`.env` on whatever machine runs the backend (never commit it) and you are done.
+
+**vLLM and the web UI are the opposite: they need *inbound* reach.** `vllm serve`
+listens on the notebook's `localhost:8001`; your laptop browser cannot see it.
+Pick a topology:
+
+| | Where backend runs | Monte Carlo on | vLLM | What judges see |
+|---|---|---|---|---|
+| **A. All-on-GPU** | notebook | **AMD GPU** | local `localhost:8001` | full AMD story; needs a tunnel to view the UI |
+| **B. Split** | laptop | laptop CPU | notebook, via tunnel | GPU readout says CPU — weakens the story |
+| **C. Evidence-only** | laptop | laptop CPU | not served | fastest; AMD story rests on `benchmark.json` |
+
+**A is the one worth doing**, because the backend sits next to the GPU: the
+Monte Carlo readout names the real card, and `VLLM_ENDPOINT=http://localhost:8001/v1`
+resolves on that same machine — no tunnel needed *between* backend and vLLM.
+Only the browser needs a way in:
+
+```python
+# in the notebook, after backend is up on :8000
+!curl -sL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+!chmod +x cloudflared && ./cloudflared tunnel --url http://localhost:8000
+# prints https://<random>.trycloudflare.com  -> open it from your laptop
+```
+
+Serve the built frontend from that same origin (`npm run build`, then let the
+backend or any static server host `frontend/dist`) so `/api` and `/ws` stay
+same-origin and no CORS work is needed.
+
+**C is the safe fallback** and costs almost no GPU time: run `benchmark.py`,
+download `evidence/benchmark.json`, demo locally against Fireworks. The AMD
+claim is then a measured artifact rather than a live readout — honest, and it
+survives a dead conference Wi-Fi.
+
+In topology B, point the laptop backend at the tunnelled vLLM:
+
+```bash
+SIM_BACKEND=vllm VLLM_ENDPOINT=https://<random>.trycloudflare.com/v1 \
+  uvicorn backend.main:app --port 8000
+```
+
+`VLLM_ENDPOINT` is just a base URL — any scheme/host works, and `VLLM_API_KEY`
+is available if you put auth in front of the tunnel. **Never expose a tunnel to
+an unauthenticated vLLM for longer than the demo**: it is an open LLM endpoint
+on the public internet.
+
+---
+
 ---
 
 ## 1. Seed demo (works anywhere, no GPU)
