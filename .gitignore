@@ -5,8 +5,12 @@ __pycache__/
 .env
 node_modules/
 dist/
+# ...except the built SPA: the ROCm notebook has no Node toolchain, and the
+# backend serves this directory so a single tunnel exposes UI + API + WS.
+# Rebuild with `npm run build` before committing a release.
+!frontend/dist/
 .DS_Store
 .cache/
 
-# generated benchmark output (regenerated on the droplet)
+# generated benchmark output (regenerated on the GPU host)
 evidence/
