@@ -11,6 +11,9 @@ dist/
 !frontend/dist/
 .DS_Store
 .cache/
+.claude/
+.pytest_cache/
 
-# generated benchmark output (regenerated on the GPU host)
-evidence/
+# Benchmark output IS committed once captured on an AMD GPU: SUBMISSION.md
+# points judges at evidence/benchmark.json, so it must exist in a fresh clone.
+# The CPU-only file a dev laptop produces is noise — commit the GPU run.
