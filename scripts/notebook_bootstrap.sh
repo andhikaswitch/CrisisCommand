@@ -25,8 +25,9 @@ done
 echo "==> 1/5  Which GPU did we get?"
 python - <<'PY'
 import torch
+from backend.device import device_label
 if torch.cuda.is_available():
-    print(f"    device: {torch.cuda.get_device_name(0)}")
+    print(f"    device: {device_label(0)}")
     print(f"    torch : {torch.__version__}  hip={getattr(torch.version, 'hip', None)}")
 else:
     print("    WARNING: no GPU visible — the demo still runs, on CPU.")

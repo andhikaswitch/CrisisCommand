@@ -27,6 +27,7 @@ if str(_ROOT) not in sys.path:
 
 import torch  # noqa: E402
 
+from backend.device import device_label
 from backend.simulation.monte_carlo import run_simulation  # noqa: E402
 from scripts.seed_events import load_seed_events  # noqa: E402
 
@@ -50,7 +51,8 @@ def main() -> int:
 
     event = next(e for e in load_seed_events() if e.id == EVENT_ID)
     has_gpu = torch.cuda.is_available()
-    device_name = torch.cuda.get_device_name(0) if has_gpu else "no GPU"
+    # device_label(): ROCm returns an empty name on some cards (gfx1100).
+    device_name = device_label(0) if has_gpu else "no GPU"
     print(f"Monte Carlo benchmark — event={EVENT_ID}, GPU: {device_name}\n")
 
     # Warm up both paths (first call pays allocator/JIT costs).
