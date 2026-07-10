@@ -14,7 +14,7 @@ CrisisCommand
 Alternative if a longer title is preferred (49 chars):
 
 ```
-CrisisCommand — AI War Room for Crisis Decisions
+CrisisCommand: AI War Room for Crisis Decisions
 ```
 
 ---
