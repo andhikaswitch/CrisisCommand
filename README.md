@@ -81,21 +81,32 @@ Tested on the AMD Radeon developer notebook portal
 notebook, open a **Terminal**, then run the four blocks below. Each one fixes a
 real trap that will otherwise cost you an hour.
 
-**1. Trust the AMD TLS proxy.** The environment MITMs GitHub/Docker/HuggingFace
-with a self-signed cert (`AMD_ONECLICK_OPENCODE_TLS_PROXY`), so `git clone`
-fails with `server certificate verification failed` and even `certifi` is
-rejected. Import the proxy's certificate:
+**1. Trust the AMD TLS proxy — deliberately.** The environment intercepts TLS to
+GitHub/Docker/HuggingFace with a self-signed cert
+(`AMD_ONECLICK_OPENCODE_TLS_PROXY`), so `git clone` fails with
+`server certificate verification failed` and even `certifi` is rejected.
 
 ```bash
-openssl s_client -connect github.com:443 -servername github.com -showcerts </dev/null 2>/dev/null \
-  | openssl x509 -outform PEM > /usr/local/share/ca-certificates/amd-proxy.crt
-update-ca-certificates
-git ls-remote https://github.com/andhikaswitch/CrisisCommand.git >/dev/null && echo "CA OK"
+curl -sO https://raw.githubusercontent.com/andhikaswitch/CrisisCommand/main/scripts/trust_amd_proxy.sh
+bash trust_amd_proxy.sh          # inspect it first; it asks before trusting
 ```
 
-> Because the proxy can read this traffic, **never `git push` from the notebook** —
-> that would send your GitHub token through it. Copy `evidence/benchmark.json`
-> out and commit it from your own machine.
+The script prints the certificate's subject, issuer and SHA-256 fingerprint,
+then **refuses** unless it is genuinely the AMD proxy (self-signed *and* named
+`Proxy Certificate for GitHub/Docker/HuggingFace`), and scopes the trust to
+`https://github.com/` only. Pass `--system` if `pip`/`curl`/`apt` also need the
+proxy.
+
+> ⚠ **Run this only inside the AMD notebook, never on your laptop.** The
+> tempting one-liner — `openssl s_client … > /usr/local/share/ca-certificates/`
+> then `update-ca-certificates` — trusts *whatever* certificate is presented, as
+> a system-wide root CA. On a hostile network that hands an attacker the ability
+> to impersonate every site, permanently. The script exists to make that failure
+> mode impossible to hit by accident.
+>
+> Also: the proxy can read the traffic it terminates. **Never `git push` from the
+> notebook** — that sends your GitHub token through it. Copy
+> `evidence/benchmark.json` out and commit it from your own machine.
 
 **2. Use the preinstalled ROCm PyTorch.** It lives in `/opt/venv`, *not* in the
 system Python, so `import torch` fails until you activate it:
