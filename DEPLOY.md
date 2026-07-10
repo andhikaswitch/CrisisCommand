@@ -6,7 +6,8 @@ on real AI briefings in five minutes; the **AMD GPU path** adds the ROCm
 compute and vLLM serving that is the AMD story.
 
 No GPU model is assumed anywhere — MI300X, MI250, MI210 all work, and every
-readout names the card the code actually ran on (`torch.cuda.get_device_name`).
+readout names the card the code actually ran on (see backend/device.py — some
+ROCm cards report an empty name, so we fall back to the gfx architecture).
 
 Cost discipline: **stop the droplet / notebook when idle**, cache
 aggressively, the credit clock is real. Nothing below leaves a GPU running
@@ -68,7 +69,7 @@ and step 2 alone produces the pitch's headline number.
 ```python
 # cell 1 — get the code and confirm which card you were allocated
 !git clone <your-repo-url> crisiscommand && cd crisiscommand
-!python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))"
+!python -c "from backend.device import device_label; print(device_label())"
 ```
 
 That printed name is what the UI and the pitch will say. Do not override it.
@@ -176,7 +177,7 @@ Everything (globe, briefing, simulation, options) runs offline against the
 
 ---
 
-## 2. MI300X GPU path (the AMD showcase)
+## 2. AMD GPU path (the AMD showcase)
 
 On the droplet, run the LLM server and the Monte Carlo/embedding backend on
 the **host** (so they see the ROCm GPU directly), and the frontend in Docker.
@@ -207,7 +208,7 @@ uvicorn backend.main:app --host 0.0.0.0 --port 8000
 Confirm the GPU is seen and the fallback banner is OFF:
 
 ```bash
-curl -s localhost:8000/api/health/gpu   # device should be "AMD Instinct MI300X"
+curl -s localhost:8000/api/health/gpu   # device = the card, never "cpu"
 curl -s localhost:8000/api/status       # sim_backend_degraded: false
 ```
 

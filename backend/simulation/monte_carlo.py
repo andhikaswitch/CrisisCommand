@@ -27,6 +27,7 @@ from dataclasses import dataclass
 
 import torch
 
+from backend.device import device_label
 from backend.models import (
     HORIZON_HOURS,
     Confidence,
@@ -73,7 +74,7 @@ def get_device(force_cpu: bool = False) -> torch.device:
 
 def _device_name(device: torch.device) -> str:
     if device.type == "cuda":
-        return torch.cuda.get_device_name(device)
+        return device_label(device.index or 0)
     return "cpu"
 
 

@@ -16,6 +16,8 @@ import asyncio
 import logging
 
 import torch
+
+from backend.device import device_label
 from fastapi import WebSocket
 
 logger = logging.getLogger(__name__)
@@ -25,14 +27,14 @@ GPU_TICK_SECONDS = 2.0
 
 def gpu_snapshot() -> dict:
     """Current device stats for the HUD readout (also served over REST)."""
-    # ROCM: ROCm presents as cuda; on any AMD Instinct card (MI300X, MI250,
-    # MI210...) this self-reports the real device name and HBM numbers. Never
-    # hardcode a model — the UI shows whatever this returns.
+    # ROCM: ROCm presents as cuda. The device NAME is unreliable (empty on
+    # gfx1100), so device_label() falls back to gcnArchName. Never hardcode a
+    # model — the UI shows whatever this returns.
     if torch.cuda.is_available():
         idx = torch.cuda.current_device()
         props = torch.cuda.get_device_properties(idx)
         return {
-            "device": torch.cuda.get_device_name(idx),
+            "device": device_label(idx),
             "backend": "gpu",
             "vram_total_gb": round(props.total_memory / 2**30, 1),
             "vram_used_gb": round(torch.cuda.memory_allocated(idx) / 2**30, 2),

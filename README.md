@@ -10,15 +10,16 @@ Commercial situational-awareness tools (Crisis24, Dataminr) and public dashboard
 
 ## Why AMD (Engineered In, Not Bolted On)
 
-- **Self-hosted LLM on AMD Instinct via vLLM** — scenario-branch reasoning runs batched on the AMD GPU; large HBM keeps the LLM, Monte Carlo engine, and embedding pipeline resident simultaneously
+- **Self-hosted LLM on the AMD GPU via vLLM** — scenario-branch reasoning runs batched on the AMD GPU; large HBM keeps the LLM, Monte Carlo engine, and embedding pipeline resident simultaneously
 - **GPU Monte Carlo engine (PyTorch/ROCm)** — 10,000 stochastic hazard-exposure simulations as one tensor batch; measured CPU-vs-GPU speedup shown live in the UI
 - **Fireworks AI** (itself AMD-powered) handles quality-critical situation briefings
 - A live GPU utilization readout sits in the interface — AMD usage you can *see* during the demo
 
 Device-agnostic by construction: ROCm presents as `cuda`, and every readout
-names whatever card the backend self-reports (MI300X, MI250, MI210, …). No GPU
-model is hardcoded anywhere, so the demo always tells the truth about the
-hardware it actually ran on.
+names whatever card the backend self-reports — and when ROCm returns no
+marketing name (it does on some cards), we show the architecture instead, e.g.
+`AMD GPU (gfx1100)`. No GPU model is hardcoded anywhere, so the demo always
+tells the truth about the hardware it actually ran on.
 
 ## The Interface
 
@@ -107,4 +108,4 @@ browser (offline, no build). The gap → live demo → the AMD story → honest-
 
 ## Team
 
-**Imitasi** — Built with AMD Instinct GPUs · ROCm · vLLM · Fireworks AI · PyTorch · FastAPI · React · Three.js
+**Imitasi** — Built with AMD GPUs · ROCm · vLLM · Fireworks AI · PyTorch · FastAPI · React · Three.js
