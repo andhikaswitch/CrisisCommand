@@ -10,10 +10,15 @@ Commercial situational-awareness tools (Crisis24, Dataminr) and public dashboard
 
 ## Why AMD (Engineered In, Not Bolted On)
 
-- **Self-hosted LLM on MI300X via vLLM** — scenario-branch reasoning runs batched on the AMD GPU; 192GB HBM3 keeps the LLM, Monte Carlo engine, and embedding pipeline resident simultaneously
-- **GPU Monte Carlo engine (PyTorch/ROCm)** — 10,000 stochastic hazard-exposure simulations as one tensor batch; measured CPU-vs-MI300X speedup shown live in the UI
+- **Self-hosted LLM on AMD Instinct via vLLM** — scenario-branch reasoning runs batched on the AMD GPU; large HBM keeps the LLM, Monte Carlo engine, and embedding pipeline resident simultaneously
+- **GPU Monte Carlo engine (PyTorch/ROCm)** — 10,000 stochastic hazard-exposure simulations as one tensor batch; measured CPU-vs-GPU speedup shown live in the UI
 - **Fireworks AI** (itself AMD-powered) handles quality-critical situation briefings
-- A live MI300X utilization readout sits in the interface — AMD usage you can *see* during the demo
+- A live GPU utilization readout sits in the interface — AMD usage you can *see* during the demo
+
+Device-agnostic by construction: ROCm presents as `cuda`, and every readout
+names whatever card the backend self-reports (MI300X, MI250, MI210, …). No GPU
+model is hardcoded anywhere, so the demo always tells the truth about the
+hardware it actually ran on.
 
 ## The Interface
 
@@ -35,7 +40,7 @@ One persistent 3D Earth in dark space — cyan atmosphere, pulsing severity ring
 | [UI_DESIGN.md](UI_DESIGN.md) | Complete holographic globe interface spec (closed spec) | Any frontend work |
 | [PROMPTS.md](PROMPTS.md) | All LLM prompts + grounding rules | Touching LLM behavior |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Day 0–7 schedule, risks, labor split | Daily planning |
-| [DEPLOY.md](DEPLOY.md) | MI300X droplet runbook + evidence capture | Deploying / capturing pitch metrics |
+| [DEPLOY.md](DEPLOY.md) | AMD GPU runbook (droplet or ROCm notebook) + evidence capture | Deploying / capturing pitch metrics |
 
 ## Quick Start
 
@@ -68,7 +73,7 @@ python scripts/smoke_test.py       # end-to-end: seed → Monte Carlo → 3 opti
 python scripts/failure_drills.py   # 5 induced-failure drills
 ```
 
-### MI300X droplet + live mode
+### AMD GPU (droplet or ROCm notebook) + live mode
 
 Real GDACS/USGS ingestion and self-hosted vLLM: see **[DEPLOY.md](DEPLOY.md)**.
 Short version — `SEED_MODE=false` for live feeds, `SIM_BACKEND=vllm` with
@@ -78,7 +83,7 @@ Short version — `SEED_MODE=false` for live feeds, `SIM_BACKEND=vllm` with
 
 1. Globe spins into view, live GDACS/USGS events pulsing
 2. Click the Jakarta flood → camera flies, AI briefing streams in
-3. RUN SIMULATION → MI300X readout spikes, 10,000 Monte Carlo runs, escalation curve draws
+3. RUN SIMULATION → GPU readout spikes, 10,000 Monte Carlo runs, escalation curve draws
 4. Three response options appear with population-exposure ranges before → after
 5. Select one → evacuation zones and supply arcs render on the Earth in 3D
 
@@ -92,14 +97,14 @@ browser (offline, no build). The gap → live demo → the AMD story → honest-
 
 | Layer | State |
 |---|---|
-| Schemas, seed dataset, Monte Carlo engine (flood + quake kernels) | ✅ |
+| Schemas, seed dataset, Monte Carlo engine (flood, quake, cyclone, wildfire kernels) | ✅ |
 | LLM layer: grounded 3-option generation, briefings, template fallback | ✅ |
 | Holographic globe UI: Modes A→B→C, escalation chart, option zones | ✅ |
-| WebSocket sim progress + live MI300X GPU readout | ✅ |
-| Live GDACS/USGS ingestion + on-GPU embedding dedup + freshness | ✅ |
+| WebSocket sim progress + live GPU readout (self-reported device) | ✅ |
+| Live ingestion: USGS, GDACS, BMKG, rain-driven flood risk, GDELT tension | ✅ |
 | Hardening: quality ladder, 5 failure drills, honest fallback banner | ✅ |
-| MI300X droplet deploy + evidence capture | ▶ [DEPLOY.md](DEPLOY.md) |
+| AMD GPU deploy + evidence capture | ▶ [DEPLOY.md](DEPLOY.md) |
 
 ## Team
 
-**Imitasi** — Built with AMD Instinct MI300X · ROCm · vLLM · Fireworks AI · PyTorch · FastAPI · React · Three.js
+**Imitasi** — Built with AMD Instinct GPUs · ROCm · vLLM · Fireworks AI · PyTorch · FastAPI · React · Three.js

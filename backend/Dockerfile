@@ -4,7 +4,7 @@ FROM python:3.11-slim
 WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 # CPU-only torch keeps this image small (the default index pulls the large
-# CUDA build). The MI300X droplet ignores this image and uses the ROCm torch
+# CUDA build). The AMD GPU host ignores this image and uses the ROCm torch
 # from the vLLM base image with the backend on the host — see DEPLOY.md.
 RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
     && pip install --no-cache-dir -r requirements.txt

@@ -70,7 +70,7 @@ class CrisisEvent(BaseModel):
 class GpuMetrics(BaseModel):
     """Measured (never estimated) compute metrics for the HUD readout."""
 
-    device: str  # e.g. "AMD Instinct MI300X" or "cpu"
+    device: str  # self-reported, e.g. "AMD Instinct MI300X"/"MI250" or "cpu"
     n_runs: int = Field(gt=0)
     batch_size: int = Field(gt=0)
     wall_ms: float = Field(ge=0)

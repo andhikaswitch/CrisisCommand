@@ -4,7 +4,7 @@ New events are embedded and cosine-matched against active events; a match
 above the similarity threshold AND within a geographic radius is treated as
 the same event (feeds often report one disaster twice). The embedding and the
 all-pairs cosine are batched tensor ops on the torch device — genuinely
-GPU-accelerated on the MI300X via ROCm; identical code path on CPU for dev.
+GPU-accelerated on any AMD Instinct card via ROCm; identical code path on CPU for dev.
 
 The embedding itself is a deterministic character-trigram hashing vector
 (no model download, offline-safe). It is intentionally lightweight: dedup
@@ -13,7 +13,7 @@ semantic depth. Swappable for a transformer encoder later without touching
 callers.
 
 # ROCM: device is "cuda" (ROCm presents through the CUDA API). embed() and
-# cosine_matrix() run unchanged on MI300X; on-GPU dedup is one of the three
+# cosine_matrix() run unchanged on AMD GPUs; on-GPU dedup is one of the three
 # AMD compute paths the demo shows.
 """
 

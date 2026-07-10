@@ -12,7 +12,7 @@ confidence label, never point estimates. The LLM layer downstream may only
 do arithmetic on these numbers (PROMPTS.md rule).
 
 # ROCM: device string is "cuda" — ROCm presents through the CUDA API, so
-# this file stays device-agnostic and runs unchanged on MI300X or NVIDIA.
+# this file stays device-agnostic and runs unchanged on any Instinct card or NVIDIA.
 
 CLI (the Day 1 exit check):
     python -m backend.simulation.monte_carlo --runs 10000 [--cpu]
@@ -54,7 +54,7 @@ SUPPORTED_KINDS = ("flood", "earthquake", "cyclone", "wildfire")
 
 
 class UnsupportedHazardError(ValueError):
-    """Raised for kinds without a kernel yet (cyclone/wildfire land Day 2+)."""
+    """Raised for kinds without a kernel (volcano, drought, tension)."""
 
 
 @dataclass

@@ -25,8 +25,9 @@ GPU_TICK_SECONDS = 2.0
 
 def gpu_snapshot() -> dict:
     """Current device stats for the HUD readout (also served over REST)."""
-    # ROCM: ROCm presents as cuda; on the MI300X this reports the Instinct
-    # device name and real HBM numbers.
+    # ROCM: ROCm presents as cuda; on any AMD Instinct card (MI300X, MI250,
+    # MI210...) this self-reports the real device name and HBM numbers. Never
+    # hardcode a model — the UI shows whatever this returns.
     if torch.cuda.is_available():
         idx = torch.cuda.current_device()
         props = torch.cuda.get_device_properties(idx)

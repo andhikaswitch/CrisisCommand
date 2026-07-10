@@ -2,9 +2,11 @@
 
 Runs the same simulation on CPU and (if available) the GPU across a sweep of
 run counts, prints a table, and writes it to `evidence/benchmark.json`. On a
-dev laptop this produces the CPU baseline; on the MI300X droplet it produces
-the real "X s on CPU → Y s on MI300X" number (ARCHITECTURE.md §9, CLAUDE.md
-AMD story #2). Nothing here is estimated — every number is measured.
+dev laptop this produces the CPU baseline; on any AMD Instinct GPU under ROCm
+it produces the real "X s on CPU → Y s on <self-reported device>" number, so
+the pitch quotes the hardware actually used rather than an assumed one
+(ARCHITECTURE.md §9, CLAUDE.md AMD story #2). Nothing here is estimated —
+every number is measured.
 
 Run:
     python scripts/benchmark.py                 # CPU (+ GPU if present)
@@ -85,7 +87,7 @@ def main() -> int:
     (out_dir / "benchmark.json").write_text(json.dumps(payload, indent=2))
     print(f"\nwrote {out_dir / 'benchmark.json'}")
     if not has_gpu:
-        print("NOTE: no GPU here — run this on the MI300X droplet for the AMD number.")
+        print("NOTE: no GPU here — run this on the AMD GPU host for the AMD number.")
     return 0
 
 

@@ -6,10 +6,26 @@ import {
   Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts';
 import HoloPanel from './HoloPanel.jsx';
-import { fmtRange, runSimulation, severityColor } from '../lib/api.js';
+import { fetchGpu, fmtRange, runSimulation, severityColor } from '../lib/api.js';
 import { subscribe } from '../lib/ws.js';
 
 const HORIZONS = ['6h', '24h', '72h'];
+
+/** Whatever AMD (or dev) device the backend reports — never hardcode a model. */
+function useDeviceName() {
+  const [device, setDevice] = useState(null);
+  useEffect(() => {
+    fetchGpu()
+      .then((g) => setDevice(g?.backend === 'gpu' ? g.device : null))
+      .catch(() => {});
+    return subscribe((msg) => {
+      if (msg.type === 'gpu_stats') {
+        setDevice(msg.backend === 'gpu' ? msg.device : null);
+      }
+    });
+  }, []);
+  return device;
+}
 
 function ProgressView({ progress }) {
   const pct = progress ? Math.round((progress.runs_done / progress.runs_total) * 100) : 0;
@@ -113,6 +129,7 @@ export default function SimulationPanel({ event, result, setResult, selectedOpti
   const [progress, setProgress] = useState(null);
   const [error, setError] = useState(null);
   const [horizon, setHorizon] = useState('24h');
+  const device = useDeviceName();
 
   useEffect(() => {
     // reset when switching events
@@ -150,7 +167,7 @@ export default function SimulationPanel({ event, result, setResult, selectedOpti
 
   if (running) {
     return (
-      <HoloPanel title="Simulation — MI300X" icon="⚡">
+      <HoloPanel title={`Simulation — ${device ?? 'CPU'}`} icon="⚡">
         <ProgressView progress={progress} />
         <div className="sim-note">Simulation — decision support only</div>
       </HoloPanel>

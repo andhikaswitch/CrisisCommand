@@ -1,4 +1,4 @@
-"""Local vLLM (MI300X) backend accessor.
+"""Local vLLM (AMD Instinct GPU) backend accessor.
 
 Per CLAUDE.md the LLM layer is ONE OpenAI-compatible wrapper with two
 configs; the wrapper lives in `backend.llm.client`. This module is the named

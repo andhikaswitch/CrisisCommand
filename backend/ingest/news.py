@@ -16,7 +16,7 @@ and treat elevated coverage density as a tension signal:
   from headlines, never a claim that something is happening on the ground.
 - Sample headlines ride along in `raw` so the briefing stays traceable.
 - GDELT rate limit is 1 request / 5s — requests are spaced accordingly.
-- On the MI300X droplet, P3 (PROMPTS.md) classifies items per-headline on
+- On the AMD GPU host, P3 (PROMPTS.md) classifies items per-headline on
   vLLM; this keyword-cluster path is the offline/local equivalent.
 """
 

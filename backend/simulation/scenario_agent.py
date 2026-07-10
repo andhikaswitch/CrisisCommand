@@ -1,8 +1,8 @@
-"""LLM scenario-branch reasoning (vLLM on MI300X, Fireworks fallback).
+"""LLM scenario-branch reasoning (vLLM on the AMD GPU, Fireworks fallback).
 
 Takes an event + Monte Carlo baseline and reasons over THREE policy branches
 (aggressive / staged / monitor) — sent as ONE batch of concurrent requests to
-the local vLLM endpoint, which is where MI300X batching shines
+the local vLLM endpoint, which is where AMD-GPU batching shines
 (ARCHITECTURE.md §4.2). Each branch:
 
   1. P2 call -> JSON

@@ -1,6 +1,6 @@
 """OpenAI-compatible chat client — one wrapper, two configs (CLAUDE.md).
 
-Both Fireworks AI and the local vLLM server on the MI300X speak the same
+Both Fireworks AI and the local vLLM server on the AMD GPU speak the same
 OpenAI `/chat/completions` protocol, so a single async client serves both;
 only the base URL, key, and model differ. Callers pick a backend by role:
 
@@ -179,7 +179,7 @@ async def vllm_reachable(ttl: float = 30.0) -> bool:
     """Whether the vLLM endpoint answers, cached for `ttl` seconds.
 
     Used by /api/status so the UI can show the FIREWORKS (FALLBACK) banner
-    truthfully when the MI300X droplet isn't serving.
+    truthfully when the local vLLM endpoint isn't serving.
     """
     now = time.time()
     if now - _vllm_probe["ts"] < ttl:
@@ -202,7 +202,7 @@ def get_briefing_client() -> LLMClient:
 
 
 def get_scenario_client() -> LLMClient:
-    """P2/P3 — vLLM on MI300X, or Fireworks fallback per SIM_BACKEND.
+    """P2/P3 — vLLM on the AMD GPU, or Fireworks fallback per SIM_BACKEND.
 
     SIM_BACKEND=vllm (default on droplet) tries vLLM; if that config is not
     usable we fall through to Fireworks so local dev still works. The actual

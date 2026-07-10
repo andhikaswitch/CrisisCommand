@@ -113,7 +113,7 @@ async def simulate_event(
     """Full simulation: Monte Carlo (6h/24h/72h) + three grounded options.
 
     Progress streams to all WS clients as `sim_progress` messages while
-    this request runs (the HUD's MI300X moment).
+    this request runs (the HUD's AMD-GPU moment).
     """
     event = _require_event(event_id)
     if horizon not in HORIZON_HOURS:

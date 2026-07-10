@@ -23,11 +23,18 @@ The user (a crisis leader: government official, NGO coordinator, emergency manag
 
 The known weakness of this idea is "why does it need a GPU?" We answer it three ways — all three MUST exist in the demo:
 
-1. **Self-hosted LLM on MI300X via vLLM.** The scenario-simulation agents run on an open model (e.g., Llama/Qwen-class) served by vLLM ON the AMD GPU — not only via external API. The MI300X's 192GB VRAM lets us serve a large model at high context length while BATCHING many simulation branches in parallel. Fireworks AI API is used for the lighter briefing/summarization calls. Both are AMD-powered (Fireworks runs on AMD infrastructure) — say this in the pitch.
+1. **Self-hosted LLM on an AMD Instinct GPU via vLLM.** The scenario-simulation agents run on an open model (e.g., Llama/Qwen-class) served by vLLM ON the AMD GPU — not only via external API. Large HBM capacity lets us serve a model at high context length while BATCHING many simulation branches in parallel. Fireworks AI API is used for the lighter briefing/summarization calls. Both are AMD-powered (Fireworks runs on AMD infrastructure) — say this in the pitch.
 2. **Parallel Monte Carlo scenario engine (PyTorch/ROCm).** Escalation forecasting runs thousands of stochastic simulations (population exposure × hazard spread × response delay) as batched tensor ops on the GPU. CPU fallback exists but is visibly slower — the demo shows the speedup number.
 3. **GPU embedding pipeline.** News/report ingestion is embedded and clustered on-GPU for event deduplication and severity signals.
 
-The UI displays a live "MI300X utilization" readout during simulation. Visible AMD usage = judged AMD usage.
+The UI displays a live GPU utilization readout during simulation. Visible AMD usage = judged AMD usage.
+
+**Never hardcode a GPU model.** The Unicorn Track requires AMD hardware, not a
+specific card, and the ROCm notebook environment may allocate MI300X, MI250,
+MI210 or another Instinct part. Every readout, log line, and pitch number comes
+from `torch.cuda.get_device_name()` — the app names the hardware it actually
+ran on. Claiming an MI300X we did not use would be exactly the fake precision
+this project forbids everywhere else.
 
 ## Repository Layout
 
@@ -54,7 +61,7 @@ crisiscommand/
 │   ├── briefing/
 │   │   └── writer.py            # Fireworks AI situation briefings
 │   ├── llm/
-│   │   ├── vllm_client.py       # local MI300X vLLM endpoint client
+│   │   ├── vllm_client.py       # local AMD-GPU vLLM endpoint client
 │   │   └── fireworks_client.py  # Fireworks API client
 │   ├── models/                  # pydantic schemas
 │   └── tests/
@@ -80,13 +87,13 @@ crisiscommand/
 ### GPU / ROCm
 - Device string is `"cuda"` (ROCm presents as cuda). Code stays device-agnostic; local dev on NVIDIA is fine.
 - `monte_carlo.py` is pure batched tensor math — no Python loops over simulation runs. Target: 10,000 scenario runs as one batch.
-- vLLM serves the simulation model on the MI300X droplet; `vllm_client.py` speaks OpenAI-compatible protocol to it. If the droplet is unavailable during dev, a config flag routes scenario calls to Fireworks instead (`SIM_BACKEND=vllm|fireworks`).
+- vLLM serves the simulation model on whichever AMD GPU environment is available (droplet or ROCm notebook); `vllm_client.py` speaks OpenAI-compatible protocol to it. If no GPU endpoint is up during dev, a config flag routes scenario calls to Fireworks instead (`SIM_BACKEND=vllm|fireworks`).
 - Log GPU memory + utilization at simulation start/end; stream to the UI readout.
 
 ### LLM Usage Split
 | Task | Backend | Why |
 |---|---|---|
-| Scenario branch reasoning (many parallel calls) | vLLM on MI300X | Batching, cost-free after droplet, THE AMD story |
+| Scenario branch reasoning (many parallel calls) | vLLM on the AMD GPU | Batching, cost-free once running, THE AMD story |
 | Situation briefing (few, quality-critical) | Fireworks API | Managed reliability, also AMD-powered |
 | Event summarization on ingest | vLLM local | High volume |
 
@@ -125,13 +132,13 @@ crisiscommand/
 
 1. Globe spins into view — live events glowing on Earth. ("Every marker is a real event from GDACS/USGS, ingested minutes ago.")
 2. Click the flood event in Jakarta. Camera flies down; holographic panel opens with the AI briefing.
-3. Hit SIMULATE — GPU readout spikes, 10,000 Monte Carlo runs + LLM branch reasoning on the MI300X, escalation curve draws itself for 6/24/72h horizons.
+3. Hit SIMULATE — GPU readout spikes (naming the actual Instinct card), 10,000 Monte Carlo runs + LLM branch reasoning on the AMD GPU, escalation curve draws itself for 6/24/72h horizons.
 4. Three policy cards appear: evacuate zones A–C now / pre-position supplies / monitor. Each shows exposed-population range, cost, response time.
 5. Click one → globe renders the affected zones and evacuation radius in 3D. ("Commercial tools show you the crisis. This simulates your decision.")
 
 ## Environment
 
-- AMD Developer Cloud MI300X droplet (vLLM Quick Start image — vLLM is preinstalled, which is exactly what we need)
+- AMD Developer Cloud: GPU droplet (vLLM Quick Start image) **or** the ROCm Jupyter notebook (ROCm 7.2 + vLLM 0.16 + PyTorch 2.9 preinstalled). Either satisfies the track; the card model is whatever the environment allocates.
 - Python 3.11, Node 20; Fireworks API key
 - Env vars: `FIREWORKS_API_KEY`, `FIREWORKS_MODEL`, `VLLM_ENDPOINT`, `SIM_BACKEND`, `SEED_MODE`
 - See AutoCine SETUP.md equivalent steps for credits/droplet (same accounts, same rules: stop droplet when idle, 30-day credit clock)
