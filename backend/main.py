@@ -205,3 +205,17 @@ async def status() -> dict:
             for h in store.source_health()
         ],
     }
+
+
+# --- Single-origin SPA hosting (remote notebook / one-tunnel demos) --------
+# In Docker, nginx serves the built SPA and proxies /api + /ws. On a cloud
+# notebook there is no nginx and only one port can practically be tunnelled,
+# so serve frontend/dist from this app when it exists. The frontend calls
+# same-origin /api and /ws (lib/ws.js uses window.location.host), which keeps
+# the WebSocket working through a single tunnel with no CORS.
+# Mounted last so it never shadows the API routes above.
+_DIST = _ROOT / "frontend" / "dist"
+if _DIST.is_dir():
+    from fastapi.staticfiles import StaticFiles  # noqa: E402
+
+    app.mount("/", StaticFiles(directory=str(_DIST), html=True), name="spa")

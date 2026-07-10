@@ -37,3 +37,19 @@ def test_health():
     r = client.get("/api/health")
     assert r.status_code == 200
     assert r.json()["status"] == "ok"
+
+
+class TestSpaMount:
+    """The SPA mount must never shadow the API (single-origin notebook demos)."""
+
+    def test_api_routes_still_resolve_with_dist_present(self):
+        from backend.main import _DIST, app
+
+        paths = {r.path for r in app.routes if hasattr(r, "path")}
+        assert "/api/health" in paths
+        assert "/api/events" in paths
+        assert "/ws" in paths
+        if _DIST.is_dir():
+            # mounted last, at root, so it only catches what the API didn't
+            last = app.routes[-1]
+            assert getattr(last, "name", None) == "spa"
