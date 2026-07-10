@@ -1,4 +1,4 @@
-# DEMO_SCRIPT.md · Naskah Video Demo (3 menit, Bahasa Indonesia)
+# DEMO_SCRIPT.md · Naskah Video Demo (5:43, Bahasa Indonesia)
 
 Setiap klaim teknis di bawah sudah diverifikasi terhadap kode. Jangan menambah
 angka atau nama teknologi yang tidak ada di sini.
@@ -36,7 +36,7 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [0:00–0:25] Pembuka: masalahnya, bukan produknya
+## [0:00–0:26] Pembuka: masalahnya, bukan produknya
 
 > "Ketika bencana terjadi, seorang pengambil keputusan punya waktu beberapa jam.
 > Dan alat yang tersedia hari ini, Crisis24, Dataminr, dashboard GDACS,
@@ -51,31 +51,24 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [0:25–0:50] Data live: ini bukan mockup
+## [0:26–0:59] Data live: ini bukan mockup
 
-> "Setiap titik di bumi ini adalah kejadian nyata, masuk beberapa menit lalu.
-> Gempa dari USGS. Peringatan multi-bahaya dari GDACS, sistem PBB. Gempa
-> Indonesia langsung dari BMKG.
+> "Setiap titik di sini kejadian nyata, masuk beberapa menit lalu. Gempa dari
+> USGS. Peringatan multi-bahaya dari GDACS, sistem PBB. Gempa Indonesia langsung
+> dari BMKG.
 >
-> **Warnanya menandakan tingkat keparahan**, bukan jenis bencananya. Merah
-> untuk severity di atas nol koma tujuh. Kuning untuk menengah. Teal untuk
-> rendah. Lingkaran di sekelilingnya melebar sesuai severity juga.
->
-> Yang berbentuk **berlian ungu** berbeda: itu sinyal ketegangan geopolitik dari
-> kepadatan pemberitaan. Sengaja kami beri bentuk dan warna sendiri, dan kami
-> tandai sebagai *confidence rendah*, karena memang begitu adanya."
+> **Warnanya menandakan tingkat keparahan**, bukan jenis bencananya. Berlian ungu
+> adalah sinyal ketegangan geopolitik dari kepadatan pemberitaan, dan kami tandai
+> *confidence rendah*, karena memang begitu adanya."
 
-*(Scroll feed ke bawah, tunjuk kartu berjudul "Flood risk signal (forecast)".)*
+*(Tunjuk kartu "Flood risk signal (forecast)" di feed.)*
 
-> "Dan yang ini bukan bencana yang sedang terjadi, melainkan **prakiraan risiko
-> banjir**: kami silangkan prakiraan hujan resmi dari BMKG dan Open-Meteo dengan
-> riwayat banjir daerah tersebut. Severity-nya kami batasi maksimal nol koma
-> tujuh lima, supaya sebuah prakiraan tidak pernah tampil semerah bencana yang
-> benar-benar terjadi."
+> "Yang ini bahkan bukan bencana yang sedang terjadi, melainkan **prakiraan risiko
+> banjir**: prakiraan hujan resmi disilangkan dengan riwayat banjir daerah itu."
 
 ---
 
-## [0:50–1:15] Drill: kenapa event historis, bukan live
+## [0:59–1:23] Drill: kenapa event historis, bukan live
 
 *(Klik filter DRILLS → banjir Jakarta.)*
 
@@ -89,7 +82,7 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [1:15–1:35] Briefing AI: dan kenapa ada jeda
+## [1:23–1:47] Briefing AI: dan kenapa ada jeda
 
 *(Panel briefing memuat. Spinner "ANALYZING FEED DATA" terlihat.)*
 
@@ -101,7 +94,7 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [1:35–1:55] Confirmed vs Key Unknowns: inti kredibilitas
+## [1:47–2:15] Confirmed vs Key Unknowns: inti kredibilitas
 
 > "**CONFIRMED**: fakta yang benar-benar ada di data. Banjir dimulai 1 Januari
 > 2020 pukul 03:00 UTC. Severity 0,75. Koordinatnya ini.
@@ -115,7 +108,7 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [1:55–2:25] RUN SIMULATION: di sinilah GPU-nya bekerja
+## [2:15–3:10] RUN SIMULATION: di sinilah GPU-nya bekerja
 
 *(Tekan RUN SIMULATION. Readout GPU naik.)*
 
@@ -136,7 +129,7 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [2:25–2:50] Hasil: rentang, bukan angka tunggal
+## [3:10–4:13] Hasil: rentang, bukan angka tunggal
 
 > "Hasilnya bukan satu angka. **51 ribu sampai 336 ribu orang terpapar**,
 > persentil 10 sampai 90. Karena presisi palsu dalam krisis itu berbahaya.
@@ -145,20 +138,16 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 > **tidak boleh mengarang angka**. Ia hanya mengalikan keluaran Monte Carlo
 > dengan faktor mitigasi tervalidasi. Narasinya dari AI; angkanya dari mesin.
 >
-> **Evakuasi cepat**: paparan turun dari 51–336 ribu menjadi **5 sampai 109
-> ribu**. Biaya 10 sampai 30 juta dolar. Respons dua jam. Trade-off-nya: beban
-> anggaran, dan perpindahan massal berisiko memicu keresahan sosial.
+> **Evakuasi cepat**: paparan turun menjadi **5 sampai 109 ribu**. Biaya 10
+> sampai 30 juta dolar, respons dua jam. Trade-off-nya: beban anggaran, dan
+> perpindahan massal berisiko memicu keresahan sosial.
 >
-> **Evakuasi bertahap dengan pra-posisi logistik**: paparan akhir serupa, biaya
-> 15 sampai 30 juta, tapi butuh enam jam.
+> **Pemantauan intensif**: paparan hampir tidak berubah, **48 sampai 336 ribu**,
+> dengan biaya seperseratusnya. Faktor mitigasinya paling banyak memangkas lima
+> persen, dan kami tidak berpura-pura sebaliknya.
 >
-> **Pemantauan intensif**: paparan hampir tidak berubah, **48 sampai 336 ribu**.
-> Biaya cuma 200 sampai 500 ribu dolar. Faktor mitigasinya nol koma sembilan
-> lima sampai satu, artinya paling banyak memangkas lima persen. Kami tidak
-> berpura-pura memantau saja bisa menyelamatkan orang.
->
-> Setiap opsi menampilkan konsekuensinya. **AI tidak memutuskan. Manusia yang
-> memutuskan**, dan sekarang ia melihat harga dari tiap pilihan."
+> **AI tidak memutuskan. Manusia yang memutuskan**, dan sekarang ia melihat harga
+> dari tiap pilihan."
 
 > ⚠ **Nama ketiga opsi ditulis oleh LLM dan berubah setiap kali simulasi
 > dijalankan** (mis. "Rapid Urban Flood Evacuation" vs "Immediate Staged
@@ -169,7 +158,42 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
-## [2:50–3:00] Penutup
+## [4:13–5:30] Event live: segmen yang paling menentukan di mata juri
+
+*(Klik filter **LIVE**. Pilih gempa yang baru masuk, mis. M4.7 dekat Tadine,
+New Caledonia. Kamera terbang. Briefing mengetik dirinya sendiri.)*
+
+> "Sekarang gempa yang baru masuk beberapa jam lalu, langsung dari USGS.
+> Magnitudo empat koma tujuh, lepas pantai New Caledonia.
+>
+> Briefing-nya tetap ditulis. Lihat baris terakhir **CONFIRMED**:
+> *'No population context provided in the feed.'* Modelnya **mengakui data
+> populasinya tidak ada.** Ia tidak menebak.
+>
+> Dan **KEY UNKNOWNS**: apakah guncangannya terasa, apakah ada kerusakan, apakah
+> bisa memicu tsunami. Pertanyaan yang benar untuk gempa lepas pantai, tidak satu
+> pun dijawab dengan karangan."
+
+*(Tunjuk catatan abu-abu di bawah panel.)*
+
+> "Dan di sini **tidak ada tombol RUN SIMULATION.** Hanya satu kalimat:
+> *live event, no vetted population data yet, so no simulation.*
+>
+> Ini keputusan desain, bukan keterbatasan. Kami bisa saja mengarang basis
+> populasi dari peta kepadatan global, lalu menampilkan angka korban yang
+> terlihat meyakinkan. Kami memilih tidak.
+>
+> Presisi palsu di alat krisis bukan sekadar salah, ia berbahaya. Seorang pejabat
+> bisa mengevakuasi kota yang keliru karena angka yang terdengar pasti padahal
+> dikarang.
+>
+> Aturannya sederhana: **tidak ada basis populasi tervalidasi, tidak ada
+> simulasi.** Alat komersial menampilkan kejadian ini lalu berhenti. Kami
+> menampilkannya, mengakui apa yang belum kami tahu, dan menolak berpura-pura."
+
+---
+
+## [5:30–5:43] Penutup
 
 > "Dibangun di AMD Developer Cloud dengan ROCm, PyTorch, dan Fireworks AI.
 > Seratus lima puluh tiga tes otomatis. Bekerja penuh secara offline.
@@ -179,12 +203,39 @@ dan sumbernya (OPEN-METEO / BMKG-RAIN), bukan dari warnanya.
 
 ---
 
+## Kalau perlu versi lebih pendek
+
+Versi penuh terukur **5:43**. Kalau kamu ingin lebih ringkas, ini urutan
+pemangkasan dari yang paling aman ke yang paling menyakitkan:
+
+| Potong | Hemat | Jadi |
+|---|---|---|
+| Paragraf kedua "Data live" (prakiraan banjir) | ~12s | 5:31 |
+| Rincian biaya di "Hasil"; cukup sebut rentang paparan | ~20s | 5:11 |
+| Segmen "Briefing AI", gabungkan ke Confirmed/Unknowns | ~24s | 4:47 |
+| Rincian "12x / 39x / 61x"; cukup sebut 61x | ~15s | 4:32 |
+| Paragraf KEY UNKNOWNS di segmen event live | ~15s | 4:17 |
+
+**Jangan pernah potong**: segmen event live yang menunjukkan tidak adanya tombol
+RUN SIMULATION, dan kalimat "AI tidak memutuskan, manusia yang memutuskan". Dua
+hal itu yang membedakanmu dari ratusan submission lain. Lebih baik membuang
+angka benchmark daripada membuang argumen kejujuran.
+
+---
+
 ## Catatan pengambilan gambar
 
 - Rekam dari URL tunnel (footer menampilkan GPU AMD), **bukan** localhost
 - Sebelum merekam: pastikan badge kanan atas berbunyi `LIVE`
-- Jika sempat (bonus 10 detik): klik satu event **live** dan tunjukkan catatan
-  *"live event, no vetted population data yet, so no simulation."* Ini justru
-  memperkuat kredibilitas: kami menolak menyimulasikan tanpa data valid.
+- Total durasi terukur **±5:43** (150 kata/menit + jeda aksi). Formulir menyebut "3 menit" sebagai
+  panduan, bukan batas keras. Kalau kamu perlu memangkas, potong bagian
+  [0:25–0:50] (penjelasan warna marker) menjadi satu kalimat, **jangan** potong
+  segmen event live: itu argumen kredibilitas terkuatmu.
+- **Briefing tampil dengan animasi mengetik.** Kalau videomu memperlihatkan
+  kalimat terpotong di tengah, itu animasi yang belum selesai, bukan bug.
+  Tunggu sampai kursornya berhenti sebelum melanjutkan narasi.
+- Event live yang muncul saat kamu merekam **tidak akan sama** dengan contoh di
+  naskah ini (feed-nya hidup). Sebutkan magnitudo dan lokasi yang benar-benar
+  ada di layarmu.
 - Kalau Wi-Fi tempat acara mati: `SEED_MODE=true` di laptop, demo tetap jalan
   penuh. Yang hilang cuma readout GPU-nya.
