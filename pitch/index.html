@@ -77,6 +77,26 @@
 
   /* slides */
   main { position: relative; z-index: 1; }
+
+  /* PDF export (judges receive a PDF, not a scrolling page).
+     Chrome --print-to-pdf at 1600x900 gives one 16:9 page per slide. */
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body {
+      background: #060a12 !important;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .slide {
+      min-height: 900px; height: 900px;
+      page-break-after: always; break-after: page;
+      padding: 64px var(--slide-pad);
+      border-bottom: none;
+      overflow: hidden;
+    }
+    .slide:last-of-type { page-break-after: auto; break-after: auto; }
+    a { text-decoration: none; }
+  }
+
   .slide {
     min-height: 100vh; scroll-snap-align: start;
     display: grid; align-content: center;
@@ -147,9 +167,12 @@
   .stat .unit { color: var(--dim); font-size: 13px; letter-spacing: 0.08em; }
 
   ul.clean { list-style: none; display: grid; gap: 12px; padding: 0; margin: 0; }
-  ul.clean li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; font-size: 15.5px; color: var(--text); }
+  /* inline flow, not grid: these <li> hold a text node AND a <span>, which a
+     2-column grid would split across rows (broke the PDF export). */
+  ul.clean li { position: relative; padding-left: 22px; font-size: 15.5px; color: var(--text); }
   ul.clean li::before {
-    content: "▸"; color: var(--cyan); font-size: 13px; line-height: 1.6;
+    content: "▸"; position: absolute; left: 0; top: 0;
+    color: var(--cyan); font-size: 13px; line-height: 1.6;
   }
   ul.clean li span { color: var(--dim); }
 
@@ -224,7 +247,7 @@
         <p class="lede">A holographic AI war room that ingests live disaster data, forecasts escalation on the GPU, and lays three grounded response options on a 3D Earth — with honest ranges, not false precision.</p>
         <div class="chips">
           <span class="chip">AMD GPU</span>
-          <span class="chip">vLLM · ROCm</span>
+          <span class="chip">ROCm · PyTorch</span>
           <span class="chip">PyTorch Monte Carlo</span>
         </div>
       </div>
@@ -286,8 +309,8 @@
     <div class="grid3" style="margin-top:8px">
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label">01 · Self-hosted LLM</div>
-        <h3>vLLM scenario agent</h3>
-        <p>The three policy branches are one batched request to an open model served on the GPU. 192 GB HBM3 holds a large model at long context — cost-free after the droplet.</p>
+        <h3>Scenario agent</h3>
+        <p>The three policy branches are one batched LLM request. This demo runs them on <strong>Fireworks</strong> (AMD-powered); the same OpenAI-compatible client points at <code>vLLM</code> on the GPU with one env var — <code>SIM_BACKEND=vllm</code>.</p>
       </div>
       <div class="panel" style="border-color:var(--cyan)"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label" style="color:var(--cyan)">02 · Monte Carlo engine</div>
@@ -303,7 +326,7 @@
     <div class="grid4" style="margin-top:4px">
       <div class="panel" style="padding:18px"><div class="label">Monte Carlo · CPU baseline</div><div class="stat"><span class="big">519</span> <span class="unit">ms · 100k runs</span></div></div>
       <div class="panel" style="padding:18px"><div class="label">GPU speedup</div><div class="stat"><span class="big">61&times;</span><div class="unit">100k runs &middot; measured on AMD gfx1100</div></div></div>
-      <div class="panel" style="padding:18px"><div class="label">HBM3, all resident</div><div class="stat"><span class="big">192</span> <span class="unit">GB</span></div></div>
+      <div class="panel" style="padding:18px"><div class="label">VRAM on the card we ran</div><div class="stat"><span class="big">48</span> <span class="unit">GB &middot; gfx1100</span></div></div>
       <div class="panel" style="padding:18px"><div class="label">GPU readout</div><div class="stat"><span class="big">live</span><div class="unit">visible during sim</div></div></div>
     </div>
     <p class="foot-note">Visible AMD usage is judged AMD usage — the utilization bar sits in the interface and spikes on every run. The speedup is measured on the AMD GPU (61&times; at 100k runs, 30.4M runs/sec), never estimated.</p>
@@ -324,7 +347,7 @@
         <div class="label">Resilience — rehearsed, not theoretical</div>
         <ul class="clean" style="gap:10px; font-size:14px">
           <li>Dead conference Wi-Fi&nbsp;<span>→ full offline demo on curated historical events</span></li>
-          <li>vLLM droplet down&nbsp;<span>→ auto-fallback, honest banner in the HUD</span></li>
+          <li>LLM endpoint down&nbsp;<span>→ auto-fallback, honest banner in the HUD</span></li>
           <li>Invalid model output&nbsp;<span>→ repair retry, then grounded template option</span></li>
           <li>Feed rate-limited&nbsp;<span>→ per-source freshness dot, other feeds unaffected</span></li>
         </ul>
