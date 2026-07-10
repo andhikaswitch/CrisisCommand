@@ -26,9 +26,15 @@ from dataclasses import dataclass
 
 import httpx
 
-DEFAULT_FIREWORKS_MODEL = "accounts/fireworks/models/llama-v3p1-70b-instruct"
+# No default model that we cannot verify exists: Fireworks retires serverless
+# models, so an unset FIREWORKS_MODEL must fail loudly via check_fireworks.py
+# rather than 404 at demo time.
+DEFAULT_FIREWORKS_MODEL = "accounts/fireworks/models/glm-5p2"
 DEFAULT_VLLM_MODEL = "local-model"
-_TIMEOUT = httpx.Timeout(60.0, connect=10.0)
+# Reasoning-capable models spend hundreds of tokens thinking before the JSON
+# object. 900 truncated GLM 5.2 mid-object; 2400 leaves room for the answer.
+DEFAULT_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "2400"))
+_TIMEOUT = httpx.Timeout(90.0, connect=10.0)
 
 
 class LLMUnavailable(RuntimeError):
@@ -73,7 +79,7 @@ class LLMClient:
         self,
         messages: list[ChatMessage],
         temperature: float = 0.3,
-        max_tokens: int = 900,
+        max_tokens: int = DEFAULT_MAX_TOKENS,
     ) -> str:
         if not self.config.configured:
             raise LLMUnavailable(
@@ -100,9 +106,17 @@ class LLMClient:
                 f"{self.config.backend} call failed: {exc}"
             ) from exc
         try:
-            return data["choices"][0]["message"]["content"]
+            message = data["choices"][0]["message"]
         except (KeyError, IndexError, TypeError) as exc:
             raise LLMBadJSON(f"unexpected response shape: {exc}") from exc
+        # Reasoning models (GLM, gpt-oss, deepseek...) may leave `content`
+        # empty/absent and put the answer in `reasoning_content`. Accept both;
+        # parse_json_object() strips any thinking prose around the object.
+        content = message.get("content") or message.get("reasoning_content")
+        if not content:
+            finish = data["choices"][0].get("finish_reason")
+            raise LLMBadJSON(f"empty response content (finish_reason={finish!r})")
+        return content
 
 
 def parse_json_object(text: str) -> dict:

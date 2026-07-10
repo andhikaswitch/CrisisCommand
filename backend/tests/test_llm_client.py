@@ -60,3 +60,55 @@ class TestParseJsonObject:
     def test_malformed_raises(self):
         with pytest.raises(LLMBadJSON):
             parse_json_object('{"a": 1,,}')
+
+
+class TestReasoningModelResponses:
+    """Reasoning models (gpt-oss, GLM, deepseek) shape responses differently."""
+
+    def _resp(self, message: dict, finish: str = "stop") -> dict:
+        return {"choices": [{"message": message, "finish_reason": finish}]}
+
+    def test_reasoning_content_is_accepted_when_content_empty(self, monkeypatch):
+        import httpx
+
+        from backend.llm import client as c
+
+        payload = self._resp({"role": "assistant", "reasoning_content": '{"ok": 1}'})
+
+        async def fake_post(self, url, **kw):
+            return httpx.Response(200, json=payload, request=httpx.Request("POST", url))
+
+        monkeypatch.setattr(httpx.AsyncClient, "post", fake_post)
+        cfg = c.LLMConfig(backend="fireworks", base_url="http://x/v1",
+                          model="m", api_key="k")
+        out = asyncio.run(c.LLMClient(cfg).chat([c.ChatMessage("user", "hi")]))
+        assert c.parse_json_object(out) == {"ok": 1}
+
+    def test_empty_content_raises_bad_json_with_finish_reason(self, monkeypatch):
+        import httpx
+
+        from backend.llm import client as c
+
+        payload = self._resp({"role": "assistant", "content": ""}, finish="length")
+
+        async def fake_post(self, url, **kw):
+            return httpx.Response(200, json=payload, request=httpx.Request("POST", url))
+
+        monkeypatch.setattr(httpx.AsyncClient, "post", fake_post)
+        cfg = c.LLMConfig(backend="fireworks", base_url="http://x/v1",
+                          model="m", api_key="k")
+        with pytest.raises(c.LLMBadJSON, match="length"):
+            asyncio.run(c.LLMClient(cfg).chat([c.ChatMessage("user", "hi")]))
+
+    def test_default_max_tokens_fits_reasoning_preamble(self):
+        from backend.llm import client as c
+
+        # 900 truncated GLM 5.2 mid-JSON in live testing; keep real headroom.
+        assert c.DEFAULT_MAX_TOKENS >= 2000
+
+
+class TestDotenvHermeticity:
+    def test_load_dotenv_is_noop_under_pytest(self):
+        from backend.env import load_dotenv
+
+        assert load_dotenv() == 0  # never spends a developer's live key

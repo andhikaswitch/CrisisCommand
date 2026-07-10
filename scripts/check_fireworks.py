@@ -27,17 +27,7 @@ sys.path.insert(0, str(_ROOT))
 BASE = os.getenv("FIREWORKS_BASE_URL", "https://api.fireworks.ai/inference/v1")
 
 
-def _load_dotenv() -> None:
-    """Minimal .env loader so the script works without extra deps."""
-    env = _ROOT / ".env"
-    if not env.exists():
-        return
-    for line in env.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, _, val = line.partition("=")
-        os.environ.setdefault(key.strip(), val.strip())
+from backend.env import load_dotenv as _load_dotenv  # noqa: E402
 
 
 def list_models(key: str) -> list[str]:
@@ -62,19 +52,25 @@ def smoke(key: str, model: str) -> tuple[bool, str]:
                 {"role": "system", "content": "Reply with strict JSON only."},
                 {"role": "user", "content": 'Return {"ok": true} and nothing else.'},
             ],
-            "max_tokens": 32,
+            # Reasoning models spend tokens thinking before the JSON object.
+            "max_tokens": 2400,
             "temperature": 0.0,
         },
         timeout=60.0,
     )
     if resp.status_code != 200:
         return False, f"HTTP {resp.status_code}: {resp.text[:200]}"
-    content = resp.json()["choices"][0]["message"]["content"]
-    return True, content.strip()
+    choice = resp.json()["choices"][0]
+    message = choice["message"]
+    # Reasoning models may answer in `reasoning_content` with `content` empty.
+    content = message.get("content") or message.get("reasoning_content")
+    if not content:
+        return False, f"empty content (finish_reason={choice.get('finish_reason')!r})"
+    return True, content.strip()[:120]
 
 
 def main() -> int:
-    _load_dotenv()
+    _load_dotenv(force=True)
     ap = argparse.ArgumentParser()
     ap.add_argument("--test", action="store_true", help="run a live completion")
     ap.add_argument("--model", default=os.getenv("FIREWORKS_MODEL"))

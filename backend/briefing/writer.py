@@ -127,7 +127,10 @@ async def write_briefing(
         logger.info("briefing backend unavailable for %s: %s", event.id, exc)
 
     if briefing is None:
-        briefing = _fallback_brief(event)
+        # Degraded output: never cache it. The on-disk cache survives restarts,
+        # so persisting a fallback would keep serving "the briefing model was
+        # unavailable" long after the key/endpoint is fixed. Retry next click.
+        return _fallback_brief(event)
 
     if use_cache:
         cache.put(key, briefing)

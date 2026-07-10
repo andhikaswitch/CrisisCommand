@@ -17,6 +17,12 @@ _ROOT = Path(__file__).resolve().parents[1]
 if str(_ROOT) not in sys.path:
     sys.path.insert(0, str(_ROOT))
 
+from backend.env import load_dotenv  # noqa: E402
+
+# Before any module reads os.getenv: a bare `uvicorn backend.main:app` must see
+# FIREWORKS_API_KEY, or briefings silently degrade to the template fallback.
+load_dotenv()
+
 from contextlib import asynccontextmanager  # noqa: E402
 
 from fastapi import (  # noqa: E402

@@ -54,6 +54,29 @@ class TestBriefingFallback:
         b = asyncio.run(write_briefing(JAKARTA, client=fake, use_cache=False))
         assert isinstance(b, Briefing)  # raw-data fallback, not an exception
 
+    def test_fallback_is_never_cached(self, tmp_path, monkeypatch):
+        """A degraded brief must not persist: the on-disk cache survives
+        restarts, so caching it would keep serving 'model unavailable' long
+        after the API key is fixed."""
+        monkeypatch.setenv("CACHE_DIR", str(tmp_path))
+        monkeypatch.setattr(cache, "_CACHE_DIR", tmp_path)
+        cache._MEM.clear()
+
+        down = FakeLLM(raise_exc=LLMUnavailable("no key"))
+        first = asyncio.run(write_briefing(JAKARTA, client=down, use_cache=True))
+        assert "fallback brief" in first.summary
+
+        # Backend recovers: the very next call must reach the LLM, not the cache.
+        up = FakeLLM(responses=[_good_brief_json()])
+        second = asyncio.run(write_briefing(JAKARTA, client=up, use_cache=True))
+        assert up.calls == 1
+        assert "fallback brief" not in second.summary
+
+        # A good brief, by contrast, IS cached.
+        third = asyncio.run(write_briefing(JAKARTA, client=up, use_cache=True))
+        assert up.calls == 1
+        assert third.headline == second.headline
+
 
 class TestBriefingCache:
     def test_second_call_hits_cache_and_skips_llm(self):
