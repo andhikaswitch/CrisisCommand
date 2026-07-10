@@ -244,10 +244,10 @@
       <div style="display:grid; gap:24px">
         <div class="eyebrow">Decision simulation for crisis leaders</div>
         <h1>Dashboards show<br>the crisis.<br><span class="accent">We simulate<br>your decision.</span></h1>
-        <p class="lede">A holographic AI war room that ingests live disaster data, forecasts escalation on the GPU, and lays three grounded response options on a 3D Earth — with honest ranges, not false precision.</p>
+        <p class="lede">A holographic AI war room that ingests live disaster data, forecasts escalation on the GPU, and lays three grounded response options on a 3D Earth, with honest ranges instead of false precision.</p>
         <div class="chips">
           <span class="chip">AMD GPU</span>
-          <span class="chip">ROCm · PyTorch</span>
+          <span class="chip">ROCm · Fireworks AI</span>
           <span class="chip">PyTorch Monte Carlo</span>
         </div>
       </div>
@@ -261,17 +261,17 @@
     <h2>Everyone shows the crisis.<br>Nobody simulates the response.</h2>
     <div class="grid2" style="margin-top:8px">
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
-        <div class="label">Today — situational awareness</div>
+        <div class="label">Today: situational awareness</div>
         <h3 style="color:var(--dim)">What is happening</h3>
-        <p>Crisis24 and Dataminr, public dashboards like GDACS and ReliefWeb — they detect and display events in real time. The feed tells you a flood is rising.</p>
+        <p>Crisis24 and Dataminr, public dashboards like GDACS and ReliefWeb all detect and display events in real time. The feed tells you a flood is rising.</p>
       </div>
       <div class="panel" style="border-color:var(--cyan)"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label" style="color:var(--cyan)">The missing layer</div>
-        <h3 class="accent">What happens next — under each choice</h3>
-        <p style="color:var(--text)">What is exposed in 6 / 24 / 72 hours if nothing is done? Evacuate now, pre-position, or monitor — at what cost, averting whom? <strong>No open-source tool answers this.</strong></p>
+        <h3 class="accent">What happens next, under each choice</h3>
+        <p style="color:var(--text)">What is exposed in 6 / 24 / 72 hours if nothing is done? Evacuate now, pre-position, or monitor: at what cost, averting whom? <strong>No open-source tool answers this.</strong></p>
       </div>
     </div>
-    <p class="sub">The decision layer is the hard part — the part that needs simulation, grounding, and a GPU. That is exactly what CrisisCommand builds.</p>
+    <p class="sub">The decision layer is the hard part. It is the part that needs simulation, grounding, and a GPU. That is exactly what CrisisCommand builds.</p>
   </section>
 
   <!-- 3 — HOW IT WORKS -->
@@ -283,7 +283,7 @@
         <div class="step"><span class="n">01</span><div class="t"><b>Live Earth.</b> <span>GDACS + USGS events pulse on a holographic globe, severity-colored, ingested minutes ago.</span></div></div>
         <div class="step"><span class="n">02</span><div class="t"><b>Click a crisis.</b> <span>The camera flies in; an AI situation brief streams in word by word.</span></div></div>
         <div class="step"><span class="n">03</span><div class="t"><b>Run simulation.</b> <span>10,000 Monte Carlo runs on the AMD GPU; the readout names the card and spikes; the escalation curve draws itself.</span></div></div>
-        <div class="step"><span class="n">04</span><div class="t"><b>Three options.</b> <span>Evacuate / pre-position / monitor — each with exposed-population range, cost, response time, honest trade-offs.</span></div></div>
+        <div class="step"><span class="n">04</span><div class="t"><b>Three options.</b> <span>Evacuate / pre-position / monitor. Each carries an exposed-population range, cost, response time, and honest trade-offs.</span></div></div>
         <div class="step"><span class="n">05</span><div class="t"><b>Choose.</b> <span>Selecting an option renders its evacuation zones and supply arcs on the Earth in 3D.</span></div></div>
       </div>
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
@@ -297,7 +297,7 @@
           <span class="sev" style="flex:3; background:var(--red)"></span>
         </div>
         <p style="margin-top:14px">Every figure is a band. The tensor engine quantifies; the model never emits a single hard number.</p>
-        <div style="margin-top:16px"><span class="sim-tag">Simulation — decision support only</span></div>
+        <div style="margin-top:16px"><span class="sim-tag">Simulation · decision support only</span></div>
       </div>
     </div>
   </section>
@@ -310,12 +310,12 @@
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label">01 · Self-hosted LLM</div>
         <h3>Scenario agent</h3>
-        <p>The three policy branches are one batched LLM request. This demo runs them on <strong>Fireworks</strong> (AMD-powered); the same OpenAI-compatible client points at <code>vLLM</code> on the GPU with one env var — <code>SIM_BACKEND=vllm</code>.</p>
+        <p>The three policy branches are one batched LLM request. This demo runs them on <strong>Fireworks</strong> (AMD-powered); the same OpenAI-compatible client points at <code>vLLM</code> on the GPU with one env var: <code>SIM_BACKEND=vllm</code>.</p>
       </div>
       <div class="panel" style="border-color:var(--cyan)"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label" style="color:var(--cyan)">02 · Monte Carlo engine</div>
         <h3 class="accent">PyTorch / ROCm</h3>
-        <p>10,000 stochastic hazard-exposure runs as <strong>one tensor batch</strong>, no Python loops. Device-agnostic — ROCm presents as <code>cuda</code>, so the same code runs on any AMD GPU and on a laptop.</p>
+        <p>10,000 stochastic hazard-exposure runs as <strong>one tensor batch</strong>, no Python loops. Device-agnostic: ROCm presents as <code>cuda</code>, so the same code runs on any AMD GPU and on a laptop.</p>
       </div>
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
         <div class="label">03 · Embedding dedup</div>
@@ -329,7 +329,7 @@
       <div class="panel" style="padding:18px"><div class="label">VRAM on the card we ran</div><div class="stat"><span class="big">48</span> <span class="unit">GB &middot; gfx1100</span></div></div>
       <div class="panel" style="padding:18px"><div class="label">GPU readout</div><div class="stat"><span class="big">live</span><div class="unit">visible during sim</div></div></div>
     </div>
-    <p class="foot-note">Visible AMD usage is judged AMD usage — the utilization bar sits in the interface and spikes on every run. The speedup is measured on the AMD GPU (61&times; at 100k runs, 30.4M runs/sec), never estimated.</p>
+    <p class="foot-note">Visible AMD usage is judged AMD usage. The utilization bar sits in the interface and spikes on every run. The speedup is measured on the AMD GPU (61&times; at 100k runs, 30.4M runs/sec), never estimated.</p>
   </section>
 
   <!-- 5 — HONEST BY DESIGN -->
@@ -340,11 +340,11 @@
       <ul class="clean">
         <li><b>Every figure is a range.</b>&nbsp;<span>p10–p90 bands, never a point estimate that pretends to certainty.</span></li>
         <li><b>The LLM never invents numbers.</b>&nbsp;<span>The tensor engine quantifies; the model only narrates and applies vetted mitigation factors to the ranges it is handed.</span></li>
-        <li><b>Everything is labeled.</b>&nbsp;<span>All simulated data carries “SIMULATION — DECISION SUPPORT ONLY.”</span></li>
-        <li><b>A human decides.</b>&nbsp;<span>Options with explicit trade-offs — never “the AI decided.” Scope is disaster response, never offensive action.</span></li>
+        <li><b>Everything is labeled.</b>&nbsp;<span>All simulated data carries “SIMULATION · DECISION SUPPORT ONLY.”</span></li>
+        <li><b>A human decides.</b>&nbsp;<span>Options with explicit trade-offs, never “the AI decided.” Scope is disaster response, never offensive action.</span></li>
       </ul>
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i>
-        <div class="label">Resilience — rehearsed, not theoretical</div>
+        <div class="label">Resilience: rehearsed, not theoretical</div>
         <ul class="clean" style="gap:10px; font-size:14px">
           <li>Dead conference Wi-Fi&nbsp;<span>→ full offline demo on curated historical events</span></li>
           <li>LLM endpoint down&nbsp;<span>→ auto-fallback, honest banner in the HUD</span></li>
@@ -366,7 +366,7 @@
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>Insurers</h3><p>Cat-risk desks pricing exposure and modeling loss under intervention scenarios.</p></div>
       <div class="panel"><i class="brk tl"></i><i class="brk br"></i><h3>Logistics</h3><p>Supply chains re-routing around unfolding hazards with quantified lead time.</p></div>
     </div>
-    <p class="sub">Situational-awareness spend is established and growing. CrisisCommand sells the layer above it — the simulation that turns awareness into a defensible decision.</p>
+    <p class="sub">Situational-awareness spend is established and growing. CrisisCommand sells the layer above it: the simulation that turns awareness into a defensible decision.</p>
   </section>
 
   <!-- 7 — ROADMAP / STATUS -->
@@ -388,7 +388,7 @@
           <li><b>Full hazard ensemble</b>&nbsp;<span>cyclone + wildfire kernels, dynamic weighting</span></li>
           <li><b>ReliefWeb + tension feeds</b>&nbsp;<span>richer signal beyond the two solid sources</span></li>
         </ul>
-        <p style="margin-top:16px; font-size:13px">111 backend tests · smoke test · failure drills — all green.</p>
+        <p style="margin-top:16px; font-size:13px">153 backend tests · smoke test · failure drills, all green.</p>
       </div>
     </div>
   </section>
@@ -397,7 +397,7 @@
   <section class="slide" style="align-content:center; text-align:left">
     <div class="eyebrow">Team Imitasi</div>
     <h1>Commercial tools<br>show you the crisis.<br><span class="accent">This simulates<br>your decision.</span></h1>
-    <p class="kicker">CrisisCommand — an AI war room, powered by AMD GPUs.</p>
+    <p class="kicker">CrisisCommand: an AI war room, powered by AMD GPUs.</p>
     <div class="chips" style="margin-top:8px">
       <span class="chip">AMD GPU</span><span class="chip">ROCm</span><span class="chip">vLLM</span>
       <span class="chip">Fireworks AI</span><span class="chip">PyTorch</span><span class="chip">FastAPI</span>

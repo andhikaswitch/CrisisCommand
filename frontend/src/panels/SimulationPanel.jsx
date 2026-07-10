@@ -159,17 +159,17 @@ export default function SimulationPanel({ event, result, setResult, selectedOpti
     return (
       <>
         <button className="run-sim-btn" onClick={start}>▶ Run Simulation</button>
-        {error && <div className="sim-error">SIMULATION FAILED — {error} <button className="retry" onClick={start}>RETRY</button></div>}
-        <div className="sim-note">Simulation — decision support only</div>
+        {error && <div className="sim-error">SIMULATION FAILED: {error} <button className="retry" onClick={start}>RETRY</button></div>}
+        <div className="sim-note">Simulation · decision support only</div>
       </>
     );
   }
 
   if (running) {
     return (
-      <HoloPanel title={`Simulation — ${device ?? 'CPU'}`} icon="⚡">
+      <HoloPanel title={`Simulation · ${device ?? 'CPU'}`} icon="⚡">
         <ProgressView progress={progress} />
-        <div className="sim-note">Simulation — decision support only</div>
+        <div className="sim-note">Simulation · decision support only</div>
       </HoloPanel>
     );
   }
@@ -209,7 +209,7 @@ export default function SimulationPanel({ event, result, setResult, selectedOpti
           onHover={onHoverOption}
         />
       ))}
-      <div className="sim-note">Simulation — decision support only</div>
+      <div className="sim-note">Simulation · decision support only</div>
     </HoloPanel>
   );
 }
