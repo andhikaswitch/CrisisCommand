@@ -27,7 +27,7 @@
   }
 
   /* Deliberate single-theme: this is the product's holographic war-room
-     identity — a committed visual world, not an omission. */
+     identity: a committed visual world, not an omission. */
 
   html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   body {
@@ -86,7 +86,23 @@
       background: #060a12 !important;
       -webkit-print-color-adjust: exact; print-color-adjust: exact;
     }
-    .slide {
+  
+  /* closing slide: the people behind it (judges score the team, not just code) */
+  .team {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 40px; margin-top: 22px; max-width: 720px;
+  }
+  .team-member {
+    display: flex; align-items: baseline; gap: 10px;
+    border-left: 1px solid rgba(34,211,238,0.35); padding-left: 12px;
+  }
+  .team-member b { font-size: 15px; color: var(--text); font-weight: 600; }
+  .team-member span {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--cyan);
+  }
+
+  .slide {
       min-height: 900px; height: 900px;
       page-break-after: always; break-after: page;
       padding: 64px var(--slide-pad);
@@ -129,7 +145,7 @@
   .accent { color: var(--cyan); }
   strong { color: var(--text); font-weight: 600; }
 
-  /* holographic panel — echoes the real HoloPanel component */
+  /* holographic panel: echoes the real HoloPanel component */
   .panel {
     position: relative; background: var(--panel);
     -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
@@ -176,7 +192,7 @@
   }
   ul.clean li span { color: var(--dim); }
 
-  /* stepped flow (a real sequence — numbering earns its place here) */
+  /* stepped flow (a real sequence: numbering earns its place here) */
   .flow { display: grid; gap: 12px; }
   .step { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: baseline; }
   .step .n {
@@ -238,7 +254,7 @@
 </footer>
 
 <main>
-  <!-- 1 — HERO / THESIS -->
+  <!-- 1. HERO / THESIS -->
   <section class="slide" style="align-content:center">
     <div class="two-col">
       <div style="display:grid; gap:24px">
@@ -255,7 +271,7 @@
     </div>
   </section>
 
-  <!-- 2 — THE GAP -->
+  <!-- 2. THE GAP -->
   <section class="slide">
     <div class="eyebrow">The gap</div>
     <h2>Everyone shows the crisis.<br>Nobody simulates the response.</h2>
@@ -274,7 +290,7 @@
     <p class="sub">The decision layer is the hard part. It is the part that needs simulation, grounding, and a GPU. That is exactly what CrisisCommand builds.</p>
   </section>
 
-  <!-- 3 — HOW IT WORKS -->
+  <!-- 3. HOW IT WORKS -->
   <section class="slide">
     <div class="eyebrow">The demo · 60 seconds</div>
     <h2>One globe. Three modes. A decision.</h2>
@@ -302,7 +318,7 @@
     </div>
   </section>
 
-  <!-- 4 — THE AMD STORY -->
+  <!-- 4. THE AMD STORY -->
   <section class="slide">
     <div class="eyebrow">Why it needs the GPU · engineered in, not bolted on</div>
     <h2>Three compute paths on one AMD GPU.</h2>
@@ -332,7 +348,7 @@
     <p class="foot-note">Visible AMD usage is judged AMD usage. The utilization bar sits in the interface and spikes on every run. The speedup is measured on the AMD GPU (61&times; at 100k runs, 30.4M runs/sec), never estimated.</p>
   </section>
 
-  <!-- 5 — HONEST BY DESIGN -->
+  <!-- 5. HONEST BY DESIGN -->
   <section class="slide">
     <div class="eyebrow">The ethical core · this is a decision-support tool</div>
     <h2>Honest by design.<br>Fake precision is disqualifying.</h2>
@@ -356,7 +372,7 @@
     </div>
   </section>
 
-  <!-- 6 — MARKET -->
+  <!-- 6. MARKET -->
   <section class="slide">
     <div class="eyebrow">Who pays for the decision layer</div>
     <h2>The buyers already own the dashboards.</h2>
@@ -369,7 +385,7 @@
     <p class="sub">Situational-awareness spend is established and growing. CrisisCommand sells the layer above it: the simulation that turns awareness into a defensible decision.</p>
   </section>
 
-  <!-- 7 — ROADMAP / STATUS -->
+  <!-- 7. ROADMAP / STATUS -->
   <section class="slide">
     <div class="eyebrow">Build status</div>
     <h2>Shipped, end to end.</h2>
@@ -393,13 +409,19 @@
     </div>
   </section>
 
-  <!-- 8 — CLOSE -->
+  <!-- 8. CLOSE -->
   <section class="slide" style="align-content:center; text-align:left">
     <div class="eyebrow">Team Imitasi</div>
     <h1>Commercial tools<br>show you the crisis.<br><span class="accent">This simulates<br>your decision.</span></h1>
     <p class="kicker">CrisisCommand: an AI war room, powered by AMD GPUs.</p>
+    <div class="team">
+      <div class="team-member"><b>Andhika Eka Pratama</b><span>Lead</span></div>
+      <div class="team-member"><b>Defry Ananta Perangin Angin</b><span>Engineering</span></div>
+      <div class="team-member"><b>Diego Andreas Simanjuntak</b><span>Engineering</span></div>
+      <div class="team-member"><b>Muhammad Rizky Rajabi</b><span>Engineering</span></div>
+    </div>
     <div class="chips" style="margin-top:8px">
-      <span class="chip">AMD GPU</span><span class="chip">ROCm</span><span class="chip">vLLM</span>
+      <span class="chip">AMD GPU</span><span class="chip">ROCm</span>
       <span class="chip">Fireworks AI</span><span class="chip">PyTorch</span><span class="chip">FastAPI</span>
       <span class="chip">React · Three.js</span>
     </div>
@@ -407,7 +429,7 @@
 </main>
 
 <script>
-  // Hero wireframe globe — ties the deck to the product's centerpiece.
+  // Hero wireframe globe: ties the deck to the product's centerpiece.
   (function () {
     const c = document.getElementById('globe');
     if (!c) return;
