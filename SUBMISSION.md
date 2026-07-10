@@ -89,7 +89,7 @@ with three interaction states.
 | End-to-end path works | `python scripts/smoke_test.py` |
 | Degrades honestly under failure | `python scripts/failure_drills.py` (5 induced failures) |
 | Runs fully offline | `docker compose up --build` with `SEED_MODE=true` |
-| CPU-vs-GPU speedup | `evidence/benchmark.json` — measured, not estimated |
+| CPU-vs-GPU speedup: **61.2× at 100k runs** (30.4M runs/sec, AMD gfx1100, ROCm 7.2) | `evidence/benchmark.json` — measured, not estimated |
 | No hardcoded GPU model | `grep -r MI300X backend/ frontend/src` |
 
 ---

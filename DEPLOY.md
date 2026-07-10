@@ -254,7 +254,7 @@ simulation — visible AMD usage is judged AMD usage.
 
 | Metric | Source | Value |
 |---|---|---|
-| Monte Carlo 100k runs, CPU → MI300X | `benchmark.py` | ___ ms → ___ ms (__×) |
+| Monte Carlo 100k runs, CPU → AMD GPU | `benchmark.py` | 201.1 ms → 3.3 ms (61.2×) on gfx1100 |
 | Scenario agent, 3 branches batched | vLLM logs | ___ tokens/sec |
 | Peak VRAM (vLLM + MC + embeddings) | `rocm-smi` | ___ / 192 GB |
 | Ingest-to-globe latency (live GDACS) | manual | ___ s |
