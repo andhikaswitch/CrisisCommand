@@ -15,6 +15,7 @@ COPY scripts /app/scripts
 COPY frontend/dist /app/frontend/dist
 ENV PYTHONPATH=/app
 
-# HF Spaces routes to the port named by app_port in README (7860 default).
+# Bind to the platform's injected $PORT (Render, Koyeb, Cloud Run all set it);
+# fall back to 7860 for local runs. Shell form so ${PORT} expands.
 EXPOSE 7860
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-7860}

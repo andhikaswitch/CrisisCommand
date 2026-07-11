@@ -21,74 +21,71 @@ thing the CPU host loses is the live GPU readout in the footer, which reads
 `cpu` instead of `AMD GPU (gfx1100)`. That is fine: the GPU story is already
 captured, measured, and committed.
 
-## Why Hugging Face Spaces
+## Host choice: NOT Hugging Face
 
-Free forever, Docker + WebSocket support, stays up independently of your laptop
-or the notebook, and you already have an HF account. The root `Dockerfile`
-serves the API, the WebSocket, and the built SPA from one port (7860, the HF
-default), so no extra config is needed.
+HF Spaces made Docker and Gradio SDKs **paid** (2026); only Static (HTML/JS) is
+free, and Static cannot run this Python backend. So HF is out. Use a host whose
+free tier runs a container.
 
-## Deploy (from your laptop, ~10 minutes)
+Measured footprint (a real container, SEED mode): **166 MB idle, 170 MB during a
+10k-run simulation.** So a 512 MB free tier is comfortable. torch is CPU-only and
+lazy-loads.
 
-**1. Create the Space** at <https://huggingface.co/new-space>:
-- Owner: your account
-- Space name: `crisiscommand`
-- License: choose any (e.g. MIT)
-- **Space SDK: Docker** → **Blank**
-- Visibility: **Public**
+**Recommended: Render.com** (free web service, Docker, WebSocket, no credit card
+for the free tier). Spins down after ~15 min idle and wakes on the next request
+(~30-50s). **Backup: Koyeb** (free tier, Docker, one service).
 
-**2. Push the code to the Space.** HF gives the Space its own git repo. From the
-project root:
+> Free-tier terms change often. If Render now asks for a card, try Koyeb; the
+> same Dockerfile works on both because it binds to the injected `$PORT`.
 
-```bash
-# one-time: install git-lfs if you haven't (frontend/dist + PDF are binary)
-git lfs install
+## Deploy to Render (from your laptop, ~10 minutes)
 
-git remote add space https://huggingface.co/spaces/<your-hf-user>/crisiscommand
-git push space main
-```
+**1.** Sign in at <https://render.com> with your GitHub account.
 
-If prompted for a password, use a **Hugging Face access token** (Settings →
-Access Tokens → New token, role `write`), not your HF password.
+**2.** New → **Web Service** → connect the `CrisisCommand` repo.
 
-HF auto-detects the Docker SDK from the root `Dockerfile` and starts building.
-Watch the build log in the Space's UI.
+**3.** Render detects the root `Dockerfile` automatically. Settings:
+- Runtime: **Docker**
+- Instance type: **Free**
+- No start command needed (the Dockerfile's `CMD` binds `$PORT`).
 
-**3. Turn on live mode + AI briefings (optional but recommended).** In the Space:
-**Settings → Variables and secrets**:
+**4.** (Optional, for live events + AI briefings) → **Environment** → add:
 
-| Add as | Name | Value |
-|---|---|---|
-| Secret | `FIREWORKS_API_KEY` | your `fw_...` key |
-| Variable | `FIREWORKS_MODEL` | `accounts/fireworks/models/gpt-oss-120b` |
-| Variable | `SEED_MODE` | `false` |
+| Key | Value |
+|---|---|
+| `FIREWORKS_API_KEY` | your `fw_...` key |
+| `FIREWORKS_MODEL` | `accounts/fireworks/models/gpt-oss-120b` |
+| `SEED_MODE` | `false` |
 
-Without the key it still runs, but briefings show the raw-data template. With
-`SEED_MODE=false` the globe shows real live events plus the 15 curated drills.
+Without the key it still runs; briefings just show the raw-data template. Omit
+`SEED_MODE` (or set `true`) to run the always-works offline demo on 15 curated
+events.
 
-**4. Your Application URL** is then:
+**5.** Create Web Service. Watch the build log. Your URL will be:
 
 ```
-https://<your-hf-user>-crisiscommand.hf.space
+https://crisiscommand.onrender.com          (or the name Render assigns)
 ```
 
-That is what goes in the form. It survives your laptop being off.
+## Koyeb fallback (if Render wants a card)
+
+<https://app.koyeb.com> → Create Service → **Docker** or **GitHub** →
+select the repo → Koyeb reads the `Dockerfile` → Free instance → Deploy. Add the
+same env vars under the service's Environment tab. URL: `https://<app>.koyeb.app`.
 
 ## What each form field gets
 
 | Field | Value |
 |---|---|
 | Public GitHub Repository | `https://github.com/andhikaswitch/CrisisCommand` |
-| Demo Application Platform | `Hugging Face Spaces (Docker)` |
-| Application URL | `https://<your-hf-user>-crisiscommand.hf.space` |
+| Demo Application Platform | `Render` (or `Koyeb`) |
+| Application URL | the `https://...onrender.com` URL Render gives you |
 
 ## Notes
 
-- **First load after idle** takes ~20-30s while the Space wakes. Open it once
-  yourself before you submit, so it is warm when a judge clicks.
-- **Redeploy after a code change:** `git push space main` again.
-- The HF Space and the notebook are unrelated. The notebook is only for
-  recording the GPU demo video; the Space is the permanent public URL.
-- If you would rather not run live feeds on a public host, set `SEED_MODE=true`
-  (or omit it — that is the default). The full demo still works offline against
-  the 15 curated events.
+- **First load after idle** takes ~30-50s while the free instance wakes. Open it
+  once yourself right before you submit so it is warm when a judge clicks.
+- **Redeploy after a code change:** push to GitHub; Render auto-deploys. (Rebuild
+  `frontend/dist` first if you changed the UI: `cd frontend && npm run build`.)
+- Render/Koyeb and the ROCm notebook are unrelated. The notebook only records the
+  GPU demo video; this host is the permanent public URL, on CPU.
