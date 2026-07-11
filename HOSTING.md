@@ -36,51 +36,50 @@ Two options remain:
 
 ---
 
-## A. Static showcase → Netlify Drop (2 minutes, no card, no account)
+## A. Static showcase → Vercel (recommended, no card)
 
 The app is normally frontend + Python backend. For a permanent free URL we bake
-the backend's responses (events, simulations, AI briefings) into static JSON and
-build a frontend that reads them. It shows the real product — globe, briefings,
-simulation, three options — with a banner noting the live/GPU version is in the
-video.
+the backend's responses (events, simulations, AI briefings) into static JSON
+(committed under `frontend/public/demo-data/`) and build a frontend that reads
+them. It shows the real product — globe, briefings, simulation, three options —
+with a banner noting the live/GPU version is in the video.
 
-**1. Bake the data** (once, with your Fireworks key in `.env` so the briefings
-are the real AI ones):
+`vercel.json` already wires this up. The demo data is committed, so Vercel needs
+no Fireworks key at build time.
+
+**Deploy on Vercel (auto-builds from GitHub):**
+1. <https://vercel.com> → sign in with GitHub.
+2. **Add New → Project** → import `CrisisCommand`.
+3. Do not change anything — `vercel.json` sets the build command
+   (`VITE_DEMO_DATA=1`) and output directory.
+4. **Deploy.** URL: `https://crisiscommand-<hash>.vercel.app`. Every push
+   auto-redeploys. Free, no card.
+
+**Regenerating the baked data** (only if the seed events or briefings change —
+needs your Fireworks key in `.env` for real AI briefings):
 
 ```bash
-python scripts/bake_demo_data.py
+python scripts/bake_demo_data.py        # writes frontend/public/demo-data/*.json
+git add frontend/public/demo-data && git commit -m "refresh demo data" && git push
 ```
-
-**2. Build the static bundle:**
-
-```bash
-cd frontend
-# Windows PowerShell:  $env:VITE_DEMO_DATA=1; npm run build
-# macOS/Linux/Git Bash:
-VITE_DEMO_DATA=1 npm run build
-```
-
-**3. Deploy `frontend/dist`:**
-- Go to <https://app.netlify.com/drop>
-- **Drag the `frontend/dist` folder onto the page.**
-- That is it. No login, no card. You get a URL like
-  `https://<random>.netlify.app` instantly, permanent.
-- (Optional) claim it with a free Netlify account to rename it and keep it.
-
-Same folder also works by drag-drop on **Cloudflare Pages** or **GitHub Pages**
-if you prefer.
 
 > What the showcase does NOT do: live feeds (needs the backend) and real-time
 > on-GPU simulation. Those are in the demo video. Clicking a drill still shows a
 > real baked simulation and a real AI briefing, so the product is fully legible.
+> Use the **DRILLS** or **ALL** filter — the **LIVE** filter is empty here by
+> design (no backend feed on a static host).
+
+**Netlify / Cloudflare Pages alternative:** run the two commands above plus
+`cd frontend && VITE_DEMO_DATA=1 npm run build`, then drag `frontend/dist` onto
+<https://app.netlify.com/drop> (no account, no card).
 
 ## What each form field gets (static showcase)
 
 | Field | Value |
 |---|---|
 | Public GitHub Repository | `https://github.com/andhikaswitch/CrisisCommand` |
-| Demo Application Platform | `Netlify` (static) |
-| Application URL | the `https://...netlify.app` URL from the drop |
+| Demo Application Platform | `Vercel` (static) |
+| Application URL | the `https://...vercel.app` URL |
 
 ---
 

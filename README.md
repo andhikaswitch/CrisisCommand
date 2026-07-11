@@ -42,6 +42,30 @@ One persistent 3D Earth in dark space — cyan atmosphere, pulsing severity ring
 | [PROMPTS.md](PROMPTS.md) | All LLM prompts + grounding rules | Touching LLM behavior |
 | [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | Day 0–7 schedule, risks, labor split | Daily planning |
 | [DEPLOY.md](DEPLOY.md) | AMD GPU runbook (droplet or ROCm notebook) + evidence capture | Deploying / capturing pitch metrics |
+| [HOSTING.md](HOSTING.md) | Free public URL (Vercel static showcase) | Deploying the demo URL |
+
+## Deployment: the public URL runs on CPU, and that is on purpose
+
+The submission's public **Application URL** is a **static showcase on Vercel**
+(free, no credit card). `vercel.json` builds the frontend with `VITE_DEMO_DATA=1`
+and serves it; the app reads pre-baked responses from `frontend/public/demo-data/`
+(events, full simulations, real AI briefings), so it needs **no backend at all**.
+
+**Why no AMD GPU on the hosted URL?** Because no free host provides one — and
+that is fine, because the GPU is not what the URL is for:
+
+- The **AMD GPU** runs the Monte Carlo engine in the **ROCm notebook**
+  (see [DEPLOY.md](DEPLOY.md)). That is where `evidence/benchmark.json` and the
+  demo video are captured — the measured **61× CPU→GPU** speedup on gfx1100.
+- The **hosted URL** exists only so a judge can click and see the product. It
+  shows real AI briefings and real simulation output, frozen. A banner says so.
+- The **full live app** (live BMKG/USGS feeds + real-time simulation) runs on a
+  CPU container from the same `Dockerfile`, or on the GPU in the notebook. Free
+  container hosts now require a card, which is why the public URL is static.
+
+So three environments, one honest story: **notebook = the AMD GPU**,
+**video + benchmark.json = the proof**, **Vercel = a clickable CPU showcase**.
+Deploy steps: [HOSTING.md](HOSTING.md).
 
 ## Quick Start
 
