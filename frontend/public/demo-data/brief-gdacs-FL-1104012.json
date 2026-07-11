@@ -1,0 +1,22 @@
+{
+  "headline": "Green Flood impacts South Korea, July 7‑9, 2026",
+  "summary": "On 7 July 2026 at 01:00 UTC a flood designated “Green Flood” began in South Korea at approximately 36.64 N, 127.49 E. The event is recorded by GDACS with a severity index of 0.55 and is expected to continue until 9 July 2026 at 01:00 UTC. The official report provides location and timing but does not include information on the number of residents, infrastructure, or economic losses in the affected area. Consequently, the scale of displacement, damage to property, and the extent of inundated land remain unclear. No data on river systems or catchment areas have been released, and the presence of critical facilities such as hospitals, power plants, or major roadways within the flood zone has not been confirmed. Authorities have not issued evacuation orders or public warnings as of the latest update.",
+  "confirmed_facts": [
+    "GDACS reports a flood event titled “Green Flood” in South Korea.",
+    "The flood started on 2026-07-07T01:00:00Z and is forecast to end on 2026-07-09T01:00:00Z.",
+    "Location is given as latitude 36.6421169 and longitude 127.4891742.",
+    "Severity is recorded with an index value of 0.55.",
+    "Event type is classified as flood (FL) in the GDACS system."
+  ],
+  "key_unknowns": [
+    "Number of people directly affected or displaced.",
+    "Exact extent and depth of the inundated area.",
+    "Estimated damage to infrastructure, agriculture, and the economy.",
+    "Whether local authorities have issued evacuation orders or emergency alerts."
+  ],
+  "watch_indicators": [
+    "Rising river or stream gauge readings near the reported coordinates.",
+    "New satellite or aerial imagery showing expansion of water coverage.",
+    "Official communications indicating evacuation orders, shelter openings, or damage reports."
+  ]
+}

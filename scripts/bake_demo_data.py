@@ -7,9 +7,9 @@ needs data. So we bake it once here, and the frontend (built with
 VITE_DEMO_DATA=1) reads these files instead of calling a backend.
 
 What gets baked, into frontend/public/demo-data/:
-  events.json          - all events (the curated drills; live feeds are skipped)
-  status.json          - a SEED-mode status so the HUD renders
-  brief-<id>.json      - the AI situation briefing per simulable drill
+  events.json          - all events: the curated drills PLUS a live snapshot
+  status.json          - LIVE-mode status so the HUD renders
+  brief-<id>.json      - the AI situation briefing per event (drills AND live)
   sim-<id>.json        - the full simulation (all horizons + 3 options) per drill
 
 Run it with your Fireworks key in .env so the briefings are the real AI ones,
@@ -49,35 +49,63 @@ def _dump(path: Path, obj) -> None:
     print(f"  wrote {path.relative_to(_ROOT)}")
 
 
+MAX_LIVE = 25  # cap live snapshot so the bake stays bounded (briefings cost time)
+
+
+async def _fetch_live():
+    """A one-shot snapshot of real live events so the LIVE tab is populated."""
+    from backend.ingest import bmkg, flood_risk, gdacs, news, usgs
+
+    sources = [
+        ("USGS", usgs.fetch), ("GDACS", gdacs.fetch), ("BMKG", bmkg.fetch),
+        ("OPEN-METEO", flood_risk.fetch_global), ("GDELT", news.fetch),
+    ]
+    out = []
+    for name, fetch in sources:
+        try:
+            got = await fetch()
+            print(f"  live {name}: {len(got)}")
+            out.extend(got)
+        except Exception as exc:  # noqa: BLE001 - a dead feed must not stop the bake
+            print(f"  live {name}: skipped ({exc})")
+    out.sort(key=lambda e: e.severity, reverse=True)
+    return out[:MAX_LIVE]
+
+
 async def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     store = EventStore(seed=True)
-    events = store.snapshot()
+    drills = store.snapshot()
+
+    print("fetching a live snapshot for the LIVE tab...")
+    live = await _fetch_live()
+    events = drills + live
+    print(f"total baked events: {len(drills)} drills + {len(live)} live")
 
     _dump(OUT / "events.json", [e.model_dump(mode="json") for e in events])
     _dump(OUT / "status.json", {
-        "mode": "SEED",
+        "mode": "LIVE",
         "sim_backend_requested": "fireworks",
         "sim_backend_active": "fireworks",
         "sim_backend_degraded": False,
         "briefing_backend_configured": True,
-        "sources": [{"source": "SEED", "status": "ok", "event_count": len(events),
-                     "last_success": None, "last_error": None}],
+        "sources": [{"source": s, "status": "ok", "event_count": n,
+                     "last_success": None, "last_error": None}
+                    for s, n in [("SEED", len(drills)), ("LIVE", len(live))]],
     })
 
-    simulable = [
-        e for e in events
-        if e.kind in SUPPORTED_KINDS and e.population_context is not None
-    ]
-    print(f"baking {len(simulable)} simulable drills...")
-    for e in simulable:
+    # Briefings for every event (drills AND live) so any card is clickable.
+    # Simulations only for the drills, which have vetted population context.
+    print(f"baking briefings for {len(events)} events + sims for the drills...")
+    for e in events:
         brief = await write_briefing(e)
         _dump(OUT / f"brief-{e.id}.json", brief.model_dump(mode="json"))
-        try:
-            result = await run_full_simulation(e, horizon="24h", n_runs=10_000)
-            _dump(OUT / f"sim-{e.id}.json", result.model_dump(mode="json"))
-        except UnsupportedHazardError:
-            print(f"  skip sim for {e.id} (unsupported kind)")
+        if e.kind in SUPPORTED_KINDS and e.population_context is not None:
+            try:
+                result = await run_full_simulation(e, horizon="24h", n_runs=10_000)
+                _dump(OUT / f"sim-{e.id}.json", result.model_dump(mode="json"))
+            except UnsupportedHazardError:
+                print(f"  skip sim for {e.id} (unsupported kind)")
 
     fallback = sum(
         1 for p in OUT.glob("brief-*.json")

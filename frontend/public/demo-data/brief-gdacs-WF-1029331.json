@@ -1,0 +1,22 @@
+{
+  "headline": "Wildfire in Orange Forest, France, July 4‑8, 2026",
+  "summary": "On 4 July 2026 a wildfire designated as the Orange Forest fires ignited in the Orange Forest region of France (latitude 42.6724, longitude 2.5677). The fire remained active through 8 July 2026, with GDACS assigning a severity score of 0.75. The event is recorded in the GDACS system and a public report is available online. No specific population data have been supplied, so the number of residents, workers, or visitors potentially exposed is not known. Key information that remains missing includes the total area burned, the number of people directly affected, the current containment level, and the resources that have been mobilized. Monitoring will focus on changes in fire size, wind direction that could move the blaze toward inhabited zones, and any new ignition reports.",
+  "confirmed_facts": [
+    "Wildfire named \"Orange Forest fires\" reported in France.",
+    "Fire active from 4 July 2026 to 8 July 2026.",
+    "Location coordinates: latitude 42.6724, longitude 2.5677.",
+    "Severity rating of 0.75 assigned by GDACS.",
+    "Event sourced from GDACS with a public report link."
+  ],
+  "key_unknowns": [
+    "Total area burned by the fire.",
+    "Number of people directly affected or displaced.",
+    "Current containment status and progress.",
+    "Resources and personnel deployed for suppression."
+  ],
+  "watch_indicators": [
+    "Rapid expansion of the fire perimeter.",
+    "Shift in wind direction toward populated areas.",
+    "Reports of new ignition points or flare‑ups."
+  ]
+}

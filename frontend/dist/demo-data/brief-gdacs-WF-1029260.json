@@ -1,0 +1,22 @@
+{
+  "headline": "Wildfire in Orange Forest, Portugal, July 2‑8, 2026",
+  "summary": "On 2 July 2026 a wildfire designated as the Orange Forest fires ignited in central Portugal at latitude 40.62 N and longitude 8.28 W. The GDACS system assigned the event a severity rating of 0.75 and expects activity to continue through 8 July 2026. The fire’s location places it within a forested region, but no data on nearby settlements or population exposure have been provided. Current reports do not include the size of the area burned, the number of people affected, or the level of containment achieved. Information on firefighting resources, weather conditions, and potential secondary impacts remains unavailable. Monitoring will focus on changes in fire spread, wind patterns, and updates from satellite or ground observations. Air quality warnings may be issued for nearby communities, and road closures could be considered if the fire approaches transport corridors.",
+  "confirmed_facts": [
+    "Wildfire identified as \"Orange Forest fires\" in Portugal.",
+    "Event began on 2 July 2026 (00:00 UTC) and is projected through 8 July 2026.",
+    "Coordinates: latitude 40.6204, longitude -8.2824.",
+    "Severity rating reported as 0.75 by GDACS.",
+    "Information sourced from GDACS report (event ID 1029260)."
+  ],
+  "key_unknowns": [
+    "Number of people directly affected or displaced.",
+    "Total area burned and rate of spread.",
+    "Current containment level and resources deployed.",
+    "Influence of weather conditions on fire behavior."
+  ],
+  "watch_indicators": [
+    "Expansion of fire perimeter detected by satellite imagery.",
+    "Changes in wind speed or direction that could accelerate spread.",
+    "Official updates on containment progress or new ignition points."
+  ]
+}

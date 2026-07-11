@@ -1,5 +1,5 @@
 {
-  "mode": "SEED",
+  "mode": "LIVE",
   "sim_backend_requested": "fireworks",
   "sim_backend_active": "fireworks",
   "sim_backend_degraded": false,
@@ -9,6 +9,13 @@
       "source": "SEED",
       "status": "ok",
       "event_count": 15,
+      "last_success": null,
+      "last_error": null
+    },
+    {
+      "source": "LIVE",
+      "status": "ok",
+      "event_count": 25,
       "last_success": null,
       "last_error": null
     }

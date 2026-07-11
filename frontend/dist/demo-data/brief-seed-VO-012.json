@@ -1,0 +1,22 @@
+{
+  "headline": "Mount Merapi Enters Major Eruptive Phase, Threatening Yogyakarta Region",
+  "summary": "On 26 October 2010 at 10:00 UTC, Mount Merapi in central Java began a major eruptive phase, recorded with a severity rating of 0.75. The volcano’s activity has produced pyroclastic flows that historically follow defined corridors toward populated areas. Approximately 350,000 people, including the city of Yogyakarta (population 422,000), are considered exposed to these hazards, and past evacuations have moved a similar number of residents from the risk zones. The event’s current plume height, ash dispersion, and the status of ongoing lava domes are not detailed in the available feed. Uncertainty remains about the number of people still within evacuation zones, the potential for additional pyroclastic flows, and the likelihood of lahars forming in the rainy season. Monitoring agencies have not yet released data on seismic tremor intensity or gas emission rates. The timing of any renewed explosive bursts is also unclear.",
+  "confirmed_facts": [
+    "Mount Merapi began a major eruptive phase on 26 Oct 2010 at 10:00 UTC.",
+    "The eruption is assigned a severity rating of 0.75.",
+    "Approximately 350,000 people, including Yogyakarta’s 422,000 residents, are estimated to be exposed.",
+    "Historical evacuations moved about 350,000 people from the hazard zones.",
+    "The volcano’s coordinates are latitude ‑7.5407, longitude 110.4457 in Indonesia."
+  ],
+  "key_unknowns": [
+    "Exact height and direction of the current ash plume.",
+    "Current status of lava domes and likelihood of dome collapse.",
+    "Number of residents still within evacuation zones.",
+    "Likelihood and timing of additional pyroclastic flows or lahars."
+  ],
+  "watch_indicators": [
+    "Sustained increase in volcanic seismic tremor amplitude.",
+    "Rapid ascent or widening of the ash plume.",
+    "Detection of elevated sulfur dioxide or other volcanic gas emissions."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "headline": "Kanlaon Volcano erupts in Philippines on 10 July 2026",
+  "summary": "At 08:02 UTC on 10 July 2026, the Kanlaon volcano in the Philippines began erupting, according to the Global Disaster Alert and Coordination System (GDACS). The volcano is located at latitude 10.412 N and longitude 123.132 E. GDACS assigned the event a severity rating of 0.55, indicating a moderate level of concern. No population figures are provided in the current feed, so the number of people potentially exposed to ash, lava flows, or other hazards is not known. Key information still missing includes the height and direction of the ash plume, the geographic extent of ash fall, any impacts on regional air traffic, and whether local authorities have initiated evacuations or other protective actions. Monitoring of seismic activity, plume development, and official alerts will be essential to assess any escalation of the situation.",
+  "confirmed_facts": [
+    "Kanlaon volcano erupted at 08:02 UTC on 10 July 2026.",
+    "Event reported by GDACS with ID gdacs-VO-1000143.",
+    "Volcano coordinates are 10.412 N latitude, 123.132 E longitude.",
+    "GDACS assigned a severity rating of 0.55."
+  ],
+  "key_unknowns": [
+    "Current height and direction of the ash plume.",
+    "Geographic extent of ash fall and affected communities.",
+    "Potential impact on regional air traffic routes.",
+    "Status of any evacuation or shelter measures."
+  ],
+  "watch_indicators": [
+    "Increase in seismic activity or tremor frequency around Kanlaon.",
+    "Reports of expanding ash plume altitude or drift direction.",
+    "Official alerts or advisories issued by PHIVOLCS."
+  ]
+}

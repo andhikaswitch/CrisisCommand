@@ -1,0 +1,22 @@
+{
+  "headline": "Maritime signal detected near Philippines in South China Sea",
+  "summary": "On 22 October 2023 at 08:00 UTC, a maritime incident signal was recorded at latitude 15.18 N and longitude 117.75 E, in the South China Sea near the Philippines. The SEED monitoring system assigned the event a moderate severity rating of 0.5 and linked the report to a public information page on territorial disputes. The nearest urban center is Puerto Princesa, a city of about 307,000 residents located in a low‑density area. The signal has generated clustered headlines but no detailed claim about its cause or consequences. No official confirmation of damage, casualties, or responsible parties has been released. Key gaps remain regarding the incident’s nature, the actors involved, and any direct impact on shipping, fisheries, or the local population. Monitoring will focus on naval movements, official statements, and further media or satellite evidence.",
+  "confirmed_facts": [
+    "Maritime incident signal detected on 2023-10-22 at 08:00 UTC at lat 15.18, lon 117.75.",
+    "Location is in the vicinity of the Philippines, within the South China Sea.",
+    "Severity rating assigned as 0.5 by the SEED system.",
+    "Source of the report is SEED, with a reference URL to a Wikipedia page on territorial disputes.",
+    "Nearest city is Puerto Princesa, population 307,000, in a low‑density area."
+  ],
+  "key_unknowns": [
+    "Exact nature and cause of the maritime signal.",
+    "Parties responsible or involved in the incident.",
+    "Potential impact on civilian shipping, fisheries, or local population.",
+    "Whether any official statements or investigations have been initiated."
+  ],
+  "watch_indicators": [
+    "Deployment of naval or coast guard vessels to the reported coordinates.",
+    "Official statements from the Philippines, China, or other claimants.",
+    "Increase in media reports or satellite imagery showing activity at the site."
+  ]
+}

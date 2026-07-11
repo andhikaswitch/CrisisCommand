@@ -1,0 +1,20 @@
+{
+  "headline": "Magnitude 6.8 Earthquake Near Tahuna, Sulawesi, Indonesia",
+  "summary": "At 11:34:39 UTC on 26 June 2026, the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) reported a magnitude 6.8 earthquake with its epicenter 196 km northwest of Tahuna in the Kepulauan Sangihe district of North Sulawesi, Indonesia. The quake’s coordinates are latitude 5.33 N and longitude 125.08 E. No immediate information on affected populations or infrastructure is available. Authorities have not released details on shaking intensity, damage, or casualties. Monitoring agencies are tracking possible aftershocks and the event’s impact on nearby communities. Given the location in a coastal province, nearby towns such as Tahuna and surrounding villages could experience ground motion, but the exact intensity remains to be determined. Emergency services in North Sulawesi are on standby, and local authorities are expected to issue updates as field assessments progress. The BMKG continues to monitor seismic activity to identify any significant aftershocks that could affect recovery efforts.",
+  "confirmed_facts": [
+    "Magnitude 6.8 earthquake reported by BMKG.",
+    "Epicenter located at latitude 5.33 N, longitude 125.08 E, 196 km northwest of Tahuna, Kepulauan Sangihe, North Sulawesi, Indonesia.",
+    "Event occurred at 2026-06-26 11:34:39 UTC."
+  ],
+  "key_unknowns": [
+    "Intensity of shaking experienced by populated areas.",
+    "Extent of damage to buildings, infrastructure, and utilities.",
+    "Number of injuries, fatalities, or displaced persons.",
+    "Likelihood and magnitude of subsequent aftershocks."
+  ],
+  "watch_indicators": [
+    "Official reports of structural damage or casualties from local authorities.",
+    "Seismic network detection of significant aftershocks (magnitude ≥5.0).",
+    "Increased emergency service calls or requests for assistance in the affected region."
+  ]
+}

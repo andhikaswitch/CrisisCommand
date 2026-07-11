@@ -1,0 +1,22 @@
+{
+  "headline": "Green Flood Event Impacts Central Philippines, June–July 2026",
+  "summary": "A flood designated as \"Green Flood\" began on 13 June 2026 at 01:00 UTC and continued until 10 July 2026 at 01:00 UTC, affecting an area near latitude 7.1573 and longitude 124.1825 in the Philippines. The event is recorded by GDACS with a severity rating of 0.55. No population figures or damage assessments are provided in the current feed. Key gaps include the number of people living in the flood‑prone zone, the extent of inundation, and the condition of critical infrastructure. Monitoring will focus on hydrological data, satellite observations, and local reports to clarify the situation and guide response planning.",
+  "confirmed_facts": [
+    "Event type is flood (GDACS ID gdacs-FL-1103942).",
+    "Location: 7.157297 N, 124.1824893 E in the Philippines.",
+    "Severity rating reported as 0.55.",
+    "Start time 2026-06-13T01:00:00Z; end time 2026-07-10T01:00:00Z.",
+    "Source listed as GDACS with public URL."
+  ],
+  "key_unknowns": [
+    "Number of people residing in the affected area.",
+    "Extent of flood coverage and depth.",
+    "Damage to housing, roads, and utilities.",
+    "Current status of emergency response operations."
+  ],
+  "watch_indicators": [
+    "Increasing river gauge or rainfall measurements.",
+    "Satellite or aerial imagery showing flood expansion.",
+    "Official reports of evacuations or displaced persons."
+  ]
+}

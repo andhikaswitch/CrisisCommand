@@ -1,0 +1,21 @@
+{
+  "headline": "Red Cyclone BAVI-26 Impacts Guam, Japan, Taiwan, China",
+  "summary": "Red Tropical Cyclone BAVI-26 began on 1 July 2026 and is forecast to remain active until 11 July 2026. The system, centered near latitude 27.6 N and longitude 121.8 E, has been assigned a Red severity level (0.95) by GDACS. It is affecting the territories of Guam, the Northern Mariana Islands, Japan, Taiwan, and China. While specific population numbers are not provided, communities, transportation networks, and critical facilities in these areas are potentially exposed to high winds, heavy rain, and storm surge. The cyclone’s exact track, intensity fluctuations, and timing of any landfall remain uncertain. Information on expected wind speeds, rainfall totals, and the number of people or assets at risk is not yet available. Ongoing monitoring will clarify the threat level and guide response actions for authorities immediately.",
+  "confirmed_facts": [
+    "Cyclone BAVI-26 classified as Red with severity 0.95 by GDACS.",
+    "Active period from 1 July 2026 to 11 July 2026.",
+    "Center located at latitude 27.6 N, longitude 121.8 E.",
+    "Affects Guam, Northern Mariana Islands, Japan, Taiwan, and China."
+  ],
+  "key_unknowns": [
+    "Precise track and potential landfall locations.",
+    "Expected maximum wind speeds and rainfall totals.",
+    "Number of people and critical assets exposed.",
+    "Potential impacts on infrastructure and services."
+  ],
+  "watch_indicators": [
+    "Updated forecasts showing significant track shifts.",
+    "Changes in severity rating or issuance of higher alerts.",
+    "Local authorities issuing evacuation orders or storm warnings."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "headline": "Multi-season drought affects 1.5 million in Somalia’s Baidoa region",
+  "summary": "Since February 2022, a multi‑season drought has persisted across central Somalia, centered near Baidoa (lat 3.114, lon 43.65). The SEED report rates the event’s severity at 0.8 and notes five consecutive failed rains, which have forced people to move into urban internally displaced persons (IDP) sites. Approximately 1.5 million individuals are considered exposed, including 750 000 residents of Baidoa city. The prolonged lack of rainfall has reduced water availability and heightened the risk of food shortages, though the precise conditions on the ground remain unclear. Key gaps include current water point functionality, the depth of food insecurity, upcoming rainfall forecasts, and the amount of humanitarian aid already in place. Monitoring water levels, displacement flows, and market price changes will help identify any worsening of the situation.",
+  "confirmed_facts": [
+    "The drought began on 1 Feb 2022 in Somalia (lat 3.114, lon 43.65).",
+    "Severity is rated at 0.8 by the SEED source.",
+    "Five consecutive rainy seasons have failed, leading to displacement into urban IDP sites.",
+    "An estimated 1,500,000 people are exposed, including 750,000 in Baidoa city.",
+    "The event is classified as a drought by SEED, with source URL provided."
+  ],
+  "key_unknowns": [
+    "Current functionality and availability of water points.",
+    "Extent of food insecurity and malnutrition among the exposed population.",
+    "Updated forecasts for rainfall in the upcoming season.",
+    "Level of humanitarian assistance already delivered and remaining gaps."
+  ],
+  "watch_indicators": [
+    "Decline in groundwater or surface‑water levels.",
+    "Increase in newly displaced persons moving to IDP sites.",
+    "Sharp rise in staple food prices in local markets."
+  ]
+}

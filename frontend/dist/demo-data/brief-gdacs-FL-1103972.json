@@ -1,0 +1,22 @@
+{
+  "headline": "Flood event ongoing in northern India, 23 June–10 July 2026",
+  "summary": "A flood has been reported in India, centered near latitude 28.775 and longitude 77.459. The event started on 23 June 2026 at 01:00 UTC and is expected to last until 10 July 2026. GDACS assigns the flood a severity rating of 0.55. No population figures or specific infrastructure details are provided in the current data. Key gaps include how many people are in the flood zone, the level of damage to homes and services, and whether the water will persist beyond the projected end date. Monitoring will focus on water level changes, new imagery of flood spread, and weather forecasts for further rain.",
+  "confirmed_facts": [
+    "Flood reported by GDACS near latitude 28.775, longitude 77.459 in India",
+    "Event began on 23 June 2026 at 01:00 UTC",
+    "GDACS severity index is 0.55",
+    "Event is scheduled through 10 July 2026",
+    "Source information is available on the GDACS website"
+  ],
+  "key_unknowns": [
+    "Number of people living in the affected area",
+    "Extent of damage to homes, roads, and utilities",
+    "Whether the flood will exceed the projected end date",
+    "Current water level trends and any breach of flood defenses"
+  ],
+  "watch_indicators": [
+    "Rising river or water levels reported in the region",
+    "New satellite or aerial images showing flood expansion",
+    "Weather forecasts indicating additional heavy rainfall"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "headline": "South China Sea Tension Spike: 67+ Conflict Articles in 24h",
+  "summary": "On 11 July 2026, monitoring systems recorded a sharp rise in media coverage of conflict‑related events in the South China Sea, with more than 67 articles published in the preceding 24 hours. The signal, flagged by the GDELT project, is assigned a moderate severity rating of 0.602 and is geolocated near latitude 15.2 and longitude 117.7. No specific population figures are attached to the report, and the data do not identify the actors or incidents driving the coverage. The increase suggests heightened attention to the area, but the underlying situation on the ground remains unclear. Key gaps include the nature of any actual confrontations, the parties involved, and whether the coverage reflects real‑time events or broader strategic messaging.",
+  "confirmed_facts": [
+    "A tension signal was generated for the South China Sea on 2026-07-11 at 14:19:53 UTC.",
+    "The signal reports elevated conflict coverage, with more than 67 articles in the last 24 hours.",
+    "The event is sourced from the GDELT project and assigned a severity score of 0.602.",
+    "Geographic coordinates associated with the signal are latitude 15.2 and longitude 117.7."
+  ],
+  "key_unknowns": [
+    "What specific incidents, if any, are behind the increased coverage.",
+    "Which state or non‑state actors are involved in the reported tension.",
+    "Whether the media surge reflects actual escalation or heightened rhetoric.",
+    "Potential impact on civilian populations in the vicinity."
+  ],
+  "watch_indicators": [
+    "Sudden increase in naval or air patrols reported near the coordinates.",
+    "Official statements or diplomatic protests from regional governments.",
+    "Further spikes in conflict‑related media reports exceeding the current level."
+  ]
+}

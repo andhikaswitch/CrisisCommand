@@ -1,0 +1,22 @@
+{
+  "headline": "Green Flood event ongoing in southern Minnesota, USA",
+  "summary": "From 19 May 2026 at 01:00 UTC, a flood event designated as “Green Flood” has been active in the United States, centered at latitude 43.6832 N and longitude 92.7537 W. The GDACS system rates the event’s severity at 0.55 and projects its duration through 10 July 2026 01:00 UTC. The flood is occurring in a region of southern Minnesota, though precise boundaries are not detailed in the feed. No population figures or infrastructure data are included in the current report. Key gaps remain regarding how many residents are in the affected area, the depth and extent of inundation, and the status of local emergency operations. Monitoring of river gauge levels, official evacuation notices, and emerging reports of damage to roads or utilities will help determine whether the situation escalates.",
+  "confirmed_facts": [
+    "GDACS reports a flood named \"Green Flood\" in the United States.",
+    "The event started on 2026-05-19T01:00:00Z and is projected to end on 2026-07-10T01:00:00Z.",
+    "Location coordinates are 43.6832277 latitude, -92.753704 longitude.",
+    "Severity rating is 0.55 on the GDACS scale.",
+    "Source URL is https://www.gdacs.org/report.aspx?eventid=1103888&episodeid=41&eventtype=FL."
+  ],
+  "key_unknowns": [
+    "Number of people residing in the flood‑affected area.",
+    "Exact extent and depth of inundation.",
+    "Impact on critical infrastructure such as roads, bridges, and utilities.",
+    "Current status of local emergency response and resource deployment."
+  ],
+  "watch_indicators": [
+    "Rising water levels reported by USGS stream gauges near the coordinates.",
+    "Official evacuation orders or shelter activations issued by state or local authorities.",
+    "Emerging reports of damage to transportation routes or power outages."
+  ]
+}

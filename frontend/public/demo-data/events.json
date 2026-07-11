@@ -334,5 +334,276 @@
       "exposed_estimate": 307000,
       "notes": "Signal detection only — clustered public headlines, no prediction claim."
     }
+  },
+  {
+    "id": "gdacs-TC-1001279",
+    "kind": "cyclone",
+    "title": "Red Tropical Cyclone BAVI-26 in Guam, Northern Mariana Islands, Japan, Taiwan, China from: 01 Jul 2026  to: 11 Jul 2026 .",
+    "lat": 27.6,
+    "lon": 121.8,
+    "country": "Guam, Northern Mariana Islands, Japan, Taiwan, China",
+    "severity": 0.95,
+    "started_at": "2026-07-01T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1001279&episodeid=43&eventtype=TC",
+    "raw": {
+      "eventtype": "TC",
+      "alertlevel": "Red"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-WF-1029331",
+    "kind": "wildfire",
+    "title": "Orange Forest fires in France from: 04 Jul 2026 to: 08 Jul 2026.",
+    "lat": 42.67244677478313,
+    "lon": 2.567689835167089,
+    "country": "France",
+    "severity": 0.75,
+    "started_at": "2026-07-04T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1029331&episodeid=7&eventtype=WF",
+    "raw": {
+      "eventtype": "WF",
+      "alertlevel": "Orange"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-WF-1029260",
+    "kind": "wildfire",
+    "title": "Orange Forest fires in Portugal from: 02 Jul 2026 to: 08 Jul 2026.",
+    "lat": 40.62042980409265,
+    "lon": -8.282354459943484,
+    "country": "Portugal",
+    "severity": 0.75,
+    "started_at": "2026-07-02T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1029260&episodeid=11&eventtype=WF",
+    "raw": {
+      "eventtype": "WF",
+      "alertlevel": "Orange"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018431",
+    "kind": "drought",
+    "title": "Orange Drought in Madagascar from: 21 Nov 2025  to: 09 Jul 2026 .",
+    "lat": -19.53,
+    "lon": 46.807,
+    "country": "Madagascar",
+    "severity": 0.75,
+    "started_at": "2025-11-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018431&episodeid=7&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Orange"
+    },
+    "population_context": null
+  },
+  {
+    "id": "tension-ukraine-conflict-zone-20260711",
+    "kind": "tension",
+    "title": "Tension signal — Ukraine conflict zone: elevated conflict coverage (75+ articles/24h)",
+    "lat": 49.0,
+    "lon": 32.0,
+    "country": "Ukraine",
+    "severity": 0.65,
+    "started_at": "2026-07-11T14:19:29.876182Z",
+    "source": "GDELT",
+    "source_url": "https://www.gdeltproject.org/",
+    "raw": {
+      "signal": "news-cluster",
+      "article_count_24h": 75,
+      "sample_headlines": [
+        "Ukraine conscription crisis deepens as public anger erupts in Lviv",
+        "Ukraine Says It Hit 21 Russian Fuel Tankers as Moscow Launches Major Strike on Kyiv",
+        "Russia is Fracturing From Within ( And Putin Cant Stop It )"
+      ],
+      "note": "headline-density signal only; confidence low by design"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260626113439",
+    "kind": "earthquake",
+    "title": "M6.8 earthquake, 196 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.33,
+    "lon": 125.08,
+    "country": "Indonesia",
+    "severity": 0.6333333333333333,
+    "started_at": "2026-06-26T11:34:39Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 6.8,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "tension-south-china-sea-20260711",
+    "kind": "tension",
+    "title": "Tension signal — South China Sea: elevated conflict coverage (67+ articles/24h)",
+    "lat": 15.2,
+    "lon": 117.7,
+    "country": "South China Sea",
+    "severity": 0.602,
+    "started_at": "2026-07-11T14:19:53.687765Z",
+    "source": "GDELT",
+    "source_url": "https://www.gdeltproject.org/",
+    "raw": {
+      "signal": "news-cluster",
+      "article_count_24h": 67,
+      "sample_headlines": [
+        "Why the Philippine territorial expansion attempts threaten regional peace , stability",
+        "PBBM : South China Sea must remain sea of peace , cooperation",
+        "Manila Bulletin - Marcos : Rule of law not might must govern South China Sea"
+      ],
+      "note": "headline-density signal only; confidence low by design"
+    },
+    "population_context": null
+  },
+  {
+    "id": "rainrisk-dhaka-20260711",
+    "kind": "flood",
+    "title": "Flood risk signal (forecast) — Dhaka: 50mm rain expected in 24h",
+    "lat": 23.81,
+    "lon": 90.41,
+    "country": "Bangladesh",
+    "severity": 0.567,
+    "started_at": "2026-07-11T14:18:44.112261Z",
+    "source": "OPEN-METEO",
+    "source_url": "https://open-meteo.com/",
+    "raw": {
+      "signal": "forecast",
+      "rain_24h_mm": 50.4,
+      "rain_peak_3h_mm": 13.8,
+      "flood_propensity": 0.9,
+      "propensity_note": "GBM delta; monsoon floods most years"
+    },
+    "population_context": null
+  },
+  {
+    "id": "usgs-us7000szpb",
+    "kind": "earthquake",
+    "title": "M 6.4 - South Sandwich Islands region",
+    "lat": -55.5424,
+    "lon": -28.8526,
+    "country": "South Sandwich Islands region",
+    "severity": 0.5666666666666668,
+    "started_at": "2026-07-11T10:26:42.691000Z",
+    "source": "USGS",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000szpb",
+    "raw": {
+      "mag": 6.4,
+      "place": "South Sandwich Islands region"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-FL-1103888",
+    "kind": "flood",
+    "title": "Green Flood in United States from: 19 May 2026 01 to: 10 Jul 2026 01.",
+    "lat": 43.6832277,
+    "lon": -92.753704,
+    "country": "United States",
+    "severity": 0.55,
+    "started_at": "2026-05-19T01:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1103888&episodeid=41&eventtype=FL",
+    "raw": {
+      "eventtype": "FL",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-FL-1103942",
+    "kind": "flood",
+    "title": "Green Flood in Philippines from: 13 Jun 2026 01 to: 10 Jul 2026 01.",
+    "lat": 7.157297,
+    "lon": 124.1824893,
+    "country": "Philippines",
+    "severity": 0.55,
+    "started_at": "2026-06-13T01:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1103942&episodeid=5&eventtype=FL",
+    "raw": {
+      "eventtype": "FL",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-FL-1103972",
+    "kind": "flood",
+    "title": "Green Flood in India from: 23 Jun 2026 01 to: 10 Jul 2026 01.",
+    "lat": 28.7749966,
+    "lon": 77.4586967,
+    "country": "India",
+    "severity": 0.55,
+    "started_at": "2026-06-23T01:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1103972&episodeid=7&eventtype=FL",
+    "raw": {
+      "eventtype": "FL",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-VO-1000143",
+    "kind": "volcano",
+    "title": "Green Eruption Kanlaon in Philippines at: 10 Jul 2026 08:02.",
+    "lat": 10.412,
+    "lon": 123.132,
+    "country": "Philippines",
+    "severity": 0.55,
+    "started_at": "2026-07-10T08:02:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1000143&episodeid=1&eventtype=VO",
+    "raw": {
+      "eventtype": "VO",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-FL-1104012",
+    "kind": "flood",
+    "title": "Green Flood in South Korea from: 07 Jul 2026 01 to: 09 Jul 2026 01.",
+    "lat": 36.6421169,
+    "lon": 127.4891742,
+    "country": "South Korea",
+    "severity": 0.55,
+    "started_at": "2026-07-07T01:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1104012&episodeid=1&eventtype=FL",
+    "raw": {
+      "eventtype": "FL",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-FL-1104015",
+    "kind": "flood",
+    "title": "Green Flood in Bangladesh from: 09 Jul 2026 01 to: 11 Jul 2026 01.",
+    "lat": 24.3545228,
+    "lon": 91.4027059,
+    "country": "Bangladesh",
+    "severity": 0.55,
+    "started_at": "2026-07-09T01:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1104015&episodeid=1&eventtype=FL",
+    "raw": {
+      "eventtype": "FL",
+      "alertlevel": "Green"
+    },
+    "population_context": null
   }
 ]

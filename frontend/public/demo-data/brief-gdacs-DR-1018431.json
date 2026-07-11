@@ -1,0 +1,21 @@
+{
+  "headline": "Orange Drought Impacts Central Madagascar, 21 Nov 2025–9 Jul 2026",
+  "summary": "An orange‑severity drought (severity 0.75) has been recorded in Madagascar, centered near latitude -19.53 and longitude 46.807. The event began on 21 November 2025 and is projected to continue until 9 July 2026, according to GDACS. No specific population data have been supplied, so the number of people, households, or sectors directly exposed remains unclear. Key gaps include the extent of agricultural loss, water‑supply stress, and any secondary health or food‑security impacts. Monitoring will focus on rainfall trends, vegetation health, and water‑resource levels to determine whether conditions worsen or begin to improve.",
+  "confirmed_facts": [
+    "The event is classified as a drought with orange severity (0.75).",
+    "Geographic coordinates are -19.53 latitude and 46.807 longitude in Madagascar.",
+    "The drought period is from 21 Nov 2025 to 9 Jul 2026.",
+    "Source of the information is GDACS (event ID gdacs-DR-1018431)."
+  ],
+  "key_unknowns": [
+    "Number of people and households directly affected.",
+    "Impact on staple crop yields and livestock.",
+    "Current status of water storage and supply systems.",
+    "Potential secondary health or food‑security outcomes."
+  ],
+  "watch_indicators": [
+    "Observed rainfall deficits relative to seasonal norms.",
+    "Changes in satellite‑derived vegetation indices (e.g., NDVI).",
+    "Levels of key reservoirs and groundwater tables."
+  ]
+}

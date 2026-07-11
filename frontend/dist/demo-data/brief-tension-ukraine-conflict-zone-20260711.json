@@ -1,0 +1,22 @@
+{
+  "headline": "Elevated media coverage of conflict in eastern Ukraine reported",
+  "summary": "On 11 July 2026, monitoring systems detected a surge in conflict reporting from a zone in Ukraine centered near latitude 49.0 and longitude 32.0. The signal indicates that more than 75 news articles were published within a 24‑hour period, suggesting heightened activity or interest in the area. No specific population data were provided, so the briefing does not identify particular civilian groups or infrastructure that may be affected. Key unknowns include the exact nature of the events prompting the coverage, whether there have been any casualties or displacement, and which parties are directly involved. Clarifying these points will be essential for assessing the situation’s impact and potential developments.",
+  "confirmed_facts": [
+    "A tension signal was generated for the Ukraine conflict zone on 2026-07-11 at 14:19 UTC.",
+    "The signal reports elevated conflict coverage with more than 75 articles published in the preceding 24 hours.",
+    "The geographic focus is near latitude 49.0 and longitude 32.0 in Ukraine.",
+    "The severity rating assigned to the signal is 0.65.",
+    "The source of the data is the GDELT project."
+  ],
+  "key_unknowns": [
+    "What specific incidents or developments triggered the increase in article volume.",
+    "Whether any casualties, injuries, or civilian displacement have occurred.",
+    "Which armed actors are involved in the reported activity.",
+    "If critical infrastructure or densely populated areas are affected."
+  ],
+  "watch_indicators": [
+    "Further rise in the number of conflict‑related articles or reports from the same coordinates.",
+    "Official statements or claims of attacks, offensives, or ceasefire violations.",
+    "Satellite or open‑source imagery showing troop movements or damage to infrastructure."
+  ]
+}

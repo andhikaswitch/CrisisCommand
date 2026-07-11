@@ -1,0 +1,22 @@
+{
+  "headline": "Flood Event Detected in Bangladesh, July 9‑11, 2026",
+  "summary": "A flood was reported in Bangladesh by the Global Disaster Alert and Coordination System (GDACS) under event ID gdacs-FL-1104015. The event began at 01:00 UTC on 9 July 2026 and is listed as ending at 01:00 UTC on 11 July 2026. The flood’s central point is near latitude 24.35 N and longitude 91.40 E, with a GDACS severity rating of 0.55. No population or infrastructure exposure data are included in the current feed. Key gaps remain regarding how many people are in the affected area, the depth and reach of the water, and any damage to roads, bridges, or services. Monitoring will focus on updated water‑level reports, reports of transport disruptions, and satellite images that show changes in flood size. Official statements from Bangladeshi authorities have not yet been received, and it is unclear whether water levels will recede after the reported end time.",
+  "confirmed_facts": [
+    "GDACS identified a flood event in Bangladesh (ID gdacs-FL-1104015).",
+    "The event timeframe is 01:00 UTC 9 July 2026 to 01:00 UTC 11 July 2026.",
+    "Location coordinates are latitude 24.3545228, longitude 91.4027059.",
+    "The GDACS severity rating for the flood is 0.55.",
+    "Source information is provided via the GDACS report URL."
+  ],
+  "key_unknowns": [
+    "Number of people directly affected by the flood.",
+    "Exact extent and depth of inundation.",
+    "Impact on critical infrastructure such as roads, bridges, and health facilities.",
+    "Whether flooding will continue beyond the listed end time."
+  ],
+  "watch_indicators": [
+    "Rising water‑level reports from local agencies.",
+    "Reports of road closures or bridge damage.",
+    "Satellite imagery showing expansion of the flooded area."
+  ]
+}
