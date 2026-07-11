@@ -1,0 +1,21 @@
+{
+  "headline": "Magnitude 6.4 Earthquake Hits South Sandwich Islands Region",
+  "summary": "At 10:26:45 UTC on 11 July 2026, a magnitude 6.4 earthquake struck the South Sandwich Islands region. The quake’s epicenter was recorded at latitude ‑55.5424 and longitude ‑28.8526. The event is listed by the Global Disaster Alert and Coordination System (GDACS) with a severity rating of 0.55 and assigned the identifier gdacs‑EQ‑1551279. No population data are available for the area, which is largely uninhabited except for occasional research stations and passing vessels. Immediate impacts on infrastructure, marine traffic, or potential tsunami generation have not been confirmed. Key information gaps include the presence of any tsunami, the condition of any facilities or personnel in the vicinity, and the likelihood of significant aftershocks. Ongoing monitoring of sea‑level changes, seismic activity, and communications from local assets will determine whether the situation escalates.",
+  "confirmed_facts": [
+    "A magnitude 6.4 earthquake occurred at 10:26:45 UTC on 11 July 2026.",
+    "Epicenter located at latitude -55.5424, longitude -28.8526 in the South Sandwich Islands region.",
+    "The event was reported by GDACS with a severity index of 0.55.",
+    "The earthquake is catalogued under event ID gdacs-EQ-1551279."
+  ],
+  "key_unknowns": [
+    "Whether the quake generated a tsunami that could affect nearby coastlines.",
+    "Extent of damage to any research stations, infrastructure, or vessels in the area.",
+    "Number of injuries or fatalities among any personnel present.",
+    "Potential for significant aftershocks in the following hours to days."
+  ],
+  "watch_indicators": [
+    "Issuance of tsunami advisories or sea level measurements indicating abnormal rise.",
+    "Seismic monitoring reports of aftershocks exceeding magnitude 4.0.",
+    "Communications from stations or ships reporting structural damage or injuries."
+  ]
+}

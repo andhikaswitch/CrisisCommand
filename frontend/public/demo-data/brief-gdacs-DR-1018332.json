@@ -1,0 +1,21 @@
+{
+  "headline": "Green Drought Spreads Across Central and Eastern Europe",
+  "summary": "On 21 December 2025, the Global Disaster Alert and Coordination System (GDACS) reported a green drought affecting a broad swath of Central and Eastern Europe. The event, identified as ID gdacs-DR-1018332, spans Austria, Belarus, the Czech Republic, Germany, Denmark, Estonia, Finland, France, Hungary, Italy, Lithuania, Latvia, the Netherlands, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia and Ukraine. GDACS assigned a severity rating of 0.55 and located the event near latitude 52.09 N, longitude 18.34 E. No population exposure data were supplied in the feed. Key gaps remain regarding how many people, livestock and farms are experiencing water stress, the likely effect on crop yields and water supplies, and how long the dry conditions will persist. Monitoring of soil moisture, reservoir levels and agricultural reports will be needed to assess any escalation.",
+  "confirmed_facts": [
+    "GDACS issued a drought event (ID gdacs-DR-1018332) on 2025-12-21.",
+    "The drought is reported across 21 countries including Austria, Belarus, Czech Republic, Germany, Denmark, Estonia, Finland, France, Hungary, Italy, Lithuania, Latvia, Netherlands, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, and Ukraine.",
+    "The event severity is rated 0.55 on the GDACS scale.",
+    "The geographic reference point is at latitude 52.09° N, longitude 18.34° E."
+  ],
+  "key_unknowns": [
+    "Number of people and livestock directly affected.",
+    "Impact on agricultural production and water supply.",
+    "Expected duration and potential change in severity.",
+    "Availability and activation of national drought response plans."
+  ],
+  "watch_indicators": [
+    "Declining soil moisture and vegetation indices from satellite observations.",
+    "Falling reservoir and groundwater levels in the affected regions.",
+    "Reports of reduced crop yields or water-use restrictions from national agencies."
+  ]
+}

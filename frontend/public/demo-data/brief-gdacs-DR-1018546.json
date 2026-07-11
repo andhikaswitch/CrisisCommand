@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought Impacts Central United States, Dec 2025–Jul 2026",
+  "summary": "A green drought event has been recorded in the United States, centered near latitude 41.674 N and longitude 102.825 W. The GDACS report indicates the drought began on 21 December 2025 and is ongoing through 9 July 2026, with a severity rating of 0.55. No specific population data are provided, so the number of people directly exposed is unknown. Key gaps remain regarding the scale of agricultural impact, water‑resource stress, and whether the drought will extend beyond the current forecast period. Monitoring of precipitation, soil moisture, and reservoir levels will be essential to assess any change in the situation.",
+  "confirmed_facts": [
+    "Event classified as a green drought by GDACS.",
+    "Drought started on 21 Dec 2025 and continues through 9 Jul 2026.",
+    "Location centered at 41.674 N, 102.825 W in the United States.",
+    "Severity index reported as 0.55.",
+    "Source: GDACS report ID 1018546."
+  ],
+  "key_unknowns": [
+    "Geographic extent of the drought‑affected area.",
+    "Number of people and communities directly impacted.",
+    "Impact on agricultural production and crop yields.",
+    "Likelihood of the drought persisting beyond July 2026."
+  ],
+  "watch_indicators": [
+    "Continued precipitation deficits in the region.",
+    "Declining soil moisture measurements.",
+    "Reduced water reservoir and aquifer levels."
+  ]
+}

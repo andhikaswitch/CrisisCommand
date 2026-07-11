@@ -49,7 +49,8 @@ def _dump(path: Path, obj) -> None:
     print(f"  wrote {path.relative_to(_ROOT)}")
 
 
-MAX_LIVE = 25  # cap live snapshot so the bake stays bounded (briefings cost time)
+MAX_LIVE = 60       # snapshot the full live set, not a small sample
+BRIEF_CONCURRENCY = 5  # parallel Fireworks calls so 70+ briefings bake in ~2 min
 
 
 async def _fetch_live():
@@ -60,12 +61,14 @@ async def _fetch_live():
         ("USGS", usgs.fetch), ("GDACS", gdacs.fetch), ("BMKG", bmkg.fetch),
         ("OPEN-METEO", flood_risk.fetch_global), ("GDELT", news.fetch),
     ]
-    out = []
+    out, seen = [], set()
     for name, fetch in sources:
         try:
             got = await fetch()
-            print(f"  live {name}: {len(got)}")
-            out.extend(got)
+            fresh = [e for e in got if e.id not in seen]  # GDACS repeats episodes
+            seen.update(e.id for e in fresh)
+            print(f"  live {name}: {len(fresh)}")
+            out.extend(fresh)
         except Exception as exc:  # noqa: BLE001 - a dead feed must not stop the bake
             print(f"  live {name}: skipped ({exc})")
     out.sort(key=lambda e: e.severity, reverse=True)
@@ -95,11 +98,20 @@ async def main() -> int:
     })
 
     # Briefings for every event (drills AND live) so any card is clickable.
+    # Parallelised with a semaphore so the full snapshot bakes in ~2 min, not 8.
+    print(f"baking {len(events)} briefings (concurrency {BRIEF_CONCURRENCY})...")
+    sem = asyncio.Semaphore(BRIEF_CONCURRENCY)
+
+    async def _brief(e):
+        async with sem:
+            brief = await write_briefing(e)
+            _dump(OUT / f"brief-{e.id}.json", brief.model_dump(mode="json"))
+
+    await asyncio.gather(*(_brief(e) for e in events))
+
     # Simulations only for the drills, which have vetted population context.
-    print(f"baking briefings for {len(events)} events + sims for the drills...")
+    print("baking simulations for the drills...")
     for e in events:
-        brief = await write_briefing(e)
-        _dump(OUT / f"brief-{e.id}.json", brief.model_dump(mode="json"))
         if e.kind in SUPPORTED_KINDS and e.population_context is not None:
             try:
                 result = await run_full_simulation(e, horizon="24h", n_runs=10_000)

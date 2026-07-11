@@ -1,0 +1,20 @@
+{
+  "headline": "Magnitude 5.8 Earthquake Strikes Vanuatu on 8 July 2026",
+  "summary": "On 8 July 2026 at 09:50 UTC, a magnitude 5.8 earthquake occurred offshore Vanuatu at latitude -20.2559 and longitude 168.8353. The event was reported by the Global Disaster Alert and Coordination System (GDACS) and assigned a severity rating of 0.55. No immediate population figures or damage assessments have been released, and the extent of exposure for communities on Vanuatu’s islands remains unclear. Authorities have not yet confirmed casualties, injuries, or infrastructure impacts. Information on potential secondary hazards such as landslides, tsunamis, or aftershocks is also pending. Ongoing monitoring will focus on official communications, field reports, and geophysical data to determine the earthquake’s consequences. The GDACS report (event ID 1550772) includes a reference link for further technical details. Because no population context was supplied, the number of people living within the affected radius is currently unknown. The quake’s depth and precise epicenter location are recorded, but their implications for shaking intensity on inhabited areas have not been evaluated.",
+  "confirmed_facts": [
+    "Magnitude 5.8 earthquake occurred in Vanuatu on 8 July 2026 at 09:50 UTC.",
+    "Epicenter coordinates: latitude -20.2559, longitude 168.8353.",
+    "Event reported by GDACS with severity rating 0.55 (event ID 1550772)."
+  ],
+  "key_unknowns": [
+    "Number of casualties, injuries, and missing persons.",
+    "Extent of damage to housing, infrastructure, and utilities.",
+    "Whether a tsunami or landslides were generated.",
+    "Size of the population exposed to significant shaking."
+  ],
+  "watch_indicators": [
+    "Official statements reporting casualties or damage.",
+    "Seismic updates indicating significant aftershocks.",
+    "Issuance of tsunami warnings or alerts from regional agencies."
+  ]
+}

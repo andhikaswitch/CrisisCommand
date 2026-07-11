@@ -1,0 +1,20 @@
+{
+  "headline": "Magnitude 5.6 Earthquake Hits Southeast Pacitan-Jatim, Indonesia",
+  "summary": "An earthquake measuring magnitude 5.6 struck Indonesia on 27 June 2026 at 07:47 UTC. The tremor’s epicenter was located 86 km southeast of Pacitan in East Java, at latitude ‑8.96 and longitude 111.16, as reported by the national agency BMKG. No population data are currently available, so the number of people directly exposed is unknown. Immediate concerns include possible injuries, damage to homes, roads, and utilities, and the likelihood of aftershocks. Local authorities have not yet released casualty figures or damage assessments. Information on emergency response actions and resource needs is also pending. The shaking may have affected nearby communities, potentially disrupting transport routes and communication networks. Assessment teams are expected to be deployed to verify structural integrity of schools, hospitals, and critical infrastructure. International assistance may be considered if local capacity is exceeded.",
+  "confirmed_facts": [
+    "A magnitude 5.6 earthquake occurred at 07:47:21 UTC on 27 June 2026.",
+    "The epicenter was located 86 km southeast of Pacitan in East Java, Indonesia (lat -8.96, lon 111.16).",
+    "The event was reported by Indonesia’s Meteorology, Climatology, and Geophysical Agency (BMKG)."
+  ],
+  "key_unknowns": [
+    "Number of people injured or killed.",
+    "Extent of damage to buildings, roads, and utilities.",
+    "Likelihood and magnitude of aftershocks.",
+    "Status of emergency response and resource needs."
+  ],
+  "watch_indicators": [
+    "Official reports of casualties or injuries.",
+    "Observations of structural damage or infrastructure failure (e.g., bridges, power lines).",
+    "Detection of significant aftershocks (magnitude ≥4.0) within the next 24 hours."
+  ]
+}

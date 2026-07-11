@@ -1,0 +1,22 @@
+{
+  "headline": "M6.2 Earthquake Hits 58 km Southwest of Pulaudoi, Indonesia",
+  "summary": "At 02:31:29 UTC on 3 July 2026, the Indonesian Meteorology, Climatology and Geophysical Agency (BMKG) recorded a magnitude 6.2 earthquake centered 58 kilometres southwest of Pulaudoi in the Maluku province. The epicenter was located at latitude 1.93° S and longitude 127.39° E. The event’s severity index was reported as 0.53. No immediate casualty or damage figures have been released, and the population density in the immediate vicinity is not provided. Authorities have been alerted, and standard seismic monitoring continues. The quake falls within the seismically active zone of eastern Indonesia, where tectonic plate interactions frequently generate moderate to strong events. BMKG’s network will continue to record any aftershocks, and neighboring countries' agencies have been notified. Local emergency services are on standby to evaluate structural safety of schools, hospitals, and critical infrastructure.",
+  "confirmed_facts": [
+    "Magnitude 6.2 earthquake recorded by BMKG.",
+    "Event occurred at 2026-07-03T02:31:29Z.",
+    "Epicenter located 58 km southwest of Pulaudoi, Maluku, Indonesia (lat 1.93, lon 127.39).",
+    "Reported severity index of 0.5333.",
+    "Source of information is the BMKG official feed."
+  ],
+  "key_unknowns": [
+    "Number of casualties, if any.",
+    "Extent of damage to buildings and infrastructure.",
+    "Population exposure and displacement figures.",
+    "Potential for secondary hazards such as landslides or tsunami."
+  ],
+  "watch_indicators": [
+    "Official reports of injuries, fatalities, or missing persons.",
+    "Damage assessments from local authorities or NGOs.",
+    "Detection of significant aftershocks or tsunami alerts."
+  ]
+}

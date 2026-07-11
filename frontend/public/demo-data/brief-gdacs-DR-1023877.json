@@ -1,0 +1,21 @@
+{
+  "headline": "Green Drought Affects Central Colombia, April–July 2026",
+  "summary": "A green drought event was recorded in Colombia between 21 April and 9 July 2026. The GDACS report places the phenomenon near latitude 5.248 N, longitude 75.584 W, with a severity rating of 0.55 on the GDACS scale. The event is classified as a 'green drought,' indicating reduced vegetation health without immediate fire risk. No population or sector-specific data were supplied in the feed, so the number of people, farms, or communities potentially exposed is not known. Key gaps include the extent of agricultural loss, water‑resource stress, and any secondary health or economic effects. Monitoring of precipitation, soil moisture, and river flow will help determine whether conditions worsen.",
+  "confirmed_facts": [
+    "Drought event recorded from 21 April to 9 July 2026.",
+    "Location centered at latitude 5.248 N, longitude 75.584 W in Colombia.",
+    "Severity rating reported as 0.55 by GDACS.",
+    "Event type classified as a 'green drought' by GDACS."
+  ],
+  "key_unknowns": [
+    "Number of people, households, or communities directly affected.",
+    "Extent of agricultural production loss and crop-specific impacts.",
+    "Degree of water‑resource stress for municipal and irrigation supplies.",
+    "Potential economic or health consequences arising from the drought."
+  ],
+  "watch_indicators": [
+    "Observed precipitation deficits relative to seasonal norms.",
+    "Satellite‑derived soil moisture and vegetation index anomalies.",
+    "Reduced river and reservoir flow levels in the affected basin."
+  ]
+}

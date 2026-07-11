@@ -1,0 +1,20 @@
+{
+  "headline": "Magnitude 5.5 Offshore Earthquake Near Sumur, Indonesia",
+  "summary": "At 19:44 UTC on 7 July 2026, a magnitude 5.5 earthquake occurred offshore Indonesia, with its epicenter located about 52 km southwest of the coastal town of Sumur (coordinates ‑6.79 lat, 105.12 lon). The quake was reported by the national agency BMKG. No immediate information is available on injuries, damage to buildings, or disruptions to services. Because the source is in the sea, a small tsunami could be possible, but no alert has been issued. Authorities have not yet confirmed whether any coastal communities felt the shaking or if any infrastructure was affected. The depth of the event has not been released, which influences how strongly the shaking may be felt on land. Nearby islands and offshore installations, such as fishing vessels and oil platforms, could experience motion, but no reports have been received. The Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) continues to monitor seismic activity and will issue updates if conditions change.",
+  "confirmed_facts": [
+    "Magnitude 5.5 earthquake recorded.",
+    "Epicenter located offshore Indonesia, about 52 km southwest of Sumur (lat -6.79, lon 105.12).",
+    "Event occurred at 2026-07-07T19:44:53Z and was reported by BMKG."
+  ],
+  "key_unknowns": [
+    "Number of injuries or fatalities, if any.",
+    "Extent of damage to buildings, infrastructure, or vessels.",
+    "Whether a tsunami was generated or will be generated.",
+    "Depth of the earthquake, which affects shaking intensity."
+  ],
+  "watch_indicators": [
+    "Issuance of a tsunami warning or alert by authorities.",
+    "Verified reports of injuries, casualties, or significant damage.",
+    "Detection of significant aftershocks (e.g., magnitude 4.0 or higher)."
+  ]
+}

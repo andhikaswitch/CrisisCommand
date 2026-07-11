@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought Ongoing in Brazil, July 2025‑July 2026",
+  "summary": "From 1 July 2025 through 9 July 2026, a green drought event has been recorded in Brazil at latitude ‑11.42 and longitude ‑50.68. The GDACS report assigns the event a severity rating of 0.55 on its scale. The classification as a green drought indicates vegetation stress without a corresponding decline in precipitation records. No population data are provided, so the number of people or communities directly affected is unknown. The event’s geographic footprint is limited to the reported coordinate point, and the extent of the drought across surrounding areas has not been quantified. Key gaps include the scale of agricultural loss, water‑resource impacts, and any socioeconomic consequences. Authorities are advised to track rainfall anomalies and reservoir levels to assess potential escalation.",
+  "confirmed_facts": [
+    "Green drought event reported in Brazil.",
+    "Event duration runs from 1 July 2025 to 9 July 2026.",
+    "Location given as latitude -11.4191919, longitude -50.6818182.",
+    "Severity rating assigned is 0.55.",
+    "Source is GDACS (report ID 1027448)."
+  ],
+  "key_unknowns": [
+    "Number of people or communities affected (population context missing).",
+    "Geographic extent of the drought beyond the single coordinate point.",
+    "Actual impacts on agriculture, water resources, and the economy.",
+    "Current rainfall and soil moisture conditions relative to normal."
+  ],
+  "watch_indicators": [
+    "Trends in satellite vegetation indices (e.g., NDVI) indicating worsening stress.",
+    "Regional rainfall deficits compared to climatological averages.",
+    "Declines in reservoir and river water levels."
+  ]
+}

@@ -404,29 +404,6 @@
     "population_context": null
   },
   {
-    "id": "tension-ukraine-conflict-zone-20260711",
-    "kind": "tension",
-    "title": "Tension signal — Ukraine conflict zone: elevated conflict coverage (75+ articles/24h)",
-    "lat": 49.0,
-    "lon": 32.0,
-    "country": "Ukraine",
-    "severity": 0.65,
-    "started_at": "2026-07-11T14:19:29.876182Z",
-    "source": "GDELT",
-    "source_url": "https://www.gdeltproject.org/",
-    "raw": {
-      "signal": "news-cluster",
-      "article_count_24h": 75,
-      "sample_headlines": [
-        "Ukraine conscription crisis deepens as public anger erupts in Lviv",
-        "Ukraine Says It Hit 21 Russian Fuel Tankers as Moscow Launches Major Strike on Kyiv",
-        "Russia is Fracturing From Within ( And Putin Cant Stop It )"
-      ],
-      "note": "headline-density signal only; confidence low by design"
-    },
-    "population_context": null
-  },
-  {
     "id": "bmkg-20260626113439",
     "kind": "earthquake",
     "title": "M6.8 earthquake, 196 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
@@ -441,49 +418,6 @@
       "magnitude": 6.8,
       "potensi": "Tidak berpotensi tsunami",
       "kedalaman": "10 km"
-    },
-    "population_context": null
-  },
-  {
-    "id": "tension-south-china-sea-20260711",
-    "kind": "tension",
-    "title": "Tension signal — South China Sea: elevated conflict coverage (67+ articles/24h)",
-    "lat": 15.2,
-    "lon": 117.7,
-    "country": "South China Sea",
-    "severity": 0.602,
-    "started_at": "2026-07-11T14:19:53.687765Z",
-    "source": "GDELT",
-    "source_url": "https://www.gdeltproject.org/",
-    "raw": {
-      "signal": "news-cluster",
-      "article_count_24h": 67,
-      "sample_headlines": [
-        "Why the Philippine territorial expansion attempts threaten regional peace , stability",
-        "PBBM : South China Sea must remain sea of peace , cooperation",
-        "Manila Bulletin - Marcos : Rule of law not might must govern South China Sea"
-      ],
-      "note": "headline-density signal only; confidence low by design"
-    },
-    "population_context": null
-  },
-  {
-    "id": "rainrisk-dhaka-20260711",
-    "kind": "flood",
-    "title": "Flood risk signal (forecast) — Dhaka: 50mm rain expected in 24h",
-    "lat": 23.81,
-    "lon": 90.41,
-    "country": "Bangladesh",
-    "severity": 0.567,
-    "started_at": "2026-07-11T14:18:44.112261Z",
-    "source": "OPEN-METEO",
-    "source_url": "https://open-meteo.com/",
-    "raw": {
-      "signal": "forecast",
-      "rain_24h_mm": 50.4,
-      "rain_peak_3h_mm": 13.8,
-      "flood_propensity": 0.9,
-      "propensity_note": "GBM delta; monsoon floods most years"
     },
     "population_context": null
   },
@@ -603,6 +537,511 @@
     "raw": {
       "eventtype": "FL",
       "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-EQ-1550840",
+    "kind": "earthquake",
+    "title": "Green M 5.5 Earthquake in Balleny Islands Region at: 08 Jul 2026 19:07:10.",
+    "lat": -61.7788,
+    "lon": 154.8869,
+    "country": "Balleny Islands Region",
+    "severity": 0.55,
+    "started_at": "2026-07-08T19:07:10Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1550840&episodeid=1717052&eventtype=EQ",
+    "raw": {
+      "eventtype": "EQ",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-EQ-1550772",
+    "kind": "earthquake",
+    "title": "Green M 5.8 Earthquake in Vanuatu at: 08 Jul 2026 09:50:23.",
+    "lat": -20.2559,
+    "lon": 168.8353,
+    "country": "Vanuatu",
+    "severity": 0.55,
+    "started_at": "2026-07-08T09:50:23Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1550772&episodeid=1716973&eventtype=EQ",
+    "raw": {
+      "eventtype": "EQ",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-EQ-1551279",
+    "kind": "earthquake",
+    "title": "Green M 6.4 Earthquake in South Sandwich Islands Region at: 11 Jul 2026 10:26:45.",
+    "lat": -55.5424,
+    "lon": -28.8526,
+    "country": "South Sandwich Islands Region",
+    "severity": 0.55,
+    "started_at": "2026-07-11T10:26:45Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1551279&episodeid=1717547&eventtype=EQ",
+    "raw": {
+      "eventtype": "EQ",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1027449",
+    "kind": "drought",
+    "title": "Green Drought in Guatemala, Honduras, Nicaragua, El Salvador from: 11 May 2026  to: 09 Jul 2026 .",
+    "lat": 13.883,
+    "lon": -88.324,
+    "country": "Guatemala, Honduras, Nicaragua, El Salvador",
+    "severity": 0.55,
+    "started_at": "2026-05-11T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1027449&episodeid=1&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1023877",
+    "kind": "drought",
+    "title": "Green Drought in Colombia from: 21 Apr 2026  to: 09 Jul 2026 .",
+    "lat": 5.248,
+    "lon": -75.584,
+    "country": "Colombia",
+    "severity": 0.55,
+    "started_at": "2026-04-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1023877&episodeid=1&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018093",
+    "kind": "drought",
+    "title": "Green Drought in Mexico, United States from: 21 Aug 2025  to: 09 Jul 2026 .",
+    "lat": 32.501,
+    "lon": -93.0,
+    "country": "Mexico, United States",
+    "severity": 0.55,
+    "started_at": "2025-08-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018093&episodeid=27&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018344",
+    "kind": "drought",
+    "title": "Green Drought in Republic of Congo, Gabon, Equatorial Guinea from: 21 Dec 2025  to: 09 Jul 2026 .",
+    "lat": -0.563,
+    "lon": 11.768,
+    "country": "Republic of Congo, Gabon, Equatorial Guinea",
+    "severity": 0.55,
+    "started_at": "2025-12-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018344&episodeid=15&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018546",
+    "kind": "drought",
+    "title": "Green Drought in United States from: 21 Dec 2025  to: 09 Jul 2026 .",
+    "lat": 41.674,
+    "lon": -102.825,
+    "country": "United States",
+    "severity": 0.55,
+    "started_at": "2025-12-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018546&episodeid=7&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018545",
+    "kind": "drought",
+    "title": "Green Drought in China, Indonesia, Cambodia, Laos, Malaysia, Philippines, Thailand, Vietnam from: 21 Jan 2026  to: 09 Jul 2026 .",
+    "lat": 13.071,
+    "lon": 105.186,
+    "country": "China, Indonesia, Cambodia, Laos, Malaysia, Philippines, Thailand, Vietnam",
+    "severity": 0.55,
+    "started_at": "2026-01-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018545&episodeid=7&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1027450",
+    "kind": "drought",
+    "title": "Green Drought in Ethiopia, Kenya, Somalia from: 21 Apr 2026  to: 09 Jul 2026 .",
+    "lat": 6.545,
+    "lon": 44.618,
+    "country": "Ethiopia, Kenya, Somalia",
+    "severity": 0.55,
+    "started_at": "2026-04-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1027450&episodeid=1&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1018332",
+    "kind": "drought",
+    "title": "Green Drought in Austria, Belarus, Czech Republic, Germany, Denmark, Estonia, Finland, France, Hungary, Italy, Lithuania, Latvia, Netherlands, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovak",
+    "lat": 52.16,
+    "lon": 19.843,
+    "country": "Austria, Belarus, Czech Republic, Germany, Denmark, Estonia, Finland, France, Hungary, Italy, Lithuania, Latvia, Netherlands, Poland, Romania, Serbia, Russia, Sweden, Slovenia, Slovakia, Ukraine, ",
+    "severity": 0.55,
+    "started_at": "2025-12-21T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1018332&episodeid=14&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "gdacs-DR-1027448",
+    "kind": "drought",
+    "title": "Green Drought in Brazil from: 01 Jul 2025  to: 09 Jul 2026 .",
+    "lat": -11.379,
+    "lon": -50.622,
+    "country": "Brazil",
+    "severity": 0.55,
+    "started_at": "2025-07-01T00:00:00Z",
+    "source": "GDACS",
+    "source_url": "https://www.gdacs.org/report.aspx?eventid=1027448&episodeid=1&eventtype=DR",
+    "raw": {
+      "eventtype": "DR",
+      "alertlevel": "Green"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260703023129",
+    "kind": "earthquake",
+    "title": "M6.2 earthquake, 58 km BaratDaya PULAUDOI-MALUT",
+    "lat": 1.93,
+    "lon": 127.39,
+    "country": "Indonesia",
+    "severity": 0.5333333333333333,
+    "started_at": "2026-07-03T02:31:29Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 6.2,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "100 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260706081108",
+    "kind": "earthquake",
+    "title": "M5.9 earthquake, 163 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.06,
+    "lon": 125.24,
+    "country": "Indonesia",
+    "severity": 0.4833333333333334,
+    "started_at": "2026-07-06T08:11:08Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.9,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "tension-sudan-conflict-20260711",
+    "kind": "tension",
+    "title": "Tension signal — Sudan conflict: elevated conflict coverage (45+ articles/24h)",
+    "lat": 15.5,
+    "lon": 32.56,
+    "country": "Sudan",
+    "severity": 0.47,
+    "started_at": "2026-07-11T14:51:51.602599Z",
+    "source": "GDELT",
+    "source_url": "https://www.gdeltproject.org/",
+    "raw": {
+      "signal": "news-cluster",
+      "article_count_24h": 45,
+      "sample_headlines": [
+        "European Parliament Resolution on Sudan Should Spark Action",
+        "Turkish cargo flights near Sudan border draw attention amid conflict",
+        "EU warns of consequences for attacks on civilians in Sudan El - Obeid"
+      ],
+      "note": "headline-density signal only; confidence low by design"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260711105109",
+    "kind": "earthquake",
+    "title": "M5.6 earthquake, 165 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.1,
+    "lon": 125.48,
+    "country": "Indonesia",
+    "severity": 0.4333333333333333,
+    "started_at": "2026-07-11T10:51:09Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.6,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260707071627",
+    "kind": "earthquake",
+    "title": "M5.6 earthquake, Pusat gempa berada di laut 101 km barat laut Pulau Doi",
+    "lat": 3.14,
+    "lon": 127.44,
+    "country": "Indonesia",
+    "severity": 0.4333333333333333,
+    "started_at": "2026-07-07T07:16:27Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.6,
+      "potensi": null,
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260627103700",
+    "kind": "earthquake",
+    "title": "M5.6 earthquake, 202 km TimurLaut ALOR-NTT",
+    "lat": -6.99,
+    "lon": 125.83,
+    "country": "Indonesia",
+    "severity": 0.4333333333333333,
+    "started_at": "2026-06-27T10:37:00Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.6,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "545 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260627074721",
+    "kind": "earthquake",
+    "title": "M5.6 earthquake, 86 km Tenggara PACITAN-JATIM",
+    "lat": -8.96,
+    "lon": 111.16,
+    "country": "Indonesia",
+    "severity": 0.4333333333333333,
+    "started_at": "2026-06-27T07:47:21Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.6,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260707194453",
+    "kind": "earthquake",
+    "title": "M5.5 earthquake, Pusat gempa berada di laut 52 km Baratdaya Sumur",
+    "lat": -6.79,
+    "lon": 105.12,
+    "country": "Indonesia",
+    "severity": 0.4166666666666667,
+    "started_at": "2026-07-07T19:44:53Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.5,
+      "potensi": null,
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260618065732",
+    "kind": "earthquake",
+    "title": "M5.5 earthquake, 225 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.62,
+    "lon": 125.22,
+    "country": "Indonesia",
+    "severity": 0.4166666666666667,
+    "started_at": "2026-06-18T06:57:32Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.5,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "usgs-us7000szq0",
+    "kind": "earthquake",
+    "title": "M 5.4 - 41 km S of Sarangani, Philippines",
+    "lat": 5.0334,
+    "lon": 125.4897,
+    "country": "Philippines",
+    "severity": 0.4000000000000001,
+    "started_at": "2026-07-11T10:51:12.845000Z",
+    "source": "USGS",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000szq0",
+    "raw": {
+      "mag": 5.4,
+      "place": "41 km S of Sarangani, Philippines"
+    },
+    "population_context": null
+  },
+  {
+    "id": "usgs-us7000sznc",
+    "kind": "earthquake",
+    "title": "M 5.4 - South Sandwich Islands region",
+    "lat": -59.6331,
+    "lon": -26.2943,
+    "country": "South Sandwich Islands region",
+    "severity": 0.4000000000000001,
+    "started_at": "2026-07-11T06:52:27.197000Z",
+    "source": "USGS",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000sznc",
+    "raw": {
+      "mag": 5.4,
+      "place": "South Sandwich Islands region"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260706084135",
+    "kind": "earthquake",
+    "title": "M5.3 earthquake, 181 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.22,
+    "lon": 125.24,
+    "country": "Indonesia",
+    "severity": 0.3833333333333333,
+    "started_at": "2026-07-06T08:41:35Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.3,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260625040335",
+    "kind": "earthquake",
+    "title": "M5.3 earthquake, 215 km BaratLaut TAHUNA-KEP.SANGIHE-SULUT",
+    "lat": 5.5,
+    "lon": 125.07,
+    "country": "Indonesia",
+    "severity": 0.3833333333333333,
+    "started_at": "2026-06-25T04:03:35Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.3,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "tension-korean-peninsula-20260711",
+    "kind": "tension",
+    "title": "Tension signal — Korean Peninsula: elevated conflict coverage (29+ articles/24h)",
+    "lat": 38.3,
+    "lon": 127.0,
+    "country": "Korean Peninsula",
+    "severity": 0.374,
+    "started_at": "2026-07-11T14:52:42.229579Z",
+    "source": "GDELT",
+    "source_url": "https://www.gdeltproject.org/",
+    "raw": {
+      "signal": "news-cluster",
+      "article_count_24h": 29,
+      "sample_headlines": [
+        "North Korea vows boost to nuclear buildup , military intelligence",
+        "Report : Pyongyang Has Plans for Nuclear Surge and Aggressive South Korea Spying",
+        "North Korea slams Nato summit , vows to expand nuclear arsenal as China reaffirms support"
+      ],
+      "note": "headline-density signal only; confidence low by design"
+    },
+    "population_context": null
+  },
+  {
+    "id": "bmkg-20260616041400",
+    "kind": "earthquake",
+    "title": "M5.2 earthquake, 29 km Tenggara PALU-SULTENG",
+    "lat": -1.05,
+    "lon": 120.1,
+    "country": "Indonesia",
+    "severity": 0.3666666666666667,
+    "started_at": "2026-06-16T04:14:00Z",
+    "source": "BMKG",
+    "source_url": "https://www.bmkg.go.id/gempabumi/gempabumi-terkini.bmkg",
+    "raw": {
+      "magnitude": 5.2,
+      "potensi": "Tidak berpotensi tsunami",
+      "kedalaman": "10 km"
+    },
+    "population_context": null
+  },
+  {
+    "id": "tension-sahel-region-20260711",
+    "kind": "tension",
+    "title": "Tension signal — Sahel region: elevated conflict coverage (25+ articles/24h)",
+    "lat": 15.0,
+    "lon": 0.0,
+    "country": "Sahel",
+    "severity": 0.35,
+    "started_at": "2026-07-11T14:52:18.173374Z",
+    "source": "GDELT",
+    "source_url": "https://www.gdeltproject.org/",
+    "raw": {
+      "signal": "news-cluster",
+      "article_count_24h": 25,
+      "sample_headlines": [
+        "Relations between Algeria and Mali thaw after year - long rift over drone",
+        "Spain Arrests Four Suspected ISIS Supporters in Ceuta , Three Other Cities",
+        "Insecurity : Africa Can no Longer Rely on oreign interventions , Buratai warns - Latest News In Nigeria , Nigeria News T"
+      ],
+      "note": "headline-density signal only; confidence low by design"
     },
     "population_context": null
   }

@@ -1,0 +1,22 @@
+{
+  "headline": "Sahel region shows elevated conflict media coverage",
+  "summary": "On 11 July 2026 a tension signal was issued for the Sahel region, indicating a rise in conflict-related reporting. The signal records more than 25 articles published in the previous 24 hours, a level that triggered the alert. The event was logged at 14:52 UTC with a geographic reference at latitude 15.0 and longitude 0.0, and a severity rating of 0.35 was assigned. No specific population data accompany the alert, so the groups potentially affected remain unidentified. Key gaps include the actors behind the coverage, the precise locations of any incidents, and whether the media surge reflects on‑ground escalation or heightened reporting. Understanding these factors is essential for assessing any emerging risk to civilians or stability in the broader Sahel area.",
+  "confirmed_facts": [
+    "A tension signal was generated for the Sahel region on 11 July 2026.",
+    "The signal indicates elevated conflict coverage with more than 25 articles in the past 24 hours.",
+    "The event was recorded at 2026-07-11T14:52:18.173374Z (UTC).",
+    "Geographic coordinates reported are latitude 15.0 and longitude 0.0.",
+    "The severity rating assigned to the signal is 0.35."
+  ],
+  "key_unknowns": [
+    "Which armed groups or actors are driving the reported coverage.",
+    "Specific locations within the Sahel experiencing heightened activity.",
+    "Whether the media surge reflects actual escalation on the ground.",
+    "Potential impact on civilian populations in the region."
+  ],
+  "watch_indicators": [
+    "Number of conflict‑related articles in GDELT exceeding 25 within a 24‑hour window.",
+    "New reports of violent incidents or clashes from local media or NGOs.",
+    "Sudden increases in displacement, refugee flows, or humanitarian needs from the Sahel."
+  ]
+}

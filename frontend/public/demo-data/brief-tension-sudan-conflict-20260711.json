@@ -1,0 +1,21 @@
+{
+  "headline": "Sudan conflict sees surge in media coverage, 45+ articles in 24h",
+  "summary": "On 11 July 2026, a tension signal was generated indicating a rise in coverage of the Sudan conflict. Over the previous 24 hours, more than 45 news articles referenced fighting in Sudan, triggering the alert at 14:51 UTC. The activity is geographically centered near latitude 15.5 N, longitude 32.56 E. The monitoring system assigned a moderate severity score of 0.47. No specific population data were supplied, so the groups most affected by any change in hostilities cannot be identified from the current feed. Key gaps remain regarding which armed actors are involved, whether the reporting surge reflects new combat or increased media focus, and what the immediate humanitarian impact is. Further information is needed to assess the likely trajectory of the conflict.",
+  "confirmed_facts": [
+    "Elevated conflict coverage detected by GDELT with more than 45 articles in the past 24 hours.",
+    "The tension signal was generated at 14:51:51 UTC on 11 July 2026.",
+    "The reported activity is centered near latitude 15.5° N, longitude 32.56° E in Sudan.",
+    "The system assigned a severity rating of 0.47."
+  ],
+  "key_unknowns": [
+    "Which armed parties are responsible for the recent increase in conflict activity.",
+    "Whether the surge in reporting reflects new fighting on the ground or heightened media attention.",
+    "The immediate impact on civilian populations in the affected area.",
+    "The likely duration of the heightened conflict intensity."
+  ],
+  "watch_indicators": [
+    "Rapid rise in conflict-related news articles (e.g., exceeding 80 in 24 hours).",
+    "New reports of armed engagements or territorial changes from reliable field sources.",
+    "Spikes in casualty or displacement figures reported by humanitarian agencies."
+  ]
+}

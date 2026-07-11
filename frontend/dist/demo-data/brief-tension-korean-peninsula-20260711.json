@@ -1,0 +1,21 @@
+{
+  "headline": "Elevated conflict news coverage on Korean Peninsula, 29+ articles",
+  "summary": "On 11 July 2026 at 14:52 UTC, monitoring systems recorded a tension signal for the Korean Peninsula. The signal indicates an elevated level of conflict-related news coverage, with more than 29 articles published in the preceding 24 hours. The event is tagged with a severity score of 0.374 and is sourced from the GDELT global media database. No specific incidents, such as missile launches or diplomatic exchanges, are detailed in the feed. Consequently, the population exposure cannot be identified from the available data. Key gaps remain regarding the underlying drivers of the coverage surge, any concrete military or political actions, and the potential impact on civilian safety. Analysts will watch for official statements from the governments of North and South Korea, as well as any alerts issued by regional security agencies.",
+  "confirmed_facts": [
+    "Tension signal recorded at 2026-07-11T14:52:42Z for the Korean Peninsula.",
+    "Over 29 conflict-related articles were published in the previous 24 hours.",
+    "The event carries a severity rating of 0.374.",
+    "Source of the information is the GDELT global media database."
+  ],
+  "key_unknowns": [
+    "Specific incidents or events that triggered the surge in coverage.",
+    "Whether any military movements or missile launches have occurred.",
+    "Official positions or statements from North Korean and South Korean authorities.",
+    "Potential impact on civilian populations in the region."
+  ],
+  "watch_indicators": [
+    "Release of official statements or press releases from the governments of North Korea or South Korea.",
+    "Alerts or heightened readiness notices from regional security or defense agencies.",
+    "Observable changes in satellite imagery indicating troop or equipment movements near the border."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought Impacts Guatemala, Honduras, Nicaragua, El Salvador",
+  "summary": "From 11 May to 9 July 2026, the GDACS reported a green drought affecting the countries of Guatemala, Honduras, Nicaragua and El Salvador. The event, identified as ID gdacs-DR-1027449, is classified as a drought with a severity rating of 0.55. The geographic centre of the phenomenon is located at latitude 13.883 and longitude -88.324. No population figures were supplied in the source feed, so the number of people directly exposed is unknown. The drought is expected to influence water availability and agricultural production, but the extent of those impacts has not been quantified. The GDACS feed links to a report page for further technical details. The severity score of 0.55 places the event in the moderate range of the GDACS drought scale. Potentially affected sectors include drinking‑water systems, crop irrigation and livestock watering, though the magnitude is not yet known. Ongoing monitoring will be needed to determine whether the situation worsens or stabilises.",
+  "confirmed_facts": [
+    "Event ID gdacs-DR-1027449 reported as a drought by GDACS.",
+    "Drought period: 11 May 2026 to 9 July 2026.",
+    "Affected countries: Guatemala, Honduras, Nicaragua, El Salvador.",
+    "Geographic centre at latitude 13.883, longitude -88.324.",
+    "Severity rating of 0.55."
+  ],
+  "key_unknowns": [
+    "Number of people directly exposed to the drought.",
+    "Extent of impact on water supply and agricultural production.",
+    "Current soil moisture and rainfall deficit levels.",
+    "Planned response actions by national authorities."
+  ],
+  "watch_indicators": [
+    "Satellite vegetation indices (e.g., NDVI) showing further decline.",
+    "River and reservoir level trends in the region.",
+    "Rainfall anomalies compared to climatological normals."
+  ]
+}

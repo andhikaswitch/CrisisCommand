@@ -1,0 +1,22 @@
+{
+  "headline": "Magnitude 5.9 Earthquake Near Tahuna, Sulawesi, Indonesia",
+  "summary": "At 08:11 UTC on 6 July 2026, a magnitude 5.9 earthquake was recorded 163 km northwest of Tahuna in the Kep. Sangihe area of Sulawesi, Indonesia. The event was reported by the national agency BMKG and located at latitude 5.06° N, longitude 125.24° E. No population data were provided, so the number of people directly exposed to shaking is currently unknown. Key gaps include the level of ground motion felt by communities, any injuries or fatalities, damage to homes, roads or other infrastructure, and the probability of significant aftershocks. Ongoing monitoring will focus on official reports and field assessments to clarify these points.",
+  "confirmed_facts": [
+    "Magnitude 5.9 earthquake recorded.",
+    "Epicenter 163 km northwest of Tahuna, Kep. Sangihe, Sulawesi.",
+    "Coordinates: 5.06 N, 125.24 E.",
+    "Event occurred at 2026-07-06T08:11:08Z.",
+    "Source: BMKG (Indonesian Meteorology, Climatology, and Geophysics Agency)."
+  ],
+  "key_unknowns": [
+    "Number of people who experienced shaking.",
+    "Casualties or injuries reported.",
+    "Extent of damage to buildings and infrastructure.",
+    "Likelihood and magnitude of aftershocks."
+  ],
+  "watch_indicators": [
+    "Official reports of injuries, deaths, or missing persons.",
+    "Damage assessments released by local authorities or NGOs.",
+    "Detection of aftershocks of magnitude 5.0 or greater."
+  ]
+}

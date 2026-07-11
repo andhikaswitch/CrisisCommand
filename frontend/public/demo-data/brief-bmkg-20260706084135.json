@@ -1,0 +1,22 @@
+{
+  "headline": "Magnitude 5.3 Earthquake Near Tahuna, Sulawesi Recorded at 08:41 UTC",
+  "summary": "At 08:41 UTC on 6 July 2026, the Indonesian Meteorology, Climatology, and Geophysics Agency (BMKG) recorded a magnitude 5.3 earthquake centered at latitude 5.22 N and longitude 125.24 E, approximately 181 km northwest of Tahuna on the island of Sulawesi. The event was assigned a severity index of 0.38 by BMKG. No immediate casualty or damage information has been released, and the population in the affected area has not been detailed. Key unknowns include the extent of ground shaking felt by residents, any injuries or structural damage, the potential for aftershocks, and whether any secondary hazards such as landslides or tsunamis could develop. Monitoring of local reports, seismic networks, and official alerts will be needed to assess the situation. Authorities are expected to issue updates as more information becomes available.",
+  "confirmed_facts": [
+    "Magnitude 5.3 earthquake recorded by BMKG.",
+    "Epicenter at latitude 5.22, longitude 125.24, about 181 km northwest of Tahuna, Sulawesi.",
+    "Event occurred at 2026-07-06 08:41:35 UTC.",
+    "Severity index assigned as 0.3833 by BMKG.",
+    "Source of information is the BMKG earthquake feed."
+  ],
+  "key_unknowns": [
+    "Number of people exposed or affected in the region.",
+    "Extent of injuries, fatalities, or damage to structures.",
+    "Potential for aftershocks and their magnitudes.",
+    "Possibility of secondary hazards such as landslides or tsunami."
+  ],
+  "watch_indicators": [
+    "Official casualty or damage reports from local authorities.",
+    "Detection of significant aftershocks by seismic networks.",
+    "Issuance of tsunami warnings or landslide alerts."
+  ]
+}

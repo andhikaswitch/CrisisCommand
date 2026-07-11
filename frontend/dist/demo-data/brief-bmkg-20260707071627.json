@@ -1,0 +1,22 @@
+{
+  "headline": "Magnitude 5.6 Earthquake Offshore West-Northwest of Doi Island",
+  "summary": "At 07:16 UTC on 7 July 2026, the Indonesian Meteorology, Climatology, and Geophysical Agency (BMKG) reported a magnitude 5.6 earthquake with its epicenter located in the sea 101 km west‑northwest of Pulau Doi. The quake’s coordinates were latitude 3.14 ° N and longitude 127.44 ° E. No immediate reports of damage, injuries, or casualties have been received, and the agency has not issued a tsunami warning. The available data do not include information on nearby communities, infrastructure, or population density, so the number of people potentially exposed remains unknown. Key gaps include the extent of shaking felt on land, any structural impacts, and the likelihood of aftershocks or a tsunami. Potential impacts on maritime traffic and coastal sea levels have not yet been assessed.",
+  "confirmed_facts": [
+    "BMKG reported a magnitude 5.6 earthquake.",
+    "Epicenter was 101 km west‑northwest of Pulau Doi at lat 3.14, lon 127.44.",
+    "The event occurred at 2026-07-07T07:16:27Z.",
+    "No tsunami warning was issued by BMKG.",
+    "No immediate reports of damage, injuries, or casualties were received."
+  ],
+  "key_unknowns": [
+    "Number of people potentially exposed in nearby coastal areas.",
+    "Extent of shaking felt on land and any resulting structural damage.",
+    "Possibility of a tsunami or sea‑level changes.",
+    "Likelihood and magnitude of aftershocks."
+  ],
+  "watch_indicators": [
+    "Official reports of casualties or significant damage.",
+    "Issuance of a tsunami warning or observed sea‑level anomalies.",
+    "Detection of aftershocks of magnitude 5.0 or greater."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "headline": "M5.5 earthquake strikes offshore Sulawesi, Indonesia",
+  "summary": "At 06:57:32 UTC on 18 June 2026, a magnitude 5.5 earthquake occurred at latitude 5.62 ° N and longitude 125.22 ° E, located 225 km northwest of Tahuna on Sangihe Island, Sulawesi, Indonesia. The event was reported by the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG). No population data were provided for the affected area, so the number of people directly exposed is currently unknown. Key unknowns include the extent of any structural damage, possible injuries or fatalities, and whether aftershocks will follow. Monitoring will focus on official reports, local media, and seismic networks to assess any developing impacts.",
+  "confirmed_facts": [
+    "Magnitude 5.5 earthquake recorded at 06:57:32 UTC on 18 June 2026.",
+    "Epicenter located at 5.62 ° N, 125.22 ° E, 225 km northwest of Tahuna, Sangihe Island, Sulawesi, Indonesia.",
+    "Event reported by BMKG and listed on its official website."
+  ],
+  "key_unknowns": [
+    "Number of people exposed or displaced in the affected region.",
+    "Extent of damage to buildings, infrastructure, and utilities.",
+    "Casualties or injuries resulting from the shaking.",
+    "Likelihood and magnitude of subsequent aftershocks."
+  ],
+  "watch_indicators": [
+    "Official statements or media reports confirming injuries, deaths, or damage.",
+    "Seismic monitoring indicating significant aftershock activity.",
+    "Reports of disruptions to transportation, power, or communication services."
+  ]
+}

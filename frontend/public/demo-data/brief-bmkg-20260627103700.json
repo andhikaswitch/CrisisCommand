@@ -1,0 +1,21 @@
+{
+  "headline": "Magnitude 5.6 Earthquake Near TimurLaut, Alor, Indonesia",
+  "summary": "At 10:37 UTC on 27 June 2026, the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) recorded a magnitude 5.6 earthquake centered at latitude ‑6.99 and longitude 125.83, offshore TimurLaut in the Alor region of Nusa Tenggara Timur. The event was reported through BMKG’s official earthquake feed. No population or infrastructure data have been released, so the number of people exposed, the extent of any building damage, and the presence of secondary hazards remain unclear. Authorities have not yet issued statements on possible aftershocks or tsunami risk. Ongoing monitoring will determine whether additional seismic activity or impacts emerge.",
+  "confirmed_facts": [
+    "Magnitude 5.6 earthquake recorded by BMKG.",
+    "Epicenter located at latitude -6.99, longitude 125.83.",
+    "Event occurred at 2026-06-27T10:37:00Z (UTC).",
+    "Source listed as BMKG with reference URL."
+  ],
+  "key_unknowns": [
+    "Number of people directly exposed to shaking.",
+    "Extent of damage to homes, infrastructure, and utilities.",
+    "Likelihood and timing of significant aftershocks.",
+    "Potential for secondary hazards such as landslides or tsunami."
+  ],
+  "watch_indicators": [
+    "Incoming reports of damage or casualties from local authorities.",
+    "Seismic network detection of aftershocks exceeding magnitude 4.0.",
+    "Official advisories regarding tsunami risk or secondary hazards."
+  ]
+}

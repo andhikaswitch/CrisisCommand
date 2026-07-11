@@ -1,0 +1,22 @@
+{
+  "headline": "Magnitude 5.4 Earthquake Near Sarangani, Philippines",
+  "summary": "At 10:51 UTC on 11 July 2026, the U.S. Geological Survey recorded a magnitude 5.4 earthquake centered 41 km south of Sarangani in the Philippines. The epicenter is at latitude 5.0334 N and longitude 125.4897 E. No immediate casualty or damage reports have been released, and the data feed does not include information on the number of people or infrastructure near the epicenter. The event’s severity rating is 0.4 on the USGS scale. Because population context data were not provided, the number of residents potentially affected cannot be estimated at this time. Information on the status of roads, hospitals, and utilities near the epicenter is also unavailable. Authorities and local agencies have not yet issued public statements, and the situation will be monitored for further developments.",
+  "confirmed_facts": [
+    "A magnitude 5.4 earthquake occurred at 10:51:12 UTC on 11 July 2026.",
+    "The epicenter was located 41 km south of Sarangani, Philippines (lat 5.0334, lon 125.4897).",
+    "The USGS assigned a severity rating of 0.4 to the event.",
+    "No immediate casualty or damage reports were included in the feed.",
+    "The event is listed under USGS identifier us7000szq0."
+  ],
+  "key_unknowns": [
+    "Number of people and structures within the shaking zone.",
+    "Extent of damage to buildings, roads, hospitals, and utilities.",
+    "Whether aftershocks are occurring or expected.",
+    "Official statements or alerts from Philippine authorities."
+  ],
+  "watch_indicators": [
+    "Reports of injuries, fatalities, or structural damage from local media or authorities.",
+    "Issuance of official alerts, evacuation orders, or emergency declarations.",
+    "Detection of significant aftershocks by seismic networks."
+  ]
+}

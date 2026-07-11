@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought Affects Eight Southeast Asian Nations",
+  "summary": "On 21 January 2026, GDACS issued a green‑drought alert covering eight countries in East and Southeast Asia: China, Indonesia, Cambodia, Laos, Malaysia, the Philippines, Thailand and Vietnam. The alert, rated at a severity of 0.55, projects drought conditions to continue until 9 July 2026. The event’s geographic reference point is at latitude 13.071 N, longitude 105.186 E. While the alert confirms the spatial and temporal scope of the drought, it does not provide specific data on the number of people affected, agricultural losses, or water‑supply disruptions. Key gaps remain regarding the scale of food‑security risks, the depth of water shortages, and whether the drought will extend beyond the current forecast period. Monitoring of rainfall deficits, river and reservoir levels, and satellite vegetation indices will be essential to detect any escalation.",
+  "confirmed_facts": [
+    "GDACS classified the event as a \"Green Drought\".",
+    "The drought spans China, Indonesia, Cambodia, Laos, Malaysia, the Philippines, Thailand, and Vietnam.",
+    "The event started on 21 January 2026 and is projected through 9 July 2026.",
+    "Severity rating is 0.55 on the GDACS scale.",
+    "Geographic centroid is at latitude 13.071 N, longitude 105.186 E."
+  ],
+  "key_unknowns": [
+    "Number of people directly affected by the drought.",
+    "Extent of agricultural yield losses and food‑security impacts.",
+    "Degree of water‑supply disruptions for households and industry.",
+    "Likelihood that drought conditions will persist beyond 9 July 2026."
+  ],
+  "watch_indicators": [
+    "Observed precipitation deficits relative to seasonal averages.",
+    "Declining river flows and reservoir storage levels.",
+    "Satellite‑derived vegetation health metrics (e.g., NDVI/EVI) showing stress."
+  ]
+}

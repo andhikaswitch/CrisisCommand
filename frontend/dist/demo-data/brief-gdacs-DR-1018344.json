@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought Impacts Republic of Congo, Gabon, Equatorial Guinea",
+  "summary": "GDACS reports a green‑drought event affecting the Republic of Congo, Gabon and Equatorial Guinea. The drought began on 21 December 2025 and is projected to continue until 9 July 2026, with a severity rating of 0.55. The event is centered near latitude ‑0.56 and longitude 11.77, indicating a broad regional footprint. No specific population figures are provided, so the number of people, households, or communities directly exposed remains unclear. Likewise, the extent of agricultural, water‑resource, or ecosystem impacts has not been quantified. Key gaps include the scale of food‑security risk, the status of water supplies, and any coordinated response actions. Current information on government or humanitarian interventions is also unavailable, limiting assessment of mitigation capacity. Monitoring will focus on rainfall deficits, river flow trends, and satellite vegetation indices to detect worsening conditions.",
+  "confirmed_facts": [
+    "GDACS identified a green‑drought event.",
+    "Affected countries are the Republic of Congo, Gabon, and Equatorial Guinea.",
+    "Event period runs from 21 December 2025 to 9 July 2026.",
+    "Severity index is reported as 0.55.",
+    "Geographic reference point: latitude ‑0.56, longitude 11.77."
+  ],
+  "key_unknowns": [
+    "Number of people and households directly exposed.",
+    "Extent of agricultural and food‑security impacts.",
+    "Status of water‑resource availability and ecosystem health.",
+    "Details of any government or humanitarian response actions."
+  ],
+  "watch_indicators": [
+    "Observed rainfall deficits across the region.",
+    "Changes in river flow and reservoir levels.",
+    "Satellite‑derived vegetation health indices (e.g., NDVI)."
+  ]
+}

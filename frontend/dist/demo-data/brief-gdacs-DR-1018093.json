@@ -1,0 +1,22 @@
+{
+  "headline": "Green Drought spans Mexico and U.S. from Aug 2025 to Jul 2026",
+  "summary": "The GDACS system reports a green drought affecting parts of Mexico and the United States. The event began on 21 August 2025 and is projected to continue until 9 July 2026. The reported central coordinate is 32.501 ° N, 93.0 ° W, placing the focus near the border region. The drought severity index is listed at 0.55. The event is catalogued under GDACS identifier 1018093 and is accessible via the agency’s online report. A green drought classification signals reduced vegetation health without immediate visible dryness, making early detection important. No population data are provided, so the number of people, farms, or communities directly impacted remains unknown. Likewise, the extent of agricultural loss, water‑supply stress, and potential economic effects have not been quantified. National weather agencies in both countries are tracking the drought. Monitoring will focus on precipitation trends, soil‑moisture levels, and reservoir or aquifer storage to gauge whether conditions worsen or improve.",
+  "confirmed_facts": [
+    "Event type is a green drought.",
+    "Affected countries are Mexico and the United States.",
+    "Duration runs from 21 August 2025 to 9 July 2026.",
+    "Central coordinate reported at latitude 32.501, longitude -93.0.",
+    "Severity index is recorded as 0.55."
+  ],
+  "key_unknowns": [
+    "Number of people directly affected.",
+    "Extent of agricultural production loss.",
+    "Current status of water reservoirs and groundwater.",
+    "Whether the drought will extend beyond 9 July 2026."
+  ],
+  "watch_indicators": [
+    "Observed precipitation deficits in the region.",
+    "Declining soil moisture measurements.",
+    "Falling reservoir or aquifer storage levels."
+  ]
+}

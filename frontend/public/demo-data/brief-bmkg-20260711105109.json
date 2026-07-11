@@ -1,0 +1,21 @@
+{
+  "headline": "Magnitude 5.6 Earthquake Near Tahuna, Sulawesi, Indonesia",
+  "summary": "At 10:51 UTC on 11 July 2026, the Indonesian Meteorology, Climatology and Geophysics Agency (BMKG) recorded a magnitude 5.6 earthquake centered at latitude 5.1 N and longitude 125.48 E, approximately 165 km northwest of the town of Tahuna on Sangihe Island in North Sulawesi province. The event is listed with a severity index of 0.43. No immediate information on population exposure, damage, or casualties has been released. Authorities have not yet reported on the intensity of shaking felt by nearby communities, the condition of critical infrastructure, or the likelihood of aftershocks. Potential impacts could include disruption to roads, power supply, and communications, but these have not been confirmed. The earthquake’s depth and exact fault mechanism remain to be determined. Further details are expected as local and national agencies assess the situation.",
+  "confirmed_facts": [
+    "Magnitude 5.6 earthquake recorded by BMKG.",
+    "Occurred at 2026-07-11 10:51:09 UTC.",
+    "Epicenter at 5.1° N, 125.48° E, about 165 km northwest of Tahuna, Sangihe Island, North Sulawesi, Indonesia.",
+    "Reported severity index of 0.4333."
+  ],
+  "key_unknowns": [
+    "Number of people exposed to shaking and any injuries.",
+    "Extent of damage to housing, infrastructure, and utilities.",
+    "Depth of the earthquake and fault characteristics.",
+    "Likelihood and magnitude of aftershocks."
+  ],
+  "watch_indicators": [
+    "Official updates from BMKG or local authorities reporting damage or casualties.",
+    "Reports of significant aftershocks (magnitude ≥4.0) within the next 24‑48 hours.",
+    "Disruption to critical services such as power, water, or transportation networks."
+  ]
+}

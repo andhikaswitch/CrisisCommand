@@ -1,0 +1,21 @@
+{
+  "headline": "Green Drought Affects Ethiopia, Kenya, Somalia (Apr–Jul 2026)",
+  "summary": "A green drought was reported across parts of Ethiopia, Kenya and Somalia beginning on 21 April 2026 and lasting until 9 July 2026. The event is classified as a drought with a severity rating of 0.55, based on data from the Global Disaster Alert and Coordination System (GDACS). The reported geographic centre is at latitude 6.545 and longitude 44.618. No specific population figures or livelihood details are included in the current feed, leaving the scale of human exposure unclear. Key gaps remain regarding the number of people affected, the condition of water and food supplies, and any ongoing response actions. Monitoring will focus on environmental and market signals that could indicate worsening conditions.",
+  "confirmed_facts": [
+    "GDACS reports a green drought affecting Ethiopia, Kenya, and Somalia.",
+    "The drought period is from 21 April 2026 to 9 July 2026.",
+    "Severity is recorded at 0.55.",
+    "Event coordinates are latitude 6.545, longitude 44.618."
+  ],
+  "key_unknowns": [
+    "Number of people directly impacted by the drought.",
+    "Extent of agricultural loss and food insecurity.",
+    "Status of water source levels and access.",
+    "Current humanitarian response activities."
+  ],
+  "watch_indicators": [
+    "Significant decline in satellite vegetation indices.",
+    "Continued below‑average rainfall over the affected basin.",
+    "Sharp increases in local staple food prices."
+  ]
+}

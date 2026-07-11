@@ -1,0 +1,21 @@
+{
+  "headline": "Magnitude 5.2 earthquake strikes near Palu, Central Sulawesi",
+  "summary": "At 04:14 UTC on 16 June 2026, the Indonesian Meteorology, Climatology, and Geophysical Agency (BMKG) recorded a magnitude 5.2 earthquake centered 29 km southeast of Palu in Central Sulawesi (coordinates -1.05 latitude, 120.1 longitude). The event was assigned a severity index of 0.37 by BMKG. No immediate casualty or damage reports have been released, and the population density in the immediate epicentral area has not been provided. The quake occurred at 11:14 local time (WIB) and was felt in nearby districts, though no formal intensity reports are available. Moderate shaking could affect residential buildings, schools, and health facilities. Local authorities have been notified and are monitoring for aftershocks that might increase damage.",
+  "confirmed_facts": [
+    "Magnitude 5.2 earthquake recorded by BMKG.",
+    "Epicenter located 29 km southeast of Palu, Central Sulawesi (lat -1.05, lon 120.1).",
+    "Event time: 2026-06-16T04:14:00Z (04:14 UTC).",
+    "Severity index reported as 0.3667 by BMKG."
+  ],
+  "key_unknowns": [
+    "Number of people exposed or residing near the epicenter.",
+    "Extent of structural damage to buildings and infrastructure.",
+    "Likelihood and magnitude of aftershocks.",
+    "Presence of secondary hazards such as landslides or liquefaction."
+  ],
+  "watch_indicators": [
+    "Official reports of casualties, injuries, or property damage.",
+    "Aftershocks exceeding magnitude 4.0 in the same region.",
+    "Confirmed disruptions to utilities, transportation, or emergency services."
+  ]
+}
