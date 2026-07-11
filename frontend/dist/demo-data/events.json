@@ -1,0 +1,338 @@
+[
+  {
+    "id": "seed-FL-001",
+    "kind": "flood",
+    "title": "Severe urban flooding across Greater Jakarta",
+    "lat": -6.2088,
+    "lon": 106.8456,
+    "country": "Indonesia",
+    "severity": 0.75,
+    "started_at": "2020-01-01T03:00:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/fl-2020-000001-idn",
+    "raw": {
+      "profile": "jakarta-new-year-flood-2020",
+      "displaced_reported": 397000
+    },
+    "population_context": {
+      "nearest_city": "Jakarta",
+      "city_population": 10560000,
+      "density_band": "high",
+      "exposed_estimate": 400000,
+      "notes": "Low-lying river basins; ~397k displaced in the documented event."
+    }
+  },
+  {
+    "id": "seed-FL-009",
+    "kind": "flood",
+    "title": "Monsoon mega-flood across Sindh province",
+    "lat": 26.05,
+    "lon": 68.45,
+    "country": "Pakistan",
+    "severity": 0.9,
+    "started_at": "2022-08-25T00:00:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/fl-2022-000254-pak",
+    "raw": {
+      "profile": "pakistan-floods-2022"
+    },
+    "population_context": {
+      "nearest_city": "Larkana",
+      "city_population": 490000,
+      "density_band": "medium",
+      "exposed_estimate": 2000000,
+      "notes": "Regional slice of the 2022 floods; tens of millions affected nationwide."
+    }
+  },
+  {
+    "id": "seed-FL-010",
+    "kind": "flood",
+    "title": "Flash flooding in the Ahr valley",
+    "lat": 50.5447,
+    "lon": 7.113,
+    "country": "Germany",
+    "severity": 0.7,
+    "started_at": "2021-07-14T18:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/2021_European_floods",
+    "raw": {
+      "profile": "ahr-valley-flood-2021"
+    },
+    "population_context": {
+      "nearest_city": "Bad Neuenahr-Ahrweiler",
+      "city_population": 28000,
+      "density_band": "medium",
+      "exposed_estimate": 42000,
+      "notes": "Narrow valley towns; extreme rainfall over saturated ground."
+    }
+  },
+  {
+    "id": "seed-FL-011",
+    "kind": "flood",
+    "title": "Statewide monsoon flooding in Kerala",
+    "lat": 9.9312,
+    "lon": 76.2673,
+    "country": "India",
+    "severity": 0.8,
+    "started_at": "2018-08-08T00:00:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/fl-2018-000112-ind",
+    "raw": {
+      "profile": "kerala-floods-2018"
+    },
+    "population_context": {
+      "nearest_city": "Kochi",
+      "city_population": 677000,
+      "density_band": "high",
+      "exposed_estimate": 1200000,
+      "notes": "~1.4M displaced statewide in the documented event; dam releases were a driver."
+    }
+  },
+  {
+    "id": "seed-EQ-002",
+    "kind": "earthquake",
+    "title": "M9.1 megathrust earthquake off Sumatra (tsunami-genic)",
+    "lat": 3.316,
+    "lon": 95.854,
+    "country": "Indonesia",
+    "severity": 0.98,
+    "started_at": "2004-12-26T00:58:00Z",
+    "source": "SEED",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/official20041226005853450_30",
+    "raw": {
+      "profile": "sumatra-andaman-2004",
+      "magnitude": 9.1
+    },
+    "population_context": {
+      "nearest_city": "Banda Aceh",
+      "city_population": 223000,
+      "density_band": "high",
+      "exposed_estimate": 500000,
+      "notes": "Coastal exposure dominated; CLAUDE.md's 2004 tsunami region profile."
+    }
+  },
+  {
+    "id": "seed-EQ-003",
+    "kind": "earthquake",
+    "title": "M7.8 earthquake, southern Türkiye / northern Syria",
+    "lat": 37.226,
+    "lon": 37.014,
+    "country": "Türkiye",
+    "severity": 0.95,
+    "started_at": "2023-02-06T01:17:00Z",
+    "source": "SEED",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000jllz",
+    "raw": {
+      "profile": "turkiye-syria-2023",
+      "magnitude": 7.8
+    },
+    "population_context": {
+      "nearest_city": "Gaziantep",
+      "city_population": 2069000,
+      "density_band": "high",
+      "exposed_estimate": 1500000,
+      "notes": "Dense urban building stock; strong M7.5 aftershock within 9 hours."
+    }
+  },
+  {
+    "id": "seed-EQ-004",
+    "kind": "earthquake",
+    "title": "M7.8 Gorkha earthquake near Kathmandu",
+    "lat": 28.231,
+    "lon": 84.731,
+    "country": "Nepal",
+    "severity": 0.85,
+    "started_at": "2015-04-25T06:11:00Z",
+    "source": "SEED",
+    "source_url": "https://earthquake.usgs.gov/earthquakes/eventpage/us20002926",
+    "raw": {
+      "profile": "gorkha-2015",
+      "magnitude": 7.8
+    },
+    "population_context": {
+      "nearest_city": "Kathmandu",
+      "city_population": 975000,
+      "density_band": "high",
+      "exposed_estimate": 800000,
+      "notes": "Vulnerable masonry stock; major aftershock sequence."
+    }
+  },
+  {
+    "id": "seed-CY-005",
+    "kind": "cyclone",
+    "title": "Cyclone Idai landfall near Beira",
+    "lat": -19.843,
+    "lon": 34.839,
+    "country": "Mozambique",
+    "severity": 0.85,
+    "started_at": "2019-03-14T22:00:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/tc-2019-000021-moz",
+    "raw": {
+      "profile": "idai-2019"
+    },
+    "population_context": {
+      "nearest_city": "Beira",
+      "city_population": 533000,
+      "density_band": "medium",
+      "exposed_estimate": 600000,
+      "notes": "Storm surge plus prolonged river flooding after landfall."
+    }
+  },
+  {
+    "id": "seed-CY-006",
+    "kind": "cyclone",
+    "title": "Super Typhoon Haiyan striking Tacloban",
+    "lat": 11.2444,
+    "lon": 125.0039,
+    "country": "Philippines",
+    "severity": 0.95,
+    "started_at": "2013-11-07T20:40:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/tc-2013-000139-phl",
+    "raw": {
+      "profile": "haiyan-2013"
+    },
+    "population_context": {
+      "nearest_city": "Tacloban",
+      "city_population": 221000,
+      "density_band": "high",
+      "exposed_estimate": 900000,
+      "notes": "Record storm surge in a shallow bay; regional exposure across Leyte."
+    }
+  },
+  {
+    "id": "seed-WF-007",
+    "kind": "wildfire",
+    "title": "Black Summer fire complex, NSW south coast",
+    "lat": -35.71,
+    "lon": 150.18,
+    "country": "Australia",
+    "severity": 0.8,
+    "started_at": "2019-12-30T05:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season",
+    "raw": {
+      "profile": "black-summer-2019"
+    },
+    "population_context": {
+      "nearest_city": "Batemans Bay",
+      "city_population": 17000,
+      "density_band": "low",
+      "exposed_estimate": 80000,
+      "notes": "Holiday-season population surge on the coast; single-road evacuations."
+    }
+  },
+  {
+    "id": "seed-WF-008",
+    "kind": "wildfire",
+    "title": "Wind-driven wildfire reaching Lahaina",
+    "lat": 20.878,
+    "lon": -156.681,
+    "country": "United States",
+    "severity": 0.8,
+    "started_at": "2023-08-08T16:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/2023_Hawaii_wildfires",
+    "raw": {
+      "profile": "maui-2023"
+    },
+    "population_context": {
+      "nearest_city": "Lahaina",
+      "city_population": 12700,
+      "density_band": "medium",
+      "exposed_estimate": 15000,
+      "notes": "Hurricane-downslope winds; town-scale exposure, minutes-scale spread."
+    }
+  },
+  {
+    "id": "seed-VO-012",
+    "kind": "volcano",
+    "title": "Mount Merapi major eruptive phase",
+    "lat": -7.5407,
+    "lon": 110.4457,
+    "country": "Indonesia",
+    "severity": 0.75,
+    "started_at": "2010-10-26T10:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/2010_eruptions_of_Mount_Merapi",
+    "raw": {
+      "profile": "merapi-2010"
+    },
+    "population_context": {
+      "nearest_city": "Yogyakarta",
+      "city_population": 422000,
+      "density_band": "high",
+      "exposed_estimate": 350000,
+      "notes": "~350k evacuated in the documented event; pyroclastic flow corridors."
+    }
+  },
+  {
+    "id": "seed-DR-013",
+    "kind": "drought",
+    "title": "Multi-season drought, Horn of Africa",
+    "lat": 3.114,
+    "lon": 43.65,
+    "country": "Somalia",
+    "severity": 0.8,
+    "started_at": "2022-02-01T00:00:00Z",
+    "source": "SEED",
+    "source_url": "https://reliefweb.int/disaster/dr-2015-000134-som",
+    "raw": {
+      "profile": "horn-of-africa-drought-2022"
+    },
+    "population_context": {
+      "nearest_city": "Baidoa",
+      "city_population": 750000,
+      "density_band": "medium",
+      "exposed_estimate": 1500000,
+      "notes": "Five consecutive failed rains; displacement into urban IDP sites."
+    }
+  },
+  {
+    "id": "seed-TN-014",
+    "kind": "tension",
+    "title": "Border force buildup signals, Eastern Europe",
+    "lat": 50.4501,
+    "lon": 30.5234,
+    "country": "Ukraine",
+    "severity": 0.65,
+    "started_at": "2022-01-24T12:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/Prelude_to_the_Russian_invasion_of_Ukraine",
+    "raw": {
+      "profile": "eastern-europe-buildup-2022",
+      "signal_class": "news-cluster"
+    },
+    "population_context": {
+      "nearest_city": "Kyiv",
+      "city_population": 2950000,
+      "density_band": "high",
+      "exposed_estimate": 2950000,
+      "notes": "Signal detection only — clustered public headlines, no prediction claim."
+    }
+  },
+  {
+    "id": "seed-TN-015",
+    "kind": "tension",
+    "title": "Maritime incident signals, South China Sea",
+    "lat": 15.18,
+    "lon": 117.75,
+    "country": "Philippines (vicinity)",
+    "severity": 0.5,
+    "started_at": "2023-10-22T08:00:00Z",
+    "source": "SEED",
+    "source_url": "https://en.wikipedia.org/wiki/Territorial_disputes_in_the_South_China_Sea",
+    "raw": {
+      "profile": "scs-signals-2023",
+      "signal_class": "news-cluster"
+    },
+    "population_context": {
+      "nearest_city": "Puerto Princesa",
+      "city_population": 307000,
+      "density_band": "low",
+      "exposed_estimate": 307000,
+      "notes": "Signal detection only — clustered public headlines, no prediction claim."
+    }
+  }
+]

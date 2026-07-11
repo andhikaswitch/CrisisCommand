@@ -27,7 +27,12 @@ function connect() {
   socket.onerror = () => socket?.close();
 }
 
+// Static showcase has no backend, so no WebSocket: subscribe is a no-op that
+// never opens a socket (avoids an endless reconnect loop against nothing).
+const DEMO = import.meta.env.VITE_DEMO_DATA === '1';
+
 export function subscribe(fn) {
+  if (DEMO) return () => {};
   if (!socket) connect();
   listeners.add(fn);
   return () => listeners.delete(fn);

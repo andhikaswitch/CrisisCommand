@@ -58,9 +58,17 @@ export default function App() {
   // hover previews an option's zones; explicit select pins them (§6.3)
   const activeOption = hoverOption ?? selectedOption;
 
+  const demoMode = import.meta.env.VITE_DEMO_DATA === '1';
+
   return (
     <>
       <div className="starfield" />
+      {demoMode && (
+        <div className="demo-banner">
+          STATIC SHOWCASE · pre-computed results. Live feeds and on-GPU
+          simulation (AMD gfx1100, 61× vs CPU) run in the full app — see the demo video.
+        </div>
+      )}
       <GlobeScene
         events={events}
         selected={selected}

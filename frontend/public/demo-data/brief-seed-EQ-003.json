@@ -1,0 +1,22 @@
+{
+  "headline": "M7.8 Earthquake Strikes Southern Türkiye Near Gaziantep",
+  "summary": "On 6 February 2023 at 01:17 UTC, a magnitude 7.8 earthquake struck southern Türkiye at latitude 37.226 and longitude 37.014. The quake’s epicenter lies near the city of Gaziantep, which houses roughly 2.07 million residents; an estimated 1.5 million people were directly exposed to strong shaking. The area is characterized by high population density and a dense urban building stock. Within nine hours a strong magnitude 7.5 aftershock was recorded. The event is cataloged by the SEED system and appears on the USGS portal (event us6000jllz). It carries a severity rating of 0.95, reflecting high impact potential. Current information confirms the event’s location, size, timing, and proximity to Gaziantep, but details on casualties, damage to structures and infrastructure, and the status of essential services remain unknown. Ongoing monitoring will focus on additional aftershocks, reports of utility disruptions, and evidence of building failures to assess the evolving humanitarian situation.",
+  "confirmed_facts": [
+    "A magnitude 7.8 earthquake occurred at 01:17 UTC on 6 Feb 2023 with epicenter at latitude 37.226, longitude 37.014 in southern Türkiye.",
+    "The event is recorded by SEED and listed on USGS with identifier us6000jllz.",
+    "The nearest major city is Gaziantep, with a population of about 2.07 million and an estimated 1.5 million people exposed to strong shaking.",
+    "The region has high population density and dense urban building stock.",
+    "A strong magnitude 7.5 aftershock was reported within nine hours of the main shock."
+  ],
+  "key_unknowns": [
+    "Number of casualties and injuries resulting from the quake.",
+    "Extent of damage to residential, commercial, and critical infrastructure.",
+    "Current status of utilities such as electricity, water, and communications.",
+    "Potential for additional significant aftershocks beyond the reported 7.5 event."
+  ],
+  "watch_indicators": [
+    "Reports of additional magnitude 6.0+ aftershocks within the next 24‑48 hours.",
+    "Confirmed widespread loss of power, water, or communications in Gaziantep and surrounding districts.",
+    "Large‑scale building collapses or mass casualty reports emerging from field assessments."
+  ]
+}

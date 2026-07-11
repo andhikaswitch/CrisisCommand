@@ -1,0 +1,22 @@
+{
+  "headline": "Monsoon Flooding Hits Kerala, Displaces Over 1.4 Million",
+  "summary": "On 8 August 2018, monsoon rains triggered widespread flooding across the Indian state of Kerala. The flood, rated 0.8 in severity, affected areas with high population density, exposing an estimated 1.2 million people. Official reports indicate that around 1.4 million residents were displaced statewide, with the city of Kochi—home to 677 000 people—among the most impacted locations. Dam releases have been identified as a contributing factor to the rising water levels. The flooding has also disrupted transportation routes and damaged agricultural lands, affecting local livelihoods. While the flood’s geographic extent and displacement figures are documented, details on current water depth, damage to critical infrastructure, and the status of humanitarian assistance remain unclear. Ongoing monitoring of river flows, dam operations, and displacement trends will be essential to assess further risk.",
+  "confirmed_facts": [
+    "Flooding began on 8 August 2018 across Kerala.",
+    "The event is classified as a flood with a severity rating of 0.8.",
+    "Approximately 1.2 million people are estimated to be exposed, with about 1.4 million displaced statewide.",
+    "Kochi, the nearest major city, has a population of 677 000 and lies in a high‑density area.",
+    "Dam releases were identified as a driver of the flooding."
+  ],
+  "key_unknowns": [
+    "Current water depth and river stage levels.",
+    "Extent of damage to critical infrastructure (roads, bridges, utilities).",
+    "Exact number of people still displaced or in need of assistance.",
+    "Status of humanitarian response and resource gaps."
+  ],
+  "watch_indicators": [
+    "Rising river or reservoir levels indicating worsening flood conditions.",
+    "Additional dam releases or uncontrolled spillways.",
+    "New reports of displacement or damage in previously unaffected districts."
+  ]
+}

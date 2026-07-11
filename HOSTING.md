@@ -21,22 +21,76 @@ thing the CPU host loses is the live GPU readout in the footer, which reads
 `cpu` instead of `AMD GPU (gfx1100)`. That is fine: the GPU story is already
 captured, measured, and committed.
 
-## Host choice: NOT Hugging Face
+## Reality in 2026: free container hosts all want a credit card
 
-HF Spaces made Docker and Gradio SDKs **paid** (2026); only Static (HTML/JS) is
-free, and Static cannot run this Python backend. So HF is out. Use a host whose
-free tier runs a container.
+HF Spaces made Docker paid; Render asks for a card ($1 auth); Koyeb went
+Pro-only at $29/mo. So the "always-on container" path is not card-free anymore.
 
-Measured footprint (a real container, SEED mode): **166 MB idle, 170 MB during a
-10k-run simulation.** So a 512 MB free tier is comfortable. torch is CPU-only and
-lazy-loads.
+Two options remain:
 
-**Recommended: Render.com** (free web service, Docker, WebSocket, no credit card
-for the free tier). Spins down after ~15 min idle and wakes on the next request
-(~30-50s). **Backup: Koyeb** (free tier, Docker, one service).
+- **A. Static showcase (card-free, no account needed) — recommended for the
+  submission URL.** A pre-baked version of the app on a static host. See below.
+- **B. Container host with a card**, if you are willing to add one (the auth is
+  not charged). Use the Dockerfile as-is; it binds `$PORT`. Skip to
+  "Container host" at the bottom.
 
-> Free-tier terms change often. If Render now asks for a card, try Koyeb; the
-> same Dockerfile works on both because it binds to the injected `$PORT`.
+---
+
+## A. Static showcase → Netlify Drop (2 minutes, no card, no account)
+
+The app is normally frontend + Python backend. For a permanent free URL we bake
+the backend's responses (events, simulations, AI briefings) into static JSON and
+build a frontend that reads them. It shows the real product — globe, briefings,
+simulation, three options — with a banner noting the live/GPU version is in the
+video.
+
+**1. Bake the data** (once, with your Fireworks key in `.env` so the briefings
+are the real AI ones):
+
+```bash
+python scripts/bake_demo_data.py
+```
+
+**2. Build the static bundle:**
+
+```bash
+cd frontend
+# Windows PowerShell:  $env:VITE_DEMO_DATA=1; npm run build
+# macOS/Linux/Git Bash:
+VITE_DEMO_DATA=1 npm run build
+```
+
+**3. Deploy `frontend/dist`:**
+- Go to <https://app.netlify.com/drop>
+- **Drag the `frontend/dist` folder onto the page.**
+- That is it. No login, no card. You get a URL like
+  `https://<random>.netlify.app` instantly, permanent.
+- (Optional) claim it with a free Netlify account to rename it and keep it.
+
+Same folder also works by drag-drop on **Cloudflare Pages** or **GitHub Pages**
+if you prefer.
+
+> What the showcase does NOT do: live feeds (needs the backend) and real-time
+> on-GPU simulation. Those are in the demo video. Clicking a drill still shows a
+> real baked simulation and a real AI briefing, so the product is fully legible.
+
+## What each form field gets (static showcase)
+
+| Field | Value |
+|---|---|
+| Public GitHub Repository | `https://github.com/andhikaswitch/CrisisCommand` |
+| Demo Application Platform | `Netlify` (static) |
+| Application URL | the `https://...netlify.app` URL from the drop |
+
+---
+
+## B. Container host (only if you will add a card)
+
+Measured footprint (real container, SEED mode): **166 MB idle, 170 MB during a
+10k-run simulation** — any 512 MB tier fits. The Dockerfile binds `$PORT`, so
+Render / Koyeb / Cloud Run all work. Add `FIREWORKS_API_KEY`, `FIREWORKS_MODEL`,
+`SEED_MODE=false` as env vars. This path gives the full live app (real feeds,
+real-time simulation) at the cost of a card on file.
 
 ## Deploy to Render (from your laptop, ~10 minutes)
 

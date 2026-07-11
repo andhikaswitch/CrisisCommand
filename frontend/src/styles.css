@@ -561,3 +561,19 @@ body.q-no-scanline .holo-panel::after { display: none; }
   box-shadow: 0 0 14px rgba(34, 211, 238, 0.8);
 }
 .gpu-stat { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+/* Static-showcase banner (VITE_DEMO_DATA=1): tells judges this card-free
+   deploy uses pre-baked results and points to the video for the live/GPU run. */
+.demo-banner {
+  position: fixed;
+  top: 46px; left: 50%; transform: translateX(-50%);
+  z-index: 40;
+  max-width: 760px; text-align: center;
+  font-family: var(--font-hud, monospace);
+  font-size: 10.5px; letter-spacing: 0.06em; line-height: 1.5;
+  color: #a9c7e4;
+  background: rgba(10, 22, 40, 0.82);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 6px 16px;
+  backdrop-filter: blur(4px);
+}

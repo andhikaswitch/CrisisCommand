@@ -1,0 +1,22 @@
+{
+  "headline": "M7.8 Gorkha Earthquake Strikes Near Kathmandu, Nepal",
+  "summary": "At 06:11 UTC on 25 April 2015, a magnitude 7.8 earthquake struck near Kathmandu, Nepal (coordinates 28.231 N, 84.731 E). The event, recorded by SEED with a severity rating of 0.85, occurred in a densely populated area; Kathmandu’s population is about 975,000, and an estimated 800,000 people are considered exposed to the shaking. Local building stock is primarily vulnerable masonry, and the event notes a likely major aftershock sequence. Immediate information on damage, casualties, and the status of essential services is not yet available. Understanding the scale of structural loss, the number of injured or dead, and the functionality of hospitals, water, and power systems remains critical for response planning. The high‑density urban environment and prevalence of unreinforced masonry increase the risk of building collapse. Ongoing monitoring of aftershocks and rapid assessment of road access are essential to support any forthcoming relief operations.",
+  "confirmed_facts": [
+    "A magnitude 7.8 earthquake occurred at 06:11 UTC on 25 April 2015 near Kathmandu, Nepal (lat 28.231, lon 84.731).",
+    "The event is recorded by SEED with a severity index of 0.85.",
+    "Kathmandu’s population is approximately 975,000, with an estimated 800,000 people exposed to shaking.",
+    "The area has high population density and vulnerable masonry construction.",
+    "The event notes anticipate a major aftershock sequence."
+  ],
+  "key_unknowns": [
+    "Extent of structural damage to residential and public buildings.",
+    "Number of casualties and injuries.",
+    "Status of critical infrastructure such as hospitals, water, and power.",
+    "Effectiveness of early warning and emergency response mechanisms."
+  ],
+  "watch_indicators": [
+    "Aftershocks exceeding magnitude 5.0.",
+    "Disruption of communication networks or loss of power in Kathmandu.",
+    "Large‑scale displacement or shelter requests from affected neighborhoods."
+  ]
+}

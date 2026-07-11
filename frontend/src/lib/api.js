@@ -1,26 +1,41 @@
-// REST client. In dev, vite proxies /api to the backend (vite.config.js);
-// in docker, VITE_API_BASE points at the backend service.
+// REST client. Three deploy shapes:
+//  - dev: vite proxies /api to the backend (vite.config.js)
+//  - docker/full host: same-origin /api, live backend
+//  - static showcase (VITE_DEMO_DATA=1): no backend at all. Reads pre-baked
+//    JSON from demo-data/ so the app runs on a card-free static host
+//    (Netlify Drop, Cloudflare Pages, GitHub Pages). Simulation results and
+//    AI briefings are captured once by scripts/bake_demo_data.py.
 const BASE = import.meta.env.VITE_API_BASE || '';
+const DEMO = import.meta.env.VITE_DEMO_DATA === '1';
+const DEMO_BASE = `${import.meta.env.BASE_URL || '/'}demo-data`;
 
-async function get(path) {
-  const res = await fetch(`${BASE}${path}`);
-  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
+async function getJson(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
   return res.json();
 }
 
-async function post(path) {
-  const res = await fetch(`${BASE}${path}`, { method: 'POST' });
-  if (!res.ok) throw new Error(`${path} -> ${res.status}`);
-  return res.json();
-}
+const get = (path) => getJson(`${BASE}${path}`);
+const post = (path) =>
+  fetch(`${BASE}${path}`, { method: 'POST' }).then((r) => {
+    if (!r.ok) throw new Error(`${path} -> ${r.status}`);
+    return r.json();
+  });
 
-export const fetchEvents = () => get('/api/events');
-export const fetchHealth = () => get('/api/health');
-export const fetchStatus = () => get('/api/status');
-export const fetchGpu = () => get('/api/health/gpu');
-export const fetchBriefing = (id) => post(`/api/events/${id}/brief`);
+export const fetchEvents = () =>
+  DEMO ? getJson(`${DEMO_BASE}/events.json`) : get('/api/events');
+export const fetchHealth = () =>
+  DEMO ? Promise.resolve({ status: 'ok', seed_mode: true }) : get('/api/health');
+export const fetchStatus = () =>
+  DEMO ? getJson(`${DEMO_BASE}/status.json`) : get('/api/status');
+export const fetchGpu = () =>
+  DEMO
+    ? Promise.resolve({ device: 'cpu', backend: 'cpu', vram_total_gb: null, vram_used_gb: null })
+    : get('/api/health/gpu');
+export const fetchBriefing = (id) =>
+  DEMO ? getJson(`${DEMO_BASE}/brief-${id}.json`) : post(`/api/events/${id}/brief`);
 export const runSimulation = (id, horizon = '24h') =>
-  post(`/api/events/${id}/simulate?horizon=${horizon}`);
+  DEMO ? getJson(`${DEMO_BASE}/sim-${id}.json`) : post(`/api/events/${id}/simulate?horizon=${horizon}`);
 
 export function fmtRange([lo, hi], unit = '') {
   const f = (n) =>

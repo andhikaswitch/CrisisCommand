@@ -1,0 +1,16 @@
+{
+  "mode": "SEED",
+  "sim_backend_requested": "fireworks",
+  "sim_backend_active": "fireworks",
+  "sim_backend_degraded": false,
+  "briefing_backend_configured": true,
+  "sources": [
+    {
+      "source": "SEED",
+      "status": "ok",
+      "event_count": 15,
+      "last_success": null,
+      "last_error": null
+    }
+  ]
+}
