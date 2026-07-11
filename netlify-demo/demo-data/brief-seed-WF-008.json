@@ -1,0 +1,22 @@
+{
+  "headline": "Wind-driven wildfire approaches Lahaina, threatening 15,000 residents",
+  "summary": "On 8 August 2023 at 16:00 UTC, a wildfire driven by strong downslope winds was reported near latitude 20.878 N, longitude 156.681 W on the island of Maui, United States. The fire quickly moved toward the town of Lahaina, a community of about 12,700 residents with an estimated 15,000 people exposed due to the town’s medium‑density layout. The event is recorded with a severity rating of 0.8, indicating a high potential for rapid spread. The wind conditions described as hurricane‑strength downslope gusts are expected to allow the fire to advance within minutes across the town. Current information does not include containment status, exact fire perimeter, or impacts on infrastructure and health. Further data are needed to assess resource needs, weather forecasts, and possible evacuation requirements.",
+  "confirmed_facts": [
+    "Wildfire reported at 2023-08-08 16:00 UTC near latitude 20.878, longitude -156.681.",
+    "Fire is wind-driven, with hurricane‑strength downslope winds noted in the event description.",
+    "Severity rating assigned as 0.8.",
+    "Nearest city is Lahaina, with city population 12,700 and an estimated 15,000 people exposed.",
+    "Event classified as a wildfire in the United States."
+  ],
+  "key_unknowns": [
+    "Current containment level and resources deployed.",
+    "Exact fire perimeter and rate of spread.",
+    "Impacts on critical infrastructure such as power, water, and transportation.",
+    "Casualties or injuries among the exposed population."
+  ],
+  "watch_indicators": [
+    "Increase in wind speed or shift in direction toward populated areas.",
+    "Reports of fire growth beyond Lahaina’s boundaries or new ignition points.",
+    "Deterioration in weather conditions (lower humidity, higher temperatures) that favor fire spread."
+  ]
+}
